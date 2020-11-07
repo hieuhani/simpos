@@ -1,0 +1,9 @@
+<odoo>
+  <data>
+    <template id="assets" inherit_id="point_of_sale.assets">
+      <xpath expr="." position="inside">
+          <script type="text/javascript" src="/simpos_vibration_card/static/src/js/vibration_card.js"></script>
+      </xpath>
+    </template>
+  </data>
+</odoo>

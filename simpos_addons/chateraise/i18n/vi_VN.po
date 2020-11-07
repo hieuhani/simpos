@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* chateraise
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-17 15:43+0000\n"
+"PO-Revision-Date: 2020-05-17 15:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "(VAT Included)"
+msgstr "(Hoá đơn đã bao gồm VAT)"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Advance"
+msgstr "Tiền trả lại"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "All feedbacks on the service, please contact the hotline:"
+msgstr "Mọi phản ảnh về dịch vụ nhà hàng, quý khách vui lòng liên hệ hotline:"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Bill payment"
+msgstr "Hoá đơn thanh toán"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Cashier:"
+msgstr "Thu ngân:"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Customer:"
+msgstr "Khách hàng:"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Discount"
+msgstr "Giảm giá"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Item"
+msgstr "Tên món"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "List Price"
+msgstr "Đơn giá"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Logo"
+msgstr "Logo"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "No"
+msgstr "STT"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Order Number:"
+msgstr "STT"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Payment"
+msgstr "Thanh toán"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Phone:"
+msgstr "Điện thoại:"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Price"
+msgstr "Giá"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Qty"
+msgstr "SL"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Table no:"
+msgstr "Số bàn"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Thanks and see you again !"
+msgstr "Cảm ơn quý khách - hẹn gặp lại !"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Time:"
+msgstr "Ngày giờ"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Total"
+msgstr "Tổng"
+
+#. module: chateraise
+#. openerp-web
+#: code:addons/chateraise/static/src/xml/simpos.xml:0
+#, python-format
+msgid "Vibration tag:"
+msgstr "Số thẻ"

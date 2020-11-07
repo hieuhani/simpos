@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="PaymentScreenWidget">
+    <div class='payment-screen screen'>
+        <div class='screen-content'>
+            <div class="header">
+                <h3 class="title">Payment</h3>
+            </div>
+            <div class="body">
+                <section class='paymentlines-container'></section>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="paymentmethods-container"></div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="payment-numpad">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span class='btn back'>
+                        Back
+                    </span>
+                    <span class='btn next'>
+                        Validate
+                    </span>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="PaymentScreen-Numpad">
+        <div class="numpad">
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='7'>7</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='8'>8</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='9'>9</button>
+            </div>
+            <div class="button-wrapper money">
+                <button class="input-button number-char" data-action='50000'>+50,000</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='4'>4</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='5'>5</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='6'>6</button>
+            </div>
+            <div class="button-wrapper money">
+                <button class="input-button number-char" data-action='100000'>+100,000</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='1'>1</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='2'>2</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='3'>3</button>
+            </div>
+            <div class="button-wrapper money">
+                <button class="input-button number-char" data-action='200000'>+200,000</button>
+            </div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='000'>000</button></div>
+            <div class="button-wrapper">
+                <button class="input-button number-char" data-action='0'>0</button></div>
+            <div class="button-wrapper">
+                <button class="input-button numpad-backspace" data-action='BACKSPACE' >
+                    <img src="/point_of_sale/static/src/img/backspace.png" width="24" height="21" alt="Backspace"/>
+                </button>
+            </div>
+            <div class="button-wrapper money">
+                <button class="input-button number-char" data-action='500000'>+500,000</button>
+            </div>
+        </div>
+    </t>
+</templates>

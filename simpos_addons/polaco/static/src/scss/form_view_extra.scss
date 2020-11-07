@@ -1,0 +1,25 @@
+.o_form_view {
+    .o_form_sheet_bg {
+        background-color: #F9F9F9;
+
+        > .o_form_sheet {
+            border: 0;
+            box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.05) !important;
+        }
+    }
+
+    // Button box
+    .oe_button_box {
+        // TODO remove me in master (this rule is a copy of the one in the
+        // bootstrap_review.scss file)
+        + .alert {
+            clear: both;
+        }
+
+        .oe_stat_button {
+            .o_button_icon {
+                color: $o-community-color;
+            }
+        }
+    }
+}

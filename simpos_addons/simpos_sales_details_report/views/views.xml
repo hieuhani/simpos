@@ -1,0 +1,92 @@
+<odoo>
+  <data>
+    <record id="view_pos_report" model="ir.ui.view">
+      <field name="name">pos.details.wizard.form.inherit</field>
+      <field name="model">pos.details.wizard</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_details_wizard"/>
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='generate_report']" position="replace">
+          <button string="Print" name="generate_sales_details_report_xlsx" type="object" class="btn-primary" invisible="not context.get('sales_details')" />
+          <button string="Print" name="generate_pos_daily_report_xlsx" type="object" class="btn-primary" invisible="not context.get('pos_daily_report')" />
+          <button string="Print" name="generate_revenue_per_category_report_xlsx" type="object" class="btn-primary" invisible="not context.get('revenue_per_category')" />
+          <button string="Print" name="generate_daily_quantity_report_xlsx" type="object" class="btn-primary" invisible="not context.get('daily_quantity')" />
+        </xpath>
+      </field>
+    </record>
+
+    <report
+      id="sales_details_report_xlsx"
+      model="report.simpos_sales_details_report.report_saledetails_xlsx"
+      string="Sales details report"
+      report_type="xlsx"
+      name="simpos_sales_details_report.report_saledetails_xlsx"
+      file="Sales_Details_Report"
+      attachment_use="False"
+    />
+
+    <report
+      id="sales_pos_daily_report_xlsx"
+      model="report.simpos_sales_details_report.report_pos_daily_xlsx"
+      string="Sales details report"
+      report_type="xlsx"
+      name="simpos_sales_details_report.report_pos_daily_xlsx"
+      file="Daily_Report"
+      attachment_use="False"
+    />
+
+    <record id="point_of_sale.action_report_pos_details" model="ir.actions.act_window">
+      <field name="name">Sales Details</field>
+      <field name="res_model">pos.details.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="context">{'sales_details': True}</field>
+    </record>
+
+    <record id="action_report_pos_daily" model="ir.actions.act_window">
+      <field name="name">Daily report</field>
+      <field name="res_model">pos.details.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="context">{'pos_daily_report': True}</field>
+    </record>
+    <menuitem id="menu_report_pos_daily" name="Daily Report" action="action_report_pos_daily" parent="point_of_sale.menu_point_rep" sequence="3"/>
+
+    <report
+      id="sales_revenue_per_category_report_xlsx"
+      model="report.simpos_sales_details_report.report_revenue_category_xlsx"
+      string="Revenue per category report"
+      report_type="xlsx"
+      name="simpos_sales_details_report.report_revenue_category_xlsx"
+      file="Revenue_per_Category_Report"
+      attachment_use="False"
+    />
+
+    <record id="action_report_revenue_per_category" model="ir.actions.act_window">
+      <field name="name">Revenue per Category</field>
+      <field name="res_model">pos.details.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="context">{'revenue_per_category': True}</field>
+    </record>
+    <menuitem id="menu_report_revenue_per_category" name="Revenue per Category" action="action_report_revenue_per_category" parent="point_of_sale.menu_point_rep" sequence="3"/>
+
+    <report
+      id="sales_daily_quantity_report_xlsx"
+      model="report.simpos_sales_details_report.report_daily_quantity_xlsx"
+      string="Daily quantity"
+      report_type="xlsx"
+      name="simpos_sales_details_report.report_daily_quantity_xlsx"
+      file="Daily_Quantity_Report"
+      attachment_use="False"
+    />
+
+    <record id="action_report_daily_quantity" model="ir.actions.act_window">
+      <field name="name">Daily quantity</field>
+      <field name="res_model">pos.details.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="context">{'daily_quantity': True}</field>
+    </record>
+    <menuitem id="menu_report_daily_quantity" name="Daily quantity" action="action_report_daily_quantity" parent="point_of_sale.menu_point_rep" sequence="4"/>
+  </data>
+</odoo>

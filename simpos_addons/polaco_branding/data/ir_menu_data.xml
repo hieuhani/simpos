@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <delete model="ir.ui.menu" id="base.menu_module_updates" />
+    <delete model="ir.ui.menu" id="base.module_mi" />
+    <delete model="ir.ui.menu" id="base.menu_view_base_module_upgrade" />
+</odoo>

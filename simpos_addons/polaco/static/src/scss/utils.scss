@@ -1,0 +1,8 @@
+@mixin o-caret-down($caret-width: $caret-width) {
+    border: 0 !important;
+    width: auto;
+    height: auto;
+    content: "\f107";
+    font-family: "FontAwesome";
+    vertical-align: baseline !important;
+}

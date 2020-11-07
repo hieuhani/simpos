@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="main_menu">
+        <div class="o_stock_barcode_main_menu_container o_home_menu_background">
+            <div class="o_stock_barcode_main_menu position-relative">
+                <a href="#" class="o_stock_barcode_menu d-block float-left"><i class="fa fa-chevron-left"></i></a>
+                <h1 class="mb-4">Barcode Scanning</h1>
+
+                <div t-if="widget.message_demo_barcodes" class="message_demo_barcodes alert alert-info alert-dismissible text-left" role="status">
+                    <button type="button" class="close" data-dismiss="alert" title="Close" aria-label="Close">&#215;</button>
+                    We have created a few demo data with barcodes for you to explore the features. Print the
+                    <a href="/stock_barcode/static/img/barcodes_demo.pdf" target="_blank">stock barcodes sheet</a>
+                     to check out what this module can do! You can also print the barcode 
+                    <a href="/stock_barcode/static/img/barcodes_actions.pdf" target="_blank" aria-label="Download" title="Download">commands for Inventory</a>.
+                </div>
+
+                <div class="o_stock_barcode_container position-relative d-inline-block mt-4 mb-5">
+                    <img src="/stock_barcode/static/img/barcode.png" alt="Barcode" class="img-fluid mb-1 mt-1"/>
+                    <span class="o_stock_barcode_laser"/>
+                </div>
+
+                <ul class="text-left mb-sm-5 pl-4">
+                    <li>Scan an <b>operation type</b> to create a new transfer.</li>
+                    <li t-if="widget.group_stock_multi_location">Scan a <b>location</b> to create a new transfer from this location.</li>
+                    <li>Scan a <b>document</b> to open it.</li>
+                </ul>
+
+                <hr class="mb-4 d-none d-sm-block"/>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="button_operations btn btn-block btn-primary mb-4 mb-sm-0">Operations</button>
+                    </div>
+                    <div class="col">
+                        <button class="button_inventory btn btn-block btn-primary">Inventory Adjustments</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

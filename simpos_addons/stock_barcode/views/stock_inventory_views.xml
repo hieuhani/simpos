@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo><data>
+    <record id="stock_inventory_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.inventory.form.view.inherit</field>
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_inventory_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="action_client_action"
+                    string="Barcode"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-barcode"
+                    attrs="{'invisible': [('state', 'in', ['draft', 'done'])]}"
+                    />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_inventory_barcode2" model="ir.ui.view">
+        <field name="name">stock.inventory.form.view.barcode</field>
+        <field name="model">stock.inventory</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Details">
+                <group>
+                    <field name="product_ids" attrs="{'invisible': [('product_ids', '=', False)]}"/>
+                    <field name="location_ids" options="{'no_create': True}"
+                           attrs="{'invisible': [('location_ids', '=', False)]}" />
+                    <field name="date" attrs="{'invisible': [('date', '=', False)]}" />
+                    <field name="state" attrs="{'invisible': [('state', '=', False)]}" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="move_ids" context="{'default_inventory_id': id}" string="Inventory Adjustments">
+                        <tree>
+                            <field name="product_id"/>
+                            <field name="location_id" options="{'no_create': True}" string="From"/>
+                            <field name="location_dest_id" options="{'no_create': True}" string="To"/>
+                            <field name="quantity_done"/>
+                            <field name="state" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_inventory_line_barcode" model="ir.ui.view">
+        <field name="name">stock.inventory.barcode</field>
+        <field name="model">stock.inventory.line</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="product_tracking" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_id"
+                        attrs="{'readonly': [('state', '=', 'done')]}"
+                        domain="[('type', 'in', ['product'])]"
+                        required="1"/>
+                    <field name="prod_lot_id" attrs="{'invisible': ['|',('product_tracking', '=','none'), ('product_id','=', False)], 'required': [('product_tracking', '!=', 'none')]}" context="{'default_company_id': company_id, 'default_product_id': product_id}"/>
+                    <field name="theoretical_qty" readonly="1"/>
+                    <field name="product_qty" string="Real Quantity" />
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    <field name="product_uom_id" groups="uom.group_uom" attrs="{'readonly': [('product_qty', '!=', 0.0)]}" />
+                    <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                    <field name="package_id" groups="stock.group_tracking_lot" domain="[('location_id', '=', location_id)]"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</data></odoo>

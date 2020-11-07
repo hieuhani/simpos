@@ -1,0 +1,23 @@
+.o_searchview {
+    padding: 3px 25px 3px 5px;
+
+    .o_searchview_facet {
+        border: #dee2e6;
+    }
+}
+
+.dropdown-toggle::after {
+    border: 0 !important;
+    width: auto;
+    height: auto;
+    content: "\f107";
+    font-family: "FontAwesome";
+    vertical-align: baseline !important;
+}
+.form-control:focus, .o_input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(218, 218, 218, 0.25);
+}
+
+.btn-sm, .btn-group-sm > .btn {
+    border-radius: 0;
+}

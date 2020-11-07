@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo><data>
+    <record id="view_barcode_lot_form" model="ir.ui.view">
+        <field name="name">stock_barcode.lot.form</field>
+        <field name="model">stock_barcode.lot</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="picking_id" invisible="1"/>
+                <group>
+                    <field name="product_id" readonly="1" force_save="1"/>
+                    <label for="qty_done" string="Quantity Done"/>
+                    <div class="o_row">
+                        <span><field name="qty_done" readonly="1" nolabel="1"/></span>
+                        <span> / </span>
+                        <span><field name="qty_reserved" readonly="1" nolabel="1"/></span>
+                    </div>
+                </group>
+                <field name="default_move_id" invisible="1"/>
+                <field name="_barcode_scanned" widget="lot_barcode_handler"/>
+                <field name="stock_barcode_lot_line_ids">
+                    <tree editable="bottom">
+                        <field name="lot_name"/>
+                        <field name="qty_reserved" readonly="1"/>
+                        <field name="product_barcode" invisible="1"/>
+                        <field name="qty_done"/>
+                        <field name="move_line_id" invisible="1"/>
+                    </tree>
+                </field>
+                <footer>
+                        <button name="validate_lot" type="object" string="Validate Lot" class="btn-primary" barcode_trigger="validate"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_barcode_lot_kanban" model="ir.ui.view">
+        <field name="name">stock_barcode.lot.kanban</field>
+        <field name="model">stock_barcode.lot.line</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-6">
+                                    <field name="lot_name"/>
+                                </div>
+                                <div class="col-6">
+                                    <field name="qty_done"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</data></odoo>

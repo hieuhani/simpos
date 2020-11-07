@@ -1,0 +1,862 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcode
+# 
+# Translators:
+# Martin Trigaux, 2019
+# Pedro M. Baeza <pedro.baeza@gmail.com>, 2019
+# Jesús Alan Ramos Rodríguez <alan.ramos@jarsa.com.mx>, 2019
+# nle_odoo, 2019
+# Carlos Lopez <celm1990@hotmail.com>, 2019
+# Luis M. Ontalba <luis.martinez@tecnativa.com>, 2019
+# RGB Consulting <odoo@rgbconsulting.com>, 2019
+# Miquel Torner <miq@odoo.com>, 2019
+# Nicolás Broggi <rnbroggi@gmail.com>, 2019
+# Cristopher Cravioto <ccr@odoo.com>, 2019
+# Victoria Quesada <victoria.quesada@nybblegroup.com>, 2020
+# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server saas~12.5+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-26 08:05+0000\n"
+"PO-Revision-Date: 2019-08-26 09:38+0000\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2020\n"
+"Language-Team: Spanish (https://www.transifex.com/odoo/teams/41243/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "<i class=\"fa fa-print\"/> Print barcode commands"
+msgstr "<i class=\"fa fa-print\"/> Imprimir comandos de código de barras"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Add product"
+msgstr "Añadir producto"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_action_main_menu
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__product_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_scrap__product_barcode
+#: model:ir.ui.menu,name:stock_barcode.stock_barcode_menu
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_form_view_inherit
+#, python-format
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_barcode
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_inventory_client_action
+msgid "Barcode Inventory Adjustment Client Action"
+msgstr "Acción de cliente de ajuste de inventario de código de barras"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "Barcode Nomenclature"
+msgstr "Nomenclatura de código de barras"
+
+#. module: stock_barcode
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_picking_client_action
+msgid "Barcode Picking Client Action"
+msgstr "Acción del cliente de selección de código de barras"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot___barcode_scanned
+msgid "Barcode Scanned"
+msgstr "Código de barras escaneado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Barcode Scanning"
+msgstr "Escaneando Código de Barras"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+#, python-format
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "Configure Product Barcodes"
+msgstr "Configurar códigos de barras de productos"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__create_uid
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__create_date
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__default_move_id
+msgid "Default Move"
+msgstr "Movimiento predeterminado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid ""
+"Delivery Packages needs to be enabled in Inventory Settings to use packages"
+msgstr ""
+"Los paquetes de entrega deben estar habilitados en la configuración de "
+"inventario para usar paquetes"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Discard"
+msgstr "Descartar"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__display_name
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid ""
+"Do you want to permanently remove this message ?\n"
+"                It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."
+msgstr ""
+"¿Quieres eliminar este mensaje de forma permanente?\n"
+"                No aparecerá más, así que asegúrese de que no necesita la hoja de códigos de barras o que tiene una copia."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Don't show this message again"
+msgstr "No mostrar este mensaje de nuevo"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Download"
+msgstr "Descargar"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_inventory_line__dummy_id
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__dummy_id
+msgid "Dummy"
+msgstr "Ficticio"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Edit"
+msgstr "Editar"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "From"
+msgstr "Desde"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "From:"
+msgstr "De:"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__id
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
+msgid "In #{kanban_getcolorname(record.color.raw_value)}"
+msgstr "En #{kanban_getcolorname(record.color.raw_value)}"
+
+#. module: stock_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_scrap__product_barcode
+msgid "International Article Number used for product identification."
+msgstr ""
+"Número de artículo internacional usado para la identificación de producto."
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_inventory
+msgid "Inventory"
+msgstr "Inventario"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+#, python-format
+msgid "Inventory Adjustments"
+msgstr "Ajustes de Inventario"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "Inventory Details"
+msgstr "Detalles del inventario"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "Línea inventario"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_barcode_lot_line
+msgid "LN/SN Product Lines"
+msgstr "Nº Lote/ Nº Serie de Líneas de Producto"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot____last_update
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__write_uid
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__write_date
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Leave it"
+msgstr "Déjelo"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__location_processed
+msgid "Location Processed"
+msgstr "Ubicación procesada"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__lot_name
+msgid "Lot"
+msgstr "Lote"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Lot/Serial Number Details"
+msgstr "Detalles del Lote/Serie"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__move_line_id
+msgid "Move Line"
+msgstr "Apunte"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.stock_inventory_action_new_inventory
+msgid "New Inventory"
+msgstr "Nuevo inventario"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Next"
+msgstr "Siguiente"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid ""
+"No internal operation type. Please configure one in warehouse settings."
+msgstr ""
+"No hay tipo de operación interna. Configure una en los ajustes de almacén."
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid "No picking corresponding to barcode %(barcode)s"
+msgstr "Ningun albarán se corresponde con el código de barras %(barcode)s"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid "No picking or location corresponding to barcode %(barcode)s"
+msgstr "Ninguna ubicación se corresponde con el código de barras %(barcode)s"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
+msgid "Nomenclature"
+msgstr "Denominación"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.open_picking
+msgid "Open a picking"
+msgstr "Abrir un albarán"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Open picking form"
+msgstr "Abrir formulario de transferencia"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_kanban
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_type_action_kanban
+#, python-format
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_form
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__picking_id
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/forms/picking_barcode_handler.js:0
+#, python-format
+msgid "Picking %s"
+msgstr "Seleccionando %s"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
+msgid "Picking Details"
+msgstr "Detalle del Albarán"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Previous"
+msgstr "Anterior"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Barcodes PDF"
+msgstr "Imprimir códigos de barras en PDF"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Barcodes ZPL"
+msgstr "Imprimir códigos de barras ZPL"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Delivery Slip"
+msgstr "Imprimir Vale de Entrega"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Inventory"
+msgstr "Imprimir Inventario"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Picking Operations"
+msgstr "Imprimir Operaciones de Transferencia"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_product_product
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.product_action_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcode.product_view_list_barcodes
+msgid "Product Barcodes"
+msgstr "Códigos de barras de productos"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Put In Pack"
+msgstr "Poner en Paquete"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__qty_done
+msgid "Qty Done"
+msgstr "Cantidad realizada"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__qty_reserved
+msgid "Qty Reserved"
+msgstr "Cantidad reservada"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__qty_done
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+msgid "Quantity Done"
+msgstr "Cantidad hecha"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__qty_reserved
+msgid "Quantity Reserved"
+msgstr "Cantidad reservada"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_line_barcode
+msgid "Real Quantity"
+msgstr "Cantidad real"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Remove it"
+msgstr "Eliminar"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Scan a"
+msgstr "Escanear un"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Scan an"
+msgstr "Escanear un"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan more products, or scan a new source location"
+msgstr "Escanee más productos, o escanee una nueva ubicación origen"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan more products, or scan the destination location"
+msgstr "Escanee más productos, o escanee la ubicación de destino"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan products"
+msgstr "Escanear productos"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan the serial or lot number of the product"
+msgstr "Escanee el numero de Lote/Serie del producto"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan the source location"
+msgstr "Escanee la ubicación origen"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "Scanning is disabled in this state."
+msgstr "El escaneo está deshabilitado en este estado."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: model:ir.model,name:stock_barcode.model_stock_scrap
+#, python-format
+msgid "Scrap"
+msgstr "Desechar"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
+msgid "Select a Product"
+msgstr "Seleccione un Producto"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__stock_barcode_lot_id
+msgid "Stock Barcode Lot"
+msgstr "Lote de código de barras en existencias"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__stock_barcode_lot_line_ids
+msgid "Stock Barcode Lot Line"
+msgstr "Línea de lote de código de barras en existencias"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "Success"
+msgstr "Aceptada"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid ""
+"The barcode \"%(barcode)s\" doesn't correspond to a proper product, package "
+"or location."
+msgstr ""
+"El código de barras \"%(barcode)s\" no corresponde a un producto, paquete o "
+"ubicación apropiados."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#, python-format
+msgid "The inventory adjustment has been cancelled"
+msgstr "El ajuste de inventario ha sido cancelado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#, python-format
+msgid "The inventory adjustment has been validated"
+msgstr "El ajuste de inventario ha sido validado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/forms/picking_barcode_handler.js:0
+#, python-format
+msgid "The picking is %s and cannot be edited."
+msgstr "El picking es %s y no se puede editar."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "The scanned lot does not match an existing one."
+msgstr "El lote escaneado no coincide con uno existente."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "The scanned serial number is already used."
+msgstr "El numero de serie escaneado ya está en uso"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "The transfer has been cancelled"
+msgstr "La transferencia ha sido cancelada"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "The transfer has been validated"
+msgstr "La transferencia ha sido validada"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This inventory adjustment is already done"
+msgstr "Este ajuste de inventario ya ha sido completado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "This location is not a child of the main location."
+msgstr "Esta ubicación no es hija de la ubicación principal"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "This package is already scanned."
+msgstr "Este paquete ya ha sido escaneado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This picking is already cancelled"
+msgstr "Este albarán ya ha sido cancelado"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This picking is already done"
+msgstr "Este albarán ya ha sido completado"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "To"
+msgstr "Hasta"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
+msgid "To Process"
+msgstr "A Procesar"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "To:"
+msgstr "Para:"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Validate"
+msgstr "Validar"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+msgid "Validate Lot"
+msgstr "Validar lote"
+
+#. module: stock_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_barcode_lot___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "Valor del último código de barras escaneado."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "Warning"
+msgstr "Alerta"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid ""
+"We have created a few demo data with barcodes for you to explore the "
+"features. Print the"
+msgstr ""
+"Hemos creado unos cuantos datos de demostración con códigos de barra para "
+"que pueda explorar las funcionalidades. Imprimir el"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_barcode_lot
+msgid "Wizard to scan SN/LN for specific product"
+msgstr "Asistente para escanear SN/LN de un producto específico"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Wrong barcode"
+msgstr "Código de barras incorrecto"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan a source location."
+msgstr "Se espera que escanee una ubicación de origen."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan more products or a destination location."
+msgstr "Se espera que escanee más productos o una ubicación de destino."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid ""
+"You are expected to scan one or more products or a package available at the "
+"picking's location"
+msgstr ""
+"Se espera que escanee uno o más productos o un paquete disponible en la "
+"ubicación de la transferencia"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan one or more products."
+msgstr "Se espera que escanee uno o más productos."
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/wizard/stock_barcode_lot.py:0
+#: code:addons/stock_barcode/wizard/stock_barcode_lot.py:0
+#, python-format
+msgid "You cannot scan two times the same serial number"
+msgstr "No puede escanear dos veces el mismo número de serie"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_inventory.py:0
+#, python-format
+msgid "You must define a warehouse for the company: %s."
+msgstr "Debe definir un almacén para la empresa: %s."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "commands for Inventory"
+msgstr "comandos para inventario"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "document"
+msgstr "documento"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "location"
+msgstr "ubicación"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "operation type"
+msgstr "tipo de operación"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "stock barcodes sheet"
+msgstr "Hoja de códigos de barras de stock"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to check out what this module can do! You can also print the barcode"
+msgstr ""
+"para ver lo que este módulo puede hacer! También puedes imprimir el código "
+"de barras"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to create a new transfer from this location."
+msgstr "para crear una nueva transferencia desde esta ubicación."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to create a new transfer."
+msgstr "para crear una nueva transferencia."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to open it."
+msgstr "para abrirla."

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="polaco_branding assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/polaco_branding/static/src/js/abstract_web_client.js"></script>
+        </xpath>
+    </template>
+    <template id="polaco_portal_record_sidebar" inherit_id="portal.portal_record_sidebar">
+      <xpath expr="//div[@class='card-footer small text-center text-muted border-top-0 pt-1 pb-1 d-none d-lg-block']" position="replace" />
+    </template>
+    <template id="polaco_frontend_layout" inherit_id="portal.frontend_layout">
+      <xpath expr="//div[@id='footer']" position="replace">
+        <div class="container mt16 mb16" id="footer">
+            <div class="float-right mb16" t-ignore="true" t-if="not editable">
+                Simpos © 2019
+            </div>
+        </div>
+      </xpath>
+    </template>
+    <template id="polaco_login_layout" inherit_id="web.login_layout">
+      <xpath expr="//div[@t-if='not disable_footer']" position="replace" />
+    </template>
+</odoo>

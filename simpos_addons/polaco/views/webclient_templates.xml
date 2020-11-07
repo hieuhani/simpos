@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="assets_common" inherit_id="web.assets_common" name="Common Assets">
+    <xpath expr="//link[@href='/web/static/src/scss/navbar.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/navbar.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/datepicker.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/datepicker.scss"/>
+    </xpath>
+</template>
+<template id="assets_backend" inherit_id="web.assets_backend" name="Backend Assets">
+    <xpath expr="." position="inside">
+        <script type="text/javascript" src="/polaco/static/src/js/chrome/apps_menu.js"></script>
+        <script type="text/javascript" src="/polaco/static/src/js/chrome/menu.js"></script>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/kanban_view.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/kanban_view.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/form_view_extra.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/form_view_extra.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/webclient_extra.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/webclient_extra.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/search_view.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/search_view.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/search_view_extra.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/search_view_extra.scss"/>
+    </xpath>
+    <xpath expr="//link[@href='/web/static/src/scss/fields_extra.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/fields_extra.scss"/>
+    </xpath>    
+</template>
+
+<template id="_assets_primary_variables" inherit_id="web._assets_primary_variables">
+    <xpath expr="//link[@href='/web/static/src/scss/primary_variables.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/primary_variables.scss"/>
+    </xpath>
+</template>
+
+<template id="_assets_backend_helpers" inherit_id="web._assets_backend_helpers">        
+    <xpath expr="//link[@href='/web/static/src/scss/bootstrap_overridden.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/bootstrap_overridden.scss"/>
+    </xpath>
+</template>
+<template id="_assets_utils" inherit_id="web._assets_utils">        
+    <xpath expr="//link[@href='/web/static/src/scss/utils.scss']" position="after">
+        <link rel="stylesheet" type="text/scss" href="/polaco/static/src/scss/utils.scss"/>
+    </xpath>
+</template>
+</odoo>

@@ -1,0 +1,842 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcode
+# 
+# Translators:
+# Martin Trigaux, 2019
+# Link Up링크업 <linkup.way@gmail.com>, 2019
+# Linkup <link-up@naver.com>, 2019
+# JH CHOI <hwangtog@gmail.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server saas~12.5+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-26 08:05+0000\n"
+"PO-Revision-Date: 2019-08-26 09:38+0000\n"
+"Last-Translator: JH CHOI <hwangtog@gmail.com>, 2020\n"
+"Language-Team: Korean (https://www.transifex.com/odoo/teams/41243/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "<i class=\"fa fa-print\"/> Print barcode commands"
+msgstr "<i class=\"fa fa-print\"/> 바코드 명령 인쇄"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Add product"
+msgstr "상품 추가"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_action_main_menu
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__product_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_scrap__product_barcode
+#: model:ir.ui.menu,name:stock_barcode.stock_barcode_menu
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_form_view_inherit
+#, python-format
+msgid "Barcode"
+msgstr "바코드"
+
+#. module: stock_barcode
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_inventory_client_action
+msgid "Barcode Inventory Adjustment Client Action"
+msgstr "재고 조정 클라이언트 작업 바코드"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "Barcode Nomenclature"
+msgstr "바코드 명칭"
+
+#. module: stock_barcode
+#: model:ir.actions.client,name:stock_barcode.stock_barcode_picking_client_action
+msgid "Barcode Picking Client Action"
+msgstr "선별 클라이언트 작업 바코드"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot___barcode_scanned
+msgid "Barcode Scanned"
+msgstr "바코드 스캔됨"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Barcode Scanning"
+msgstr "바코드 스캐닝"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+#, python-format
+msgid "Cancel"
+msgstr "취소"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Close"
+msgstr "닫기"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_res_config_settings
+msgid "Config Settings"
+msgstr "설정 구성"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
+msgid "Configure Product Barcodes"
+msgstr "상품 바코드 설정"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Confirm"
+msgstr "확인"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__create_uid
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__create_uid
+msgid "Created by"
+msgstr "작성인"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__create_date
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__create_date
+msgid "Created on"
+msgstr "작성일"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__default_move_id
+msgid "Default Move"
+msgstr "기본 이동"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid ""
+"Delivery Packages needs to be enabled in Inventory Settings to use packages"
+msgstr "꾸러미 상품을 사용하려면 재고 설정에서 배송 꾸러미 상품을 활성화해야 합니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Discard"
+msgstr "작성 취소"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__display_name
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__display_name
+msgid "Display Name"
+msgstr "표시 이름"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid ""
+"Do you want to permanently remove this message ?\n"
+"                It won't appear anymore, so make sure you don't need the barcodes sheet or you have a copy."
+msgstr ""
+"영구적으로 메시지를 삭제하시겠습니까 ?\n"
+"                더이상 표시하지 않으므로, 바코드시트 또는 사본이 필요 없습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Don't show this message again"
+msgstr "더이상 메시지를 표시하지 않습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Download"
+msgstr "내려받기"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_inventory_line__dummy_id
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__dummy_id
+msgid "Dummy"
+msgstr "더미"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Edit"
+msgstr "편집하기"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "From"
+msgstr "출고 창고"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "From:"
+msgstr "시작 :"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__id
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
+msgid "In #{kanban_getcolorname(record.color.raw_value)}"
+msgstr "In #{kanban_getcolorname(record.color.raw_value)}"
+
+#. module: stock_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_scrap__product_barcode
+msgid "International Article Number used for product identification."
+msgstr "상품 식별을 위한 국제 아티클 번호"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_inventory
+msgid "Inventory"
+msgstr "재고"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+#, python-format
+msgid "Inventory Adjustments"
+msgstr "재고 조정"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "Inventory Details"
+msgstr "재고 세부정부"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_inventory_line
+msgid "Inventory Line"
+msgstr "재고 목록"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_location
+msgid "Inventory Locations"
+msgstr "재고 위치"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_barcode_lot_line
+msgid "LN/SN Product Lines"
+msgstr "LN/SN 상품 명세"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot____last_update
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line____last_update
+msgid "Last Modified on"
+msgstr "최근 수정일"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__write_uid
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__write_uid
+msgid "Last Updated by"
+msgstr "최근 갱신한 사람"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__write_date
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__write_date
+msgid "Last Updated on"
+msgstr "최근 갱신일"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Leave it"
+msgstr "그대로 두기"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__location_processed
+msgid "Location Processed"
+msgstr "처리된 위치"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__lot_name
+msgid "Lot"
+msgstr "로트"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Lot/Serial Number Details"
+msgstr "로트/일련번호 세부사항"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__move_line_id
+msgid "Move Line"
+msgstr "이동 명세"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.stock_inventory_action_new_inventory
+msgid "New Inventory"
+msgstr "새 재고"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Next"
+msgstr "다음"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid ""
+"No internal operation type. Please configure one in warehouse settings."
+msgstr "내부 작업 유형이 없습니다. 창고 설정에서 하나를 구성하십시오."
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid "No picking corresponding to barcode %(barcode)s"
+msgstr "%(barcode)s 바코드에 해당하는 선별 없음"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#, python-format
+msgid "No picking or location corresponding to barcode %(barcode)s"
+msgstr "%(barcode)s 바코드에 해당하는 피킹 또는 위치 없음"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
+msgid "Nomenclature"
+msgstr "명명법"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.open_picking
+msgid "Open a picking"
+msgstr "선별 열기"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/controllers/main.py:0
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Open picking form"
+msgstr "선별 양식 열기"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_kanban
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_type_action_kanban
+#, python-format
+msgid "Operations"
+msgstr "작업"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_form
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__picking_id
+msgid "Picking"
+msgstr "선별"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/forms/picking_barcode_handler.js:0
+#, python-format
+msgid "Picking %s"
+msgstr "%s 선별"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
+msgid "Picking Details"
+msgstr "선별 세부사항"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_picking_type
+msgid "Picking Type"
+msgstr "선별 유형"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Previous"
+msgstr "이전"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Barcodes PDF"
+msgstr "바코드 PDF 인쇄"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Barcodes ZPL"
+msgstr "바코드 ZPL 인쇄"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Delivery Slip"
+msgstr "배송 전표 인쇄"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Inventory"
+msgstr "재고 인쇄"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Print Picking Operations"
+msgstr "선별 작업 인쇄"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_product_product
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__product_id
+msgid "Product"
+msgstr "상품"
+
+#. module: stock_barcode
+#: model:ir.actions.act_window,name:stock_barcode.product_action_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcode.product_view_list_barcodes
+msgid "Product Barcodes"
+msgstr "상품 바코드"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "상품 이동 (재고 이동 명세)"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Put In Pack"
+msgstr "꾸러미에 넣기"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__qty_done
+msgid "Qty Done"
+msgstr "수량 완료됨"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__qty_reserved
+msgid "Qty Reserved"
+msgstr "수량 예약됨"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
+msgid "Quantity"
+msgstr "수량"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__qty_done
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+msgid "Quantity Done"
+msgstr "수량 완료됨"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__qty_reserved
+msgid "Quantity Reserved"
+msgstr "수량 예약됨"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_line_barcode
+msgid "Real Quantity"
+msgstr "실수량"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/stock_barcode.js:0
+#, python-format
+msgid "Remove it"
+msgstr "제거하기"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Scan a"
+msgstr "스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "Scan an"
+msgstr "스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan more products, or scan a new source location"
+msgstr "더 많은 제품을 스캔하거나 새로운 원래 위치를 스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan more products, or scan the destination location"
+msgstr "더 많은 제품을 스캔하거나 대상 위치를 스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan products"
+msgstr "제품 스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan the serial or lot number of the product"
+msgstr "제품의 일련 번호 또는 로트 번호를 스캔하십시오."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Scan the source location"
+msgstr "원래 위치 스캔"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "Scanning is disabled in this state."
+msgstr "이 상태에서는 스캔이 비활성화됩니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: model:ir.model,name:stock_barcode.model_stock_scrap
+#, python-format
+msgid "Scrap"
+msgstr "부산물"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
+msgid "Select a Product"
+msgstr "상품 선택"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot_line__stock_barcode_lot_id
+msgid "Stock Barcode Lot"
+msgstr "재고 바코드 로트"
+
+#. module: stock_barcode
+#: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_lot__stock_barcode_lot_line_ids
+msgid "Stock Barcode Lot Line"
+msgstr "재고 바코드 로트 명세"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "Success"
+msgstr "성공"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid ""
+"The barcode \"%(barcode)s\" doesn't correspond to a proper product, package "
+"or location."
+msgstr "바코드 \"%(barcode)s\"가 올바른 제품, 꾸러미 상품 또는 위치에 해당되지 않습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#, python-format
+msgid "The inventory adjustment has been cancelled"
+msgstr "재고 조정이 취소되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/inventory_client_action.js:0
+#, python-format
+msgid "The inventory adjustment has been validated"
+msgstr "재고조사가 승인되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/forms/picking_barcode_handler.js:0
+#, python-format
+msgid "The picking is %s and cannot be edited."
+msgstr "선별이 %s이므로 편집할 수 없습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "The scanned lot does not match an existing one."
+msgstr "스캔된 로트가 기존 로트와 일치하지 않습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "The scanned serial number is already used."
+msgstr "스캔한 일련번호가 이미 사용되었습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "The transfer has been cancelled"
+msgstr "이송이 취소되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/picking_client_action.js:0
+#, python-format
+msgid "The transfer has been validated"
+msgstr "이송이 승인되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This inventory adjustment is already done"
+msgstr "이 재고 조정이 이미 완료되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "This location is not a child of the main location."
+msgstr "이 위치는 기본 위치의 부속 위치가 아닙니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "This package is already scanned."
+msgstr "이 꾸러미 상품은 이미 스캔되었습니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This picking is already cancelled"
+msgstr "이 선별은 이미 취소되었습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "This picking is already done"
+msgstr "이 선별은 이미 완료되었습니다"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_inventory_barcode2
+msgid "To"
+msgstr "입고 창고"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
+msgid "To Process"
+msgstr "진행중"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "To:"
+msgstr "받는 사람 :"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_picking
+msgid "Transfer"
+msgstr "이송"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode_kanban
+msgid "Unit of Measure"
+msgstr "단위"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#: code:addons/stock_barcode/static/src/xml/qweb_templates.xml:0
+#, python-format
+msgid "Validate"
+msgstr "검증"
+
+#. module: stock_barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcode.view_barcode_lot_form
+msgid "Validate Lot"
+msgstr "승인된 Lot"
+
+#. module: stock_barcode
+#: model:ir.model.fields,help:stock_barcode.field_stock_barcode_lot___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "스캔된 마지막 바코드의 값."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "Warning"
+msgstr "경고"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid ""
+"We have created a few demo data with barcodes for you to explore the "
+"features. Print the"
+msgstr "기능을 탐색할 수 있도록 바코드가 있는 몇 가지 데모 데이터를 만들었습니다. 인쇄"
+
+#. module: stock_barcode
+#: model:ir.model,name:stock_barcode.model_stock_barcode_lot
+msgid "Wizard to scan SN/LN for specific product"
+msgstr "특정 제품에 대한 SN/LN을 스캔하는 마법사"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_picking.py:0
+#, python-format
+msgid "Wrong barcode"
+msgstr "잘못된 바코드"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan a source location."
+msgstr "소스 위치를 스캔해야 합니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan more products or a destination location."
+msgstr "더 많은 제품 또는 대상 위치를 스캔해야 합니다."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid ""
+"You are expected to scan one or more products or a package available at the "
+"picking's location"
+msgstr "선별 위치에서 사용 가능한 하나 이상의 제품 또는 꾸러미 상품을 스캔해야 합니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#: code:addons/stock_barcode/static/src/js/client_action/abstract_client_action.js:0
+#, python-format
+msgid "You are expected to scan one or more products."
+msgstr "하나 이상의 제품을 스캔해야 합니다."
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/wizard/stock_barcode_lot.py:0
+#: code:addons/stock_barcode/wizard/stock_barcode_lot.py:0
+#, python-format
+msgid "You cannot scan two times the same serial number"
+msgstr "동일한 일련번호를 두 번 스캔할 수 없습니다"
+
+#. module: stock_barcode
+#: code:addons/stock_barcode/models/stock_inventory.py:0
+#, python-format
+msgid "You must define a warehouse for the company: %s."
+msgstr "회사의 창고를 정의해야 합니다 : %s."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "commands for Inventory"
+msgstr "재고 명령"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "document"
+msgstr "문서"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "location"
+msgstr "위치"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "operation type"
+msgstr "작업 유형"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "stock barcodes sheet"
+msgstr "재고 바코드 표"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to check out what this module can do! You can also print the barcode"
+msgstr "이 모듈이 무엇을 할 수 있는지 확인하십시오! 바코드를 인쇄할 수도 있습니다"
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to create a new transfer from this location."
+msgstr "이 위치에서 새 이송을 만들기."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to create a new transfer."
+msgstr "새로운 이송 만들기."
+
+#. module: stock_barcode
+#. openerp-web
+#: code:addons/stock_barcode/static/src/xml/stock_barcode.xml:0
+#, python-format
+msgid "to open it."
+msgstr "그것을 열기."

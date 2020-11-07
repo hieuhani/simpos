@@ -1,0 +1,16 @@
+.o_required_modifier {
+    &.o_input, .o_input {
+        background-color: #F3D9DE!important;
+    }
+}
+
+.o_field_widget {
+    // Dropdowns input carret
+    .o_input_dropdown .o_dropdown_button {
+        @include o-position-absolute(4px, 6px);
+    }
+    &.o_field_many2one .o_external_button {
+        color: $o-community-color;
+        
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="SubmitOrderButton"></t>
+    <t t-name="KitchenTicket">
+        <div class="pos-receipt">
+            <div class="pos-receipt-title">
+                <t t-esc="name" />
+            </div>
+            <div class="text-center"><t t-esc="formatted_validation_date" /></div>
+            <t t-if="table_no">
+                <div style="font-size: 125%">Table number: <t t-esc="table_no" /></div>
+            </t>
+            <t t-if="vibration_card">
+                <div style="font-size: 125%">Vibration card number: <t t-esc="vibration_card" /></div>
+            </t>
+            <div class="orderlines">
+                <t t-foreach='orderlines' t-as='line'>
+                    <div style="font-size: 125%">
+                        x<t t-esc="line.qty"/>
+                        <span t-esc="line.product_name" class="pos-receipt-right-align"/>
+                    </div>
+                    <t t-if="line.note">
+                        <div>
+                            NOTE
+                            <span class="pos-receipt-right-align">...</span>
+                        </div>
+                        <div><span class="pos-receipt-left-padding">--- <t t-esc="line.note" /></span></div>
+                        <br/>
+                    </t>
+                </t>
+            </div>
+            <div style="height: 60px"></div>
+        </div>
+    </t>
+</templates>
