@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Flex,
   Menu,
   MenuButton,
@@ -18,7 +17,7 @@ const StyledSwiper = styled(Swiper)`
   margin-right: 0;
 `;
 export const NavigationBar: React.FunctionComponent = () => (
-  <Flex align="center">
+  <Flex align="center" p={2}>
     <Menu>
       <MenuButton as={Button}>
         <IconBars size="20" />
@@ -36,7 +35,6 @@ export const NavigationBar: React.FunctionComponent = () => (
           </SwiperSlide>
         ))}
       </StyledSwiper>
-      <Box w={2} />
       <OrderTabAdd />
     </Flex>
   </Flex>
