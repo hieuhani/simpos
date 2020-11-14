@@ -60,4 +60,47 @@ export const globalStyles = css`
       transition-property: transform, height;
     }
   }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    width: 27px;
+    height: 44px;
+    margin-top: -22px;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    &.swiper-button-disabled {
+      opacity: 0.35;
+      cursor: auto;
+      pointer-events: none;
+    }
+    &:after {
+      text-transform: none !important;
+      letter-spacing: 0;
+      text-transform: none;
+      font-variant: initial;
+      line-height: 1;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-container-rtl .swiper-button-next {
+    &:after {
+      content: 'prev';
+    }
+    left: 10px;
+    right: auto;
+  }
+  .swiper-button-next,
+  .swiper-container-rtl .swiper-button-prev {
+    &:after {
+      content: 'next';
+    }
+    right: 10px;
+    left: auto;
+  }
 `;
