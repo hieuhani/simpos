@@ -1,4 +1,4 @@
-odoo.define('simpos_customer_display.models', function (require) {
+odoo.define('simpos_customer_display_baumkuchen.models', function (require) {
     "use strict";
     var models = require('point_of_sale.models');
 

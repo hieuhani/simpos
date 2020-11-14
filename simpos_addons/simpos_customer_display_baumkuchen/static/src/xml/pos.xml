@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
     <t t-extend="CustomerFacingDisplayHead">
         <t t-jquery='link[href="/point_of_sale/static/src/css/customer_facing_display.css"]' t-operation="after">
-            <link href="/simpos_customer_display/static/src/css/customer_facing_display.css" rel="stylesheet"/>
+            <link href="/simpos_customer_display_baumkuchen/static/src/css/customer_facing_display.css" rel="stylesheet"/>
         </t>
     </t>
 </templates>

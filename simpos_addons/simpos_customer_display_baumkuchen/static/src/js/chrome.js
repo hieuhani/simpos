@@ -1,6 +1,6 @@
-odoo.define('simpos_customer_display.chrome', function (require) {
+odoo.define('simpos_customer_display_baumkuchen.chrome', function (require) {
     "use strict";
-    
+
     var PosBaseWidget = require('point_of_sale.BaseWidget');
     var chrome = require('point_of_sale.chrome');
     var core = require('web.core');
@@ -12,7 +12,7 @@ odoo.define('simpos_customer_display.chrome', function (require) {
     // We don't want the incompatible IoT Box to be flooded with 404 errors on arrival of our many requests as it triggers losses of connections altogether
     var CustomerDisplayScreenWidget = PosBaseWidget.extend({
         template: 'ClientScreenWidget',
-    
+
         change_status_display: function(status) {
             var msg = ''
             if (status === 'success') {
@@ -33,10 +33,10 @@ odoo.define('simpos_customer_display.chrome', function (require) {
                     msg = _t('Client Screen Unsupported. Please upgrade the IoT Box')
                 }
             }
-    
+
             this.$('.oe_customer_display_text').text(msg);
         },
-    
+
         start: function(){
             this.show();
             var self = this;
@@ -88,4 +88,3 @@ odoo.define('simpos_customer_display.chrome', function (require) {
         CustomerDisplayScreenWidget: CustomerDisplayScreenWidget,
     };
     });
-    

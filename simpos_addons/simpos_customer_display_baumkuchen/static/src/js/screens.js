@@ -1,4 +1,4 @@
-odoo.define("simpos_customer_display.screens", function(require) {
+odoo.define("simpos_customer_display_baumkuchen.screens", function(require) {
     "use strict";
 
     var OrderWidget = require("point_of_sale.screens").OrderWidget;
