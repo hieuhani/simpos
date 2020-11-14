@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Baumkuchen",
+    'name': "Simpos Customer Display",
 
     'summary': """
-        Baumkuchen customization""",
+        Simpos Customer Display""",
 
     'description': """
-        Baumkuchen customization
+        Simpos Customer Display
     """,
 
     'author': "Hieu Tran",
     'website': "https://youngtailors.com",
+
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['polaco', 'simpos', 'simpos_vibration_card', 'simpos_customer_display'],
+    'depends': ['point_of_sale'],
     'qweb': [
         'static/src/xml/*.xml',
     ],
     'data': [
-        'views/webclient_templates.xml',
+        'views/views.xml'
     ],
 }
