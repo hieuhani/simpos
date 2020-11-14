@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Chrome" t-extend="Chrome">
+        <t t-jquery=".pos-branding" t-operation='replace'>
+            <div class="pos-branding">
+                <img class="pos-logo" src="/baumkuchen/static/src/img/logo.png" />
+            </div>
+        </t>
+    </t>
+    <t t-extend="OrderReceipt">
+        <t t-jquery=".pos-receipt" t-operation="replace">
+            <div class="web-pos-receipt">
+                <div class="text-center">
+                    <t t-if='receipt.company.logo'>
+                        <img class="pos-receipt-logo" t-att-src='receipt.company.logo' alt="Logo"/>
+                        <br/>
+                    </t>
+                </div>
+            <div class="pos-receipt" style="padding: 20px 0;">
+                <div class="pos-receipt-contact">
+                    <t t-if='!receipt.header_html and receipt.header'>
+                        <div><t t-esc='receipt.header' /></div>
+                    </t>
+                </div>
+                <div class="text-center my-3 text-uppercase">
+                    <h2 class="bill-payment-title">Bill payment</h2>
+                </div>
+                 <table class="table-info mb-2 w-100">
+                    <tr>
+                        <t t-if='receipt.order_no'>
+                            <td><strong style="font-size: 24px">Order Number:</strong></td>
+                            <td colspan="3">
+                                <div style="font-size: 24px" t-esc='receipt.order_no' />
+                            </td>
+                        </t>
+                    </tr>
+                    <tr>
+                        <t t-if='receipt.customer'>
+                            <td>
+                                <strong style="font-size: 24px">
+                                Phone:
+                                </strong>
+                            </td>
+                            <td><div style="font-size: 24px" t-esc='receipt.customer.phone' /></td>
+                        </t>
+                        <t t-if='receipt.vibration_card'>
+                            <td><strong style="font-size: 24px">Vibration tag:</strong></td>
+                            <td>
+                                <strong><t t-esc='receipt.vibration_card' /></strong>
+                            </td>
+                        </t>
+                        <t t-if='receipt.table_no'>
+                            <td>
+                            <strong style="font-size: 24px">
+                            Table no:</strong>
+                            </td>
+                            <td>
+                                <strong><t t-esc='receipt.table_no' /></strong>
+                            </td>
+                        </t>
+                    </tr>
+                    <tr>
+                        <t t-if='receipt.date_hour'>
+                            <td>
+                                <strong style="font-size: 24px">Time:</strong>
+                            </td>
+                            <td>
+                                <span style="font-size: 24px" t-esc='receipt.date_hour' />
+                            </td>
+                        </t>
+
+                        <t t-if='receipt.cashier'>
+                            <td>
+                                <strong style="font-size: 24px">Cashier:</strong>
+                            </td>
+                            <td><span style="font-size: 24px" t-esc='receipt.cashier' /></td>
+                        </t>
+                    </tr>
+                </table>
+            <table class="w-100" style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;">
+                <thead>
+                    <tr>
+                        <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;">No</th>
+                        <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;">Item</th>
+                        <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid; padding-right: 5px;">Qty</th>
+                        <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid; padding-right: 5px;" >List Price</th>
+                        <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;" >Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <t t-foreach='receipt.orderlines' t-as='line'>
+                <tr>
+                    <td>
+                        <span style="font-size: 24px" t-esc='line_index + 1'/>
+                    </td>
+                    <td>
+                        <span style="font-size: 24px" t-esc='line.product_name_wrapped[0]'/>
+                    </td>
+                    <td>
+                        <span style="font-size: 24px;">
+                            <t t-esc="Math.round(line.quantity * Math.pow(10, pos.dp['Product Unit of Measure'])) / Math.pow(10, pos.dp['Product Unit of Measure'])"/>
+                            <t t-if='!~["Units", "Đơn vị"].indexOf(line.unit_name)' t-esc='line.unit_name'/>
+                        </span>
+                    </td>
+                    <td >
+                        <span style="font-size: 24px;min-width: 42px" t-esc="widget.format_currency_no_symbol(line.price_lst)" />
+                    </td>
+                    <td>
+                        <span style="font-size: 24px; min-width: 42px" t-esc="widget.format_currency_no_symbol(line.price_display)" />
+                    </td>
+                </tr>
+                </t>
+                </tbody>
+            </table>
+            <table class="w-100">
+                <tr>
+                    <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;" class="font-weight-bold">Total</th>
+                    <th style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;" class="text-right">
+                        <span t-esc='widget.format_currency_no_symbol(receipt.total_with_tax)' />
+                    </th>
+                </tr>
+                <tr t-if='receipt.total_discount'>
+                    <td>Discount</td>
+                    <td class="text-right">
+                        <span t-esc='widget.format_currency_no_symbol(receipt.total_discount)' />
+                    </td>
+                </tr>
+            </table>
+            <table class="w-100" style="border-bottom-color: #000; border-bottom-width: 2px; border-bottom-style: solid;">
+                <tr>
+                    <th colspan="2" class="font-weight-bold">Payment</th>
+                </tr>
+                <t t-foreach='paymentlines' t-as='line'>
+                    <tr>
+                        <td>+<t t-esc='line.name' /></td>
+                        <td class="text-right">
+                            <span t-esc='widget.format_currency_no_symbol(line.get_amount())' />
+                        </td>
+                    </tr>
+                </t>
+            </table>
+            <table class="w-100 mb-3">
+                <tr>
+                    <td>
+                        <strong>
+                            Advance
+                        </strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-esc='widget.format_currency_no_symbol(receipt.change)' />
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <div t-if='receipt.footer_html'  class="pos-receipt-center-align text-center mb-3">
+                <t t-raw='receipt.footer_html'/>
+            </div>
+
+            <div t-if='!receipt.footer_html and receipt.footer'  class="pos-receipt-center-align text-center mb-3" style="white-space:pre-line">
+                <t t-esc='receipt.footer'/>
+            </div>
+            <br/>
+            </div>
+        </t>
+    </t>
+</templates>
