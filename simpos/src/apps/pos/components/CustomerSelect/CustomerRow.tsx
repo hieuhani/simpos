@@ -8,8 +8,9 @@ export const CustomerRow: React.FunctionComponent = () => (
     justifyContent="flex-start"
     textAlign="left"
     alignItems="center"
-    py={1}
+    p={2}
     h="4rem"
+    backgroundColor="white"
   >
     <Avatar name="Anh Kien" src="https://bit.ly/dan-abramov" />
     <Box ml={2}>

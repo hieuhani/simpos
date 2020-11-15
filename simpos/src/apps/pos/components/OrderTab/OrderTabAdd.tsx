@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Icon } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { IconPlus } from '../../../../components/icons';
 
 export const OrderTabAdd: React.FunctionComponent = () => (
   <Flex
@@ -10,6 +11,6 @@ export const OrderTabAdd: React.FunctionComponent = () => (
     px="3"
     alignItems="center"
   >
-    <Icon name="add" size="0.625rem" />
+    <IconPlus />
   </Flex>
 );

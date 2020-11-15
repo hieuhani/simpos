@@ -10,8 +10,6 @@ import {
   ModalCloseButton,
   ModalBody,
   useDisclosure,
-  Button,
-  ModalFooter,
 } from '@chakra-ui/react';
 import { IconSmile } from '../../../../components/icons/output/IconSmile';
 import { CustomerSelect } from '../CustomerSelect';

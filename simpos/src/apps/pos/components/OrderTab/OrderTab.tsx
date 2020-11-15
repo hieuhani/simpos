@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Box, Divider, Text, Icon } from '@chakra-ui/react';
+import { Flex, Box, Divider, Text } from '@chakra-ui/react';
+import { IconTimes } from '../../../../components/icons';
 
 export interface OrderTabProps {
   no: number;
@@ -17,7 +18,7 @@ export const OrderTab: React.FunctionComponent<OrderTabProps> = ({ no }) => (
       m="0"
     />
     <Box as="button" px="3" py="1">
-      <Icon name="close" size="0.625rem" />
+      <IconTimes />
     </Box>
   </Flex>
 );
