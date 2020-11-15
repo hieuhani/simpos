@@ -1,9 +1,6 @@
 import React from 'react';
-import { Global } from '@emotion/core';
-import {
-  ThemeProvider as ChakraThemeProvider,
-  CSSReset,
-} from '@chakra-ui/core';
+import { Global } from '@emotion/react';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { globalStyles } from './globalStyles';
 
 export interface ThemeProviderProps {
@@ -13,9 +10,9 @@ export interface ThemeProviderProps {
 export const ThemeProvider: React.FunctionComponent = ({
   children,
 }: ThemeProviderProps) => (
-  <ChakraThemeProvider>
+  <ChakraProvider>
     <Global styles={globalStyles} />
     <CSSReset />
     {children}
-  </ChakraThemeProvider>
+  </ChakraProvider>
 );

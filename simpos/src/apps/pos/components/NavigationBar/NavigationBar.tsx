@@ -6,7 +6,7 @@ import {
   Button,
   MenuItem,
   MenuList,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IconBars } from '../../../../components/icons';

@@ -1,11 +1,17 @@
 import React from 'react';
-import { Grid, Box, Flex } from '@chakra-ui/core';
+import { Grid, Box, Flex, Button, Stack } from '@chakra-ui/react';
 import { NavigationBar } from './components/NavigationBar';
 import { CategoryPanel } from './components/CategoryPanel';
 import { SearchPanel } from './components/SearchPanel';
 import { ProductCard } from './components/ProductCard';
 import { SessionBar } from './components/SessionBar/SessionBar';
-import { CustomerPanel } from './components/CustomerPanel';
+import { OrderPanel } from './components/OrderPanel';
+import { OrderSummary } from './components/OrderSummary/OrderSummary';
+import {
+  VibrationCardAction,
+  TableNoAction,
+  CustomerSelectAction,
+} from './components/OrderActions';
 
 export const POS: React.FunctionComponent = () => (
   <Grid templateColumns="2fr 1fr" h="100vh">
@@ -51,9 +57,23 @@ export const POS: React.FunctionComponent = () => (
         </Grid>
       </Box>
     </Flex>
-    <Box bg="gray.50">
-      <SessionBar />
-      <CustomerPanel />
-    </Box>
+    <Flex overflow="hidden" bg="gray.50" flexDir="column">
+      <SessionBar px={4} py={2} />
+      <Stack px={4} direction="row" spacing={2} mb={2}>
+        <CustomerSelectAction />
+        <VibrationCardAction />
+        <TableNoAction />
+      </Stack>
+
+      <Box flex={1} overflowY="auto">
+        <OrderPanel />
+      </Box>
+      <OrderSummary px={4} py={2} />
+      <Box px={4} py={2}>
+        <Button width="full" colorScheme="blue">
+          Thanh toan
+        </Button>
+      </Box>
+    </Flex>
   </Grid>
 );

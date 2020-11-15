@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CategoryButton } from './CategoryButton';

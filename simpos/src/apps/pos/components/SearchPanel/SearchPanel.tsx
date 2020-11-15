@@ -5,7 +5,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import React from 'react';
 import { IconSearch } from '../../../../components/icons/output/IconSearch';
 
@@ -14,7 +14,7 @@ export const SearchPanel: React.FunctionComponent = () => (
     <Box mr="auto">
       <Heading size="md">Danh sach san pham</Heading>
     </Box>
-    <InputGroup size="md">
+    <InputGroup size="md" width="250px">
       <Input pr="3rem" placeholder="Tim kiem" />
       <InputRightElement width="3rem">
         <IconSearch size="20" color="gray" />

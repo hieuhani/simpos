@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Box, Divider, Text, Icon } from '@chakra-ui/core';
+import { Flex, Box, Divider, Text, Icon } from '@chakra-ui/react';
 
 export interface OrderTabProps {
   no: number;

@@ -6,7 +6,8 @@ import {
   Stack,
   Text,
   Image,
-} from '@chakra-ui/core';
+  BoxProps,
+} from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -20,9 +21,13 @@ const IconWrapper = styled(Flex)`
   justify-content: center;
 `;
 
-export const SessionBar: React.FunctionComponent = () => (
-  <Flex p={2}>
-    <Box size="40px">
+export interface SessionBarProps extends BoxProps {}
+
+export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
+  ...boxProps
+}) => (
+  <Flex {...boxProps}>
+    <Box width="40px">
       <Image borderRadius="md" src="/logo.svg" />
     </Box>
     <Stack direction="row" spacing={2} alignItems="center" ml="auto">

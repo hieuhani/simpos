@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Icon } from '@chakra-ui/core';
+import { Flex, Icon } from '@chakra-ui/react';
 
 export const OrderTabAdd: React.FunctionComponent = () => (
   <Flex
