@@ -18,7 +18,7 @@ const StyledSwiper = styled(Swiper)`
 `;
 
 export const NavigationBar: React.FunctionComponent = () => (
-  <Flex align="center" p={2}>
+  <Flex align="center" px={4} py={2}>
     <Menu>
       <MenuButton as={Button}>
         <IconBars size="20" />

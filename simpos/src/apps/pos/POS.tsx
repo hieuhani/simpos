@@ -12,6 +12,7 @@ import {
   TableNoAction,
   CustomerSelectAction,
 } from './components/OrderActions';
+import { PaymentAction } from './components/OrderActions/PaymentAction';
 
 export const POS: React.FunctionComponent = () => (
   <Grid templateColumns="2fr 1fr" h="100vh">
@@ -19,7 +20,7 @@ export const POS: React.FunctionComponent = () => (
       <NavigationBar />
       <CategoryPanel />
       <SearchPanel />
-      <Box flex={1} overflowY="auto" px={2}>
+      <Box flex={1} overflowY="auto" px={4}>
         <Grid
           gap={2}
           templateColumns={[
@@ -70,9 +71,7 @@ export const POS: React.FunctionComponent = () => (
       </Box>
       <OrderSummary px={4} py={2} />
       <Box px={4} py={2}>
-        <Button width="full" colorScheme="blue">
-          Thanh toan
-        </Button>
+        <PaymentAction />
       </Box>
     </Flex>
   </Grid>

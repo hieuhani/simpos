@@ -10,7 +10,7 @@ import React from 'react';
 import { IconSearch } from '../../../../components/icons/output/IconSearch';
 
 export const SearchPanel: React.FunctionComponent = () => (
-  <Flex align="center" px={2} mb={2}>
+  <Flex align="center" px={4} mb={2}>
     <Box mr="auto">
       <Heading size="md">Danh sach san pham</Heading>
     </Box>
