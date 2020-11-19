@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, Flex, Button, Stack } from '@chakra-ui/react';
+import { Grid, Box, Flex, Stack } from '@chakra-ui/react';
 import { NavigationBar } from './components/NavigationBar';
 import { CategoryPanel } from './components/CategoryPanel';
 import { SearchPanel } from './components/SearchPanel';

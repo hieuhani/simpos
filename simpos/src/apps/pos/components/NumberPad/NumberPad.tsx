@@ -17,8 +17,8 @@ export const NumberPad: React.FunctionComponent = () => (
     <Button>1</Button>
     <Button>2</Button>
     <Button>3</Button>
-    <Button gridColumn="4 / 5" gridRow="3 / 5" height="auto">
-      OK <IconChevronRight />
+    <Button gridColumn="4 / 5" gridRow="3 / 5" height="auto" colorScheme="red">
+      <IconChevronRight size={33} />
     </Button>
     <Button>000</Button>
     <Button>0</Button>
