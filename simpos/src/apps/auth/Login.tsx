@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { authService } from '../../services/auth';
-import { useAuth } from '../../components/AuthProvider';
+import { useAuth } from '../../contexts/AuthProvider';
 
 const SignInSchema = Yup.object().shape({
   login: Yup.string().required('Required'),

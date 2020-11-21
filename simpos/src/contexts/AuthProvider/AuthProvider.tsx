@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { authService } from '../../services/auth';
+import { updateSimApiToken } from '../../services/clients';
 
 export interface AuthUserContext {
   lang: string;
@@ -49,7 +50,9 @@ export const AuthProvider: React.FunctionComponent = ({ children }) => {
   const getCurrentAuthMeta = async () => {
     const authMeta = await authService.getAuthMeta();
     if (authMeta) {
-      setUserMeta(authMeta as AuthUserMeta);
+      const meta = authMeta as AuthUserMeta;
+      setUserMeta(meta);
+      updateSimApiToken(meta.accessToken);
     }
     setAuthChecking(false);
   };

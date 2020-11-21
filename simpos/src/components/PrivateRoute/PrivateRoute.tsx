@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useAuth } from '../AuthProvider';
+import { useAuth } from '../../contexts/AuthProvider';
 
 export const PrivateRoute: React.FunctionComponent = ({
   children,

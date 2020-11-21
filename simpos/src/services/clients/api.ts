@@ -25,3 +25,10 @@ simApi.interceptors.response.use(
     throw new Error('Uncaught error');
   },
 );
+
+export const updateSimApiToken = (token: string) => {
+  if (!token) {
+    console.warn('token is blank or undefined');
+  }
+  simApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};

@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AuthProvider } from './components/AuthProvider';
+import { AuthProvider } from './contexts/AuthProvider';
 import { Routes } from './configs/routes';
 import { ThemeProvider } from './configs/themes';
 import reportWebVitals from './reportWebVitals';
+import { DataProvider } from './contexts/DataProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <ThemeProvider>
-        <Routes />
-      </ThemeProvider>
+      <DataProvider>
+        <ThemeProvider>
+          <Routes />
+        </ThemeProvider>
+      </DataProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
