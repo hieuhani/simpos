@@ -11,7 +11,7 @@ export const PrivateRoute: React.FunctionComponent = ({
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        auth.userMeta ? (
           children
         ) : (
           <Redirect

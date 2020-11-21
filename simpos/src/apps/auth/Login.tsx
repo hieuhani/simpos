@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Stack,
@@ -6,9 +6,13 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { authService } from '../../services/auth';
+import { useAuth } from '../../components/AuthProvider';
 
 const SignInSchema = Yup.object().shape({
   login: Yup.string().required('Required'),
@@ -16,16 +20,33 @@ const SignInSchema = Yup.object().shape({
 });
 
 export const Login: React.FunctionComponent = () => {
+  const toast = useToast();
+  const auth = useAuth();
+  const history = useHistory();
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      history.push('/');
+    }
+  }, [auth.isLoggedIn, history]);
   return (
     <Box w="375px" margin="0 auto">
       <Formik
         initialValues={{ login: '', password: '' }}
         validationSchema={SignInSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            const { data } = await authService.login(values);
+            auth.signIn(data);
+          } catch {
+            toast({
+              title: 'Đăng nhập không thành công',
+              description: 'Thông tin tài khoản hoặc mật khẩu không chính xác',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+            });
+          }
+          setSubmitting(false);
         }}
       >
         {({

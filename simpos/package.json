@@ -8,6 +8,7 @@
     "test": "react-scripts test",
     "generate-icons": "node scripts/generate-icon-components.js"
   },
+  "proxy": "http://localhost:8069",
   "dependencies": {
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
@@ -19,8 +20,12 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "axios": "^0.21.0",
+    "camelcase-keys": "^6.2.2",
     "formik": "^2.2.5",
     "framer-motion": "^2.9.4",
+    "localforage": "^1.9.0",
+    "lodash.get": "^4.4.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -31,6 +36,7 @@
     "yup": "^0.30.0"
   },
   "devDependencies": {
+    "@types/lodash.get": "^4.4.6",
     "@types/react-router-dom": "^5.1.6",
     "@types/yup": "^0.29.9",
     "camelcase": "^6.2.0",
