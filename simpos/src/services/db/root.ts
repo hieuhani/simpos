@@ -1,5 +1,5 @@
-import Dexie from 'dexie';
-import { databaseName } from './config';
+import { getSchemaIndexes } from '../../contexts/DataProvider/dataLoader';
+import { db } from './db';
 
 export interface AuthUserContext {
   lang: string;
@@ -14,20 +14,27 @@ export interface AuthUserMeta {
   userContext: AuthUserContext;
 }
 
-class RootDatabase extends Dexie {
-  public constructor() {
-    super(databaseName);
-  }
-
+export const rootDb = {
   async currentTableNames(): Promise<string[]> {
-    await this.open();
-    return this.tables.map(({ name }) => name);
-  }
+    await db.open();
+    return db.tables.map(({ name }) => name);
+  },
 
   async getByTableName(tableName: string): Promise<any> {
-    const table = this.table(tableName);
-    return table.toArray();
-  }
-}
+    try {
+      const table = db.table(tableName);
+      return table.toArray();
+    } catch {
+      return null;
+    }
+  },
 
-export const rootDb = new RootDatabase();
+  async bulkUpdateTable(tableName: string, rows: unknown[]) {
+    const indexes = getSchemaIndexes(tableName);
+    if (!indexes) {
+      throw new Error('could not get schema indexes');
+    }
+
+    return db.table(tableName).bulkPut(rows);
+  },
+};

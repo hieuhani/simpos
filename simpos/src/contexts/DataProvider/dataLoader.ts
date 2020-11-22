@@ -5,6 +5,7 @@ interface LoadModel {
   model: string;
   fields: string[];
   load: () => Promise<any>;
+  indexes: string;
 }
 
 const fetchModelData = async (
@@ -12,16 +13,15 @@ const fetchModelData = async (
   fields: string[],
 ): Promise<any> => {
   const currentModelData = await rootDb.getByTableName(model);
-  console.log(currentModelData);
-  if (currentModelData) {
+  if (currentModelData && currentModelData.length > 0) {
     return currentModelData;
   }
   const remoteData = await dataService.searchRead({
     model,
     fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
   });
-  // store remote data to the local database
-  // await db.setItem(model, remoteData);
+  await rootDb.bulkUpdateTable(model, remoteData);
+
   return remoteData;
 };
 
@@ -45,6 +45,7 @@ export const loadModels: LoadModel[] = [
     async load() {
       return fetchModelData(this.model, this.fields);
     },
+    indexes: '++id, name',
   },
   {
     model: 'res.company',
@@ -121,12 +122,13 @@ export const loadModels: LoadModel[] = [
   { model: 'account.fiscal.position', fields: [] },
   { model: 'account.fiscal.position.tax', fields: [] },
 ].map((loadModel) => {
-  if (typeof loadModel.load === 'function') {
-    return loadModel as LoadModel;
-  }
   return {
     ...loadModel,
-    load: () => fetchModelData(loadModel.model, loadModel.fields),
+    load:
+      typeof loadModel.load === 'function'
+        ? loadModel.load
+        : () => fetchModelData(loadModel.model, loadModel.fields),
+    indexes: loadModel.indexes ? loadModel.indexes : '++id',
   };
 });
 
@@ -139,3 +141,19 @@ export const getLoadModelsMap = (): Record<string, LoadModel> =>
   }, {});
 
 export const getModelNames = () => Object.keys(getLoadModelsMap());
+
+export const getDexieSchema = (): Record<string, string> =>
+  loadModels.reduce(
+    (prev, current) => {
+      return {
+        ...prev,
+        [current.model]: current.indexes,
+      };
+    },
+    {
+      'auth.user.metas': '++id,name,dbName,username',
+    },
+  );
+
+export const getSchemaIndexes = (schemaName: string) =>
+  getDexieSchema()[schemaName];
