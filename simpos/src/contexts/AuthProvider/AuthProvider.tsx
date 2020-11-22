@@ -1,19 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { authService } from '../../services/auth';
 import { updateSimApiToken } from '../../services/clients';
-
-export interface AuthUserContext {
-  lang: string;
-  tz: string;
-}
-export interface AuthUserMeta {
-  uid: string;
-  accessToken: string;
-  name: string;
-  dbName: string;
-  username: string;
-  userContext: AuthUserContext;
-}
+import { AuthUserMeta } from '../../services/db';
 
 export interface AuthContextState {
   signIn: (authUserMeta: AuthUserMeta) => void | Promise<void>;

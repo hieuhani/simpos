@@ -1,1 +1,1 @@
-export { POS as default } from './POS';
+export { Pos as default } from './Pos';

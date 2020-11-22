@@ -1,4 +1,5 @@
-import { db, simApi } from './clients';
+import { simApi } from './clients';
+import { authUserMeta, AuthUserMeta } from './db/authUserMeta';
 
 export interface LoginParams {
   login: string;
@@ -11,8 +12,8 @@ export const authService = {
       params,
     });
   },
-  saveAuthMeta: async (authMeta: object) => {
-    await db.setItem('authMeta', authMeta);
+  saveAuthMeta: async (authMeta: AuthUserMeta) => {
+    await authUserMeta.create(authMeta);
   },
-  getAuthMeta: async () => db.getItem('authMeta'),
+  getAuthMeta: async () => authUserMeta.first(),
 };

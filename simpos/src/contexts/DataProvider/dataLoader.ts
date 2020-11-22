@@ -1,4 +1,5 @@
 import { dataService } from '../../services/data';
+import { rootDb } from '../../services/db/root';
 
 interface LoadModel {
   model: string;
@@ -6,13 +7,22 @@ interface LoadModel {
   load: () => Promise<any>;
 }
 
-const fetchModelData = (model: string, fields: string[]): Promise<any> => {
-  // read from db first
-  // if it's not available next
-  return dataService.searchRead({
+const fetchModelData = async (
+  model: string,
+  fields: string[],
+): Promise<any> => {
+  const currentModelData = await rootDb.getByTableName(model);
+  console.log(currentModelData);
+  if (currentModelData) {
+    return currentModelData;
+  }
+  const remoteData = await dataService.searchRead({
     model,
     fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
   });
+  // store remote data to the local database
+  // await db.setItem(model, remoteData);
+  return remoteData;
 };
 
 export const loadModels: LoadModel[] = [

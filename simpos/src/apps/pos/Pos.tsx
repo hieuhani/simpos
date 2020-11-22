@@ -14,7 +14,7 @@ import {
 } from './components/OrderActions';
 import { PaymentAction } from './components/OrderActions/PaymentAction';
 
-export const POS: React.FunctionComponent = () => (
+export const Pos: React.FunctionComponent = () => (
   <Grid templateColumns="2fr 1fr" h="100vh">
     <Flex overflow="hidden" flexDir="column">
       <NavigationBar />

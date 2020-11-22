@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect } from 'react';
-import { db } from '../../services/clients';
-import { AuthUserMeta, useAuth } from '../AuthProvider';
+import { AuthUserMeta } from '../../services/db';
+import { rootDb } from '../../services/db/root';
+
+import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
 
 export interface DataContextState {}
@@ -12,12 +14,13 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   const auth = useAuth();
 
   const initializeData = async (userMeta: AuthUserMeta) => {
-    // check xem tinh hinh data tren local nhu nao, da du het chua
-    const currentKeys = await db.keys();
+    const currentTableNames = await rootDb.currentTableNames();
+
     const loadModelsMap = getLoadModelsMap();
     const requiredKeys = getModelNames();
-    const missingKeys = requiredKeys.filter((x) => !currentKeys.includes(x));
-
+    const missingKeys = requiredKeys.filter(
+      (x) => !currentTableNames.includes(x),
+    );
     if (missingKeys.length > 0) {
       await Promise.all(
         missingKeys
@@ -25,13 +28,11 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
             if (!loadModelsMap[key]) {
               return null;
             }
-
             return loadModelsMap[key].load();
           })
           .filter(Boolean),
       );
     }
-    // call api de lay ve
   };
   useEffect(() => {
     if (auth.userMeta) {
