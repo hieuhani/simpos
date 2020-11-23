@@ -3,7 +3,13 @@ import { Button } from '@chakra-ui/react';
 
 export interface CategoryButtonProps {
   name: string;
+  onClick: () => void;
 }
 export const CategoryButton: React.FunctionComponent<CategoryButtonProps> = ({
   name,
-}) => <Button size="lg">{name}</Button>;
+  onClick,
+}) => (
+  <Button size="lg" onClick={onClick}>
+    {name}
+  </Button>
+);

@@ -11,6 +11,7 @@ interface LoadModel {
 const fetchModelData = async (
   model: string,
   fields: string[],
+  domain?: Array<Array<any>>,
 ): Promise<any> => {
   const currentModelData = await rootDb.getByTableName(model);
   if (currentModelData && currentModelData.length > 0) {
@@ -19,6 +20,7 @@ const fetchModelData = async (
   const remoteData = await dataService.searchRead({
     model,
     fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
+    domain,
   });
   await rootDb.bulkUpdateTable(model, remoteData);
 
@@ -43,7 +45,10 @@ export const loadModels: LoadModel[] = [
       'payment_method_ids',
     ],
     async load() {
-      return fetchModelData(this.model, this.fields);
+      return fetchModelData(this.model, this.fields, [
+        ['state', '=', 'opened'],
+        ['rescue', '=', false],
+      ]);
     },
     indexes: '++id, name',
   },
@@ -81,6 +86,10 @@ export const loadModels: LoadModel[] = [
       'amount_type',
       'children_tax_ids',
     ],
+  },
+  {
+    model: 'res.users',
+    fields: ['name', 'company_id', 'id', 'groups_id'],
   },
   {
     model: 'product.pricelist',
