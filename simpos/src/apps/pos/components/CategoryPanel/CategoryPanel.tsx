@@ -1,12 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useSearchProductDispatch } from '../../../../contexts/SearchProduct';
 import { PosCategory, posCategoryRepository } from '../../../../services/db';
 import { CategoryButton } from './CategoryButton';
 
 export const CategoryPanel: React.FunctionComponent = () => {
   const [categories, setCategories] = useState<PosCategory[]>([]);
   const [selectedCategoryId, setSelectedCategory] = useState<number>(0);
+  const dispatch = useSearchProductDispatch();
   const fetchCategories = async () => {
     setCategories(await posCategoryRepository.treeCategories());
   };
@@ -25,16 +27,15 @@ export const CategoryPanel: React.FunctionComponent = () => {
   }, [selectedCategoryId, categories]);
 
   const onClickCategory = (category: PosCategory) => {
-    console.log(category.id);
+    dispatch({ type: 'CATEGORY_CHANGED', payload: category.id });
   };
   const onClickRootCategory = (category: PosCategory) => {
-    if (category.children && category.children.length > 0) {
-      setSelectedCategory(category.id);
-    } else {
-      setSelectedCategory(0);
-      onClickCategory(category);
-    }
+    setSelectedCategory(
+      category.children && category.children.length > 0 ? category.id : 0,
+    );
+    onClickCategory(category);
   };
+
   return (
     <Box px={4} mb={2}>
       {categories.length > 0 && (
