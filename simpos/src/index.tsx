@@ -5,20 +5,16 @@ import { Routes } from './configs/routes';
 import { ThemeProvider } from './configs/themes';
 import reportWebVitals from './reportWebVitals';
 import { DataProvider } from './contexts/DataProvider';
-import { Provider } from 'react-redux';
-import { store } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AuthProvider>
-        <DataProvider>
-          <ThemeProvider>
-            <Routes />
-          </ThemeProvider>
-        </DataProvider>
-      </AuthProvider>
-    </Provider>
+    <AuthProvider>
+      <DataProvider>
+        <ThemeProvider>
+          <Routes />
+        </ThemeProvider>
+      </DataProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

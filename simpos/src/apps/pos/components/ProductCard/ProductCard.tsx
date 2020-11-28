@@ -1,7 +1,13 @@
 import React from 'react';
 import { Badge, Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Product } from '../../../../services/db';
 
-export const ProductCard: React.FunctionComponent = () => (
+export interface ProductCardProps {
+  product: Product;
+}
+export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
+  product,
+}) => (
   <Box as="button" display="flex" mb={2}>
     <Box width="66px">
       <Image
@@ -10,14 +16,19 @@ export const ProductCard: React.FunctionComponent = () => (
         alt="Banh my"
       />
     </Box>
-    <Box textAlign="left" ml={2}>
+    <Box textAlign="left" ml={2} flex={1}>
       <Heading size="sm" fontWeight="medium">
-        <Badge mr={1}>B002</Badge>Banh my pate xuc xich
+        <Badge mr={1}>{product.defaultCode}</Badge>
+        {product.name}
       </Heading>
 
       <Flex alignItems="center" justifyContent="space-between" mt={2}>
-        <Heading size="sm">120,000d</Heading>
-        <Text fontSize="sm">Co 2 bien the</Text>
+        <Heading size="sm">{product.lstPrice}</Heading>
+        {product.productVariantIds.length > 1 && (
+          <Text fontSize="sm">
+            Có {product.productVariantIds.length} biến thể
+          </Text>
+        )}
       </Flex>
     </Box>
   </Box>

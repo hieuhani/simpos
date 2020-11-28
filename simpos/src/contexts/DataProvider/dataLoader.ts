@@ -11,17 +11,20 @@ interface LoadModel {
 const fetchModelData = async (
   model: string,
   fields: string[],
-  domain?: Array<Array<any>>,
+  domain?: Array<any>,
+  transform = (data: any) => data,
 ): Promise<any> => {
   const currentModelData = await rootDb.getByTableName(model);
   if (currentModelData && currentModelData.length > 0) {
     return currentModelData;
   }
-  const remoteData = await dataService.searchRead({
-    model,
-    fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
-    domain,
-  });
+  const remoteData = await dataService
+    .searchRead({
+      model,
+      fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
+      domain,
+    })
+    .then(transform);
   await rootDb.bulkUpdateTable(model, remoteData);
 
   return remoteData;
@@ -105,6 +108,36 @@ export const loadModels: LoadModel[] = [
   },
   { model: 'pos.category', fields: ['id', 'name', 'parent_id', 'child_id'] },
   {
+    model: 'product.template',
+    fields: [
+      'name',
+      'description',
+      'type',
+      'lst_price',
+      'list_price',
+      'sequence',
+      'product_variant_ids',
+      'product_variant_id',
+      'barcode',
+      'default_code',
+      'pos_categ_id',
+    ],
+    indexes: '++id, *posCategoryId',
+    async load() {
+      return fetchModelData(
+        this.model,
+        this.fields,
+        ['&', ['sale_ok', '=', true], ['available_in_pos', '=', true]],
+        (rows) => {
+          return rows.map((row: any) => ({
+            ...row,
+            posCategoryId: row.posCategId ? row.posCategId[0] : null,
+          }));
+        },
+      );
+    },
+  },
+  {
     model: 'product.product',
     fields: [
       'display_name',
@@ -123,6 +156,13 @@ export const loadModels: LoadModel[] = [
       'tracking',
       'sequence',
     ],
+    async load() {
+      return fetchModelData(this.model, this.fields, [
+        '&',
+        ['sale_ok', '=', true],
+        ['available_in_pos', '=', true],
+      ]);
+    },
   },
   {
     model: 'pos.payment.method',
