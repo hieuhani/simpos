@@ -1,10 +1,13 @@
 import { dataService } from '../../services/data';
-import { rootDb } from '../../services/db/root';
+import { AuthUserMeta, rootDb } from '../../services/db/root';
 
-interface LoadModel {
+export interface LoadModelOption {
+  userMeta: AuthUserMeta;
+}
+export interface LoadModel {
   model: string;
   fields: string[];
-  load: () => Promise<any>;
+  load: (option?: LoadModelOption) => Promise<any>;
   indexes: string;
 }
 
@@ -48,10 +51,21 @@ export const loadModels: LoadModel[] = [
       'payment_method_ids',
     ],
     async load() {
-      return fetchModelData(this.model, this.fields, [
-        ['state', '=', 'opened'],
-        ['rescue', '=', false],
-      ]);
+      return fetchModelData(
+        this.model,
+        this.fields,
+        [
+          ['state', '=', 'opened'],
+          ['rescue', '=', false],
+        ],
+        (rows) => {
+          return rows.map((row: any) => ({
+            ...row,
+            posConfigId: row.configId ? row.configId[0] : null,
+            responsibleUserId: row.userId ? row.userId[0] : null,
+          }));
+        },
+      );
     },
     indexes: '++id, name',
   },

@@ -9,11 +9,11 @@ import { DataProvider } from './contexts/DataProvider';
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <DataProvider>
-        <ThemeProvider>
+      <ThemeProvider>
+        <DataProvider>
           <Routes />
-        </ThemeProvider>
-      </DataProvider>
+        </DataProvider>
+      </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root'),
