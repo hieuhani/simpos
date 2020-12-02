@@ -10,7 +10,8 @@ export const CategoryPanel: React.FunctionComponent = () => {
   const [selectedCategoryId, setSelectedCategory] = useState<number>(0);
   const dispatch = useSearchProductDispatch();
   const fetchCategories = async () => {
-    setCategories(await posCategoryRepository.treeCategories());
+    const dbCategories = await posCategoryRepository.treeCategories();
+    setCategories([{ id: 0, name: 'Tất cả' }, ...dbCategories]);
   };
   useEffect(() => {
     fetchCategories();
