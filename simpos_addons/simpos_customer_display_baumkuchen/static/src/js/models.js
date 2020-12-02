@@ -43,7 +43,6 @@ odoo.define('simpos_customer_display_baumkuchen.models', function (require) {
               });
           }
           if (!order || order && order.orderlines.length === 0) {
-            console.log(this.config.customer_welcome_html)
             return Promise.resolve(this.config.customer_welcome_html);
           }
 
