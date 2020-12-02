@@ -1,17 +1,25 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { SessionManager } from '../../apps/pos/components/SessionManager';
-import { AuthUserMeta, PosSession } from '../../services/db';
+import {
+  AuthUserMeta,
+  PosConfig,
+  posConfigRepository,
+  PosSession,
+} from '../../services/db';
 import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
 
-export interface DataContextState {}
+export interface DataContextState {
+  posConfig: PosConfig;
+  posSession: PosSession;
+}
 
-const initialState: DataContextState = {};
-const DataContext = createContext<DataContextState>(initialState);
+const DataContext = createContext<DataContextState | undefined>(undefined);
 
 export const DataProvider: React.FunctionComponent = ({ children }) => {
   const auth = useAuth();
-  const [session, setSession] = useState<PosSession | undefined>(undefined);
+  const [data, setData] = useState<DataContextState | undefined>(undefined);
+
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
     const loadModelsMap = getLoadModelsMap();
@@ -36,25 +44,30 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   useEffect(() => {
     if (auth.userMeta) {
       initializeData(auth.userMeta);
+    } else {
+      setInitializing(false);
     }
   }, [auth.userMeta]);
 
-  const onSessionSelected = (selectedSession: PosSession) => {
-    setSession(selectedSession);
+  const onSessionSelected = async (selectedSession: PosSession) => {
+    const posConfig = await posConfigRepository.findById(selectedSession.id);
+    if (!posConfig) {
+      throw new Error('Data error');
+    }
+    setData({
+      posConfig,
+      posSession: selectedSession,
+    });
   };
 
-  if (!auth.userMeta) {
-    return null;
-  }
-
   return (
-    <DataContext.Provider value={{}}>
+    <DataContext.Provider value={data}>
       {!initializing && (
         <>
           {children}
-          {!session && (
+          {!data && auth.userMeta && (
             <SessionManager
-              authUserMeta={auth.userMeta}
+              authUserMeta={auth.userMeta!}
               onSessionSelected={onSessionSelected}
             />
           )}

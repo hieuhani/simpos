@@ -3,7 +3,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
   ModalBody,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
@@ -24,13 +23,13 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
       (session) => session.responsibleUserId === authUserMeta.uid,
     );
     if (assignedSession) {
-      // onSessionSelected(assignedSession);
+      onSessionSelected(assignedSession);
     }
   };
 
   useEffect(() => {
     fetchSession();
-  }, []);
+  });
   return (
     <Modal isOpen={true} onClose={() => {}}>
       <ModalOverlay />
