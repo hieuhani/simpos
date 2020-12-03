@@ -22,7 +22,7 @@ $(function() {
                 }
                 if (data.result.rendered_html) {
                     var trimmed = $.trim(data.result.rendered_html);
-                    if (trimmed && trimmed.startsWith('<iframe')) {
+                    if (trimmed && (trimmed.startsWith('<iframe') || trimmed.startsWith('<div id="player">'))) {
                       $(".container-fluid").html(trimmed)
                     } else {
                       var $parsedHTML = $('<div>').html($.parseHTML(trimmed,true)); // WARNING: the true here will executes any script present in the string to parse

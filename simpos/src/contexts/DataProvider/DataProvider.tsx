@@ -50,7 +50,9 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   }, [auth.userMeta]);
 
   const onSessionSelected = async (selectedSession: PosSession) => {
-    const posConfig = await posConfigRepository.findById(selectedSession.id);
+    const posConfig = await posConfigRepository.findById(
+      selectedSession.posConfigId,
+    );
     if (!posConfig) {
       throw new Error('Data error');
     }
