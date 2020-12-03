@@ -3,3 +3,7 @@ export * from './posCategory';
 export * from './product';
 export * from './pos-session';
 export * from './pos-config';
+export * from './product-variant';
+export * from './product-pricelist-item';
+export * from './currency';
+export * from './decimal-precision';

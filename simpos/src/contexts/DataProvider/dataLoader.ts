@@ -115,6 +115,7 @@ export const loadModels: LoadModel[] = [
   {
     model: 'product.pricelist.item',
     fields: [],
+    indexes: '++id, *pricelist_id',
   },
   {
     model: 'res.currency',

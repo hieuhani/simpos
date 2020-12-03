@@ -2,16 +2,25 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import {
   AuthUserMeta,
+  DecimalPrecision,
+  decimalPrecisionRepository,
   PosConfig,
   posConfigRepository,
   PosSession,
 } from '../../services/db';
+import {
+  ProductPricelist,
+  productPricelistRepository,
+} from '../../services/db/product-pricelist';
 import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
 
 export interface DataContextState {
   posConfig: PosConfig;
   posSession: PosSession;
+  pricelists: ProductPricelist[];
+  defaultPriceList: ProductPricelist;
+  decimalPrecisions: DecimalPrecision[];
 }
 
 const DataContext = createContext<DataContextState | undefined>(undefined);
@@ -54,11 +63,34 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
       selectedSession.posConfigId,
     );
     if (!posConfig) {
-      throw new Error('Data error');
+      throw new Error('POS Config data error');
     }
+    const pricelists = await productPricelistRepository.findByIds(
+      posConfig.usePricelist
+        ? posConfig.availablePricelistIds
+        : [posConfig.pricelistId[0]],
+    );
+    if (pricelists.length === 0) {
+      throw new Error('Product pricelist does not setup properly');
+    }
+    const defaultPriceList = pricelists.find(
+      ({ id }) => id === posConfig.pricelistId[0],
+    );
+
+    if (!defaultPriceList) {
+      throw new Error(
+        'The application could not determine the default pricelist',
+      );
+    }
+
+    const decimalPrecisions = await decimalPrecisionRepository.all();
+
     setData({
       posConfig,
       posSession: selectedSession,
+      pricelists,
+      defaultPriceList,
+      decimalPrecisions,
     });
   };
 
@@ -80,5 +112,5 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
 };
 
 export function useData() {
-  return useContext(DataContext);
+  return useContext(DataContext)!;
 }

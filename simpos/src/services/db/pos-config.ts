@@ -1,3 +1,5 @@
+import { Company, companyRepository } from './company';
+import { Currency, currencyRepository } from './currency';
 import { db } from './db';
 
 export interface PosConfig {
@@ -6,6 +8,13 @@ export interface PosConfig {
   paymentMethodIds: number[];
   uuid: string;
   employeeIds: number[];
+  usePricelist: boolean;
+  availablePricelistIds: number[];
+  pricelistId: [number, string];
+  companyId: [number, string];
+  currencyId: [number, string];
+  currency: Currency;
+  company: Company;
 }
 
 export const posConfigRepository = {
@@ -16,6 +25,23 @@ export const posConfigRepository = {
   },
 
   async findById(id: number): Promise<PosConfig | undefined> {
-    return this.db.get(id);
+    const config = await this.db.get(id);
+    if (!config) {
+      return undefined;
+    }
+    return this.enrichPosConfig(config);
+  },
+
+  async enrichPosConfig(posConfig: PosConfig): Promise<PosConfig> {
+    const [company, currency] = await Promise.all([
+      companyRepository.findById(posConfig.companyId[0]),
+      currencyRepository.findById(posConfig.currencyId[0]),
+    ]);
+
+    return {
+      ...posConfig,
+      company: company!,
+      currency: currency!,
+    };
   },
 };
