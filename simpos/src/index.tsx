@@ -4,17 +4,14 @@ import { AuthProvider } from './contexts/AuthProvider';
 import { Routes } from './configs/routes';
 import { ThemeProvider } from './configs/themes';
 import reportWebVitals from './reportWebVitals';
-import { DataProvider } from './contexts/DataProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <ThemeProvider>
-        <DataProvider>
-          <Routes />
-        </DataProvider>
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

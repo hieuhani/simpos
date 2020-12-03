@@ -5,9 +5,11 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { Login } from '../../apps/auth/Login';
+import { PrivateRoute } from '../../components/PrivateRoute';
+import { DataProvider } from '../../contexts/DataProvider';
 
 const POS = lazy(() => import('../../apps/pos'));
+const Login = lazy(() => import('../../apps/auth/Login'));
 
 export const Routes: React.FunctionComponent = () => (
   <Router>
@@ -15,7 +17,11 @@ export const Routes: React.FunctionComponent = () => (
       <Switch>
         <Redirect exact from="/" to="pos" />
         <Route path="/login" component={Login} />
-        <Route path="/pos" component={POS} />
+        <DataProvider>
+          <PrivateRoute path="/pos">
+            <POS />
+          </PrivateRoute>
+        </DataProvider>
       </Switch>
     </Suspense>
   </Router>

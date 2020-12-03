@@ -98,3 +98,5 @@ export const Login: React.FunctionComponent = () => {
     </Box>
   );
 };
+
+export default Login;

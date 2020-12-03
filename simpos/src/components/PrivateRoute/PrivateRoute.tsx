@@ -1,8 +1,9 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
 
-export const PrivateRoute: React.FunctionComponent = ({
+export interface PrivateRouteProps extends RouteProps {}
+export const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({
   children,
   ...rest
 }) => {
@@ -11,7 +12,7 @@ export const PrivateRoute: React.FunctionComponent = ({
     <Route
       {...rest}
       render={({ location }) =>
-        auth.userMeta ? (
+        auth.isLoggedIn ? (
           children
         ) : (
           <Redirect

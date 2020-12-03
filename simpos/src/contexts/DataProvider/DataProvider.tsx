@@ -94,19 +94,18 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     });
   };
 
+  const node = data ? (
+    children
+  ) : (
+    <SessionManager
+      authUserMeta={auth.userMeta!}
+      onSessionSelected={onSessionSelected}
+    />
+  );
+
   return (
     <DataContext.Provider value={data}>
-      {!initializing && (
-        <>
-          {children}
-          {!data && auth.userMeta && (
-            <SessionManager
-              authUserMeta={auth.userMeta!}
-              onSessionSelected={onSessionSelected}
-            />
-          )}
-        </>
-      )}
+      {!initializing && node}
     </DataContext.Provider>
   );
 };

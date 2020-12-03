@@ -2,6 +2,7 @@ import keyBy from 'lodash.keyby';
 import { useMemo } from 'react';
 import { useData } from '../contexts/DataProvider';
 import { DecimalPrecision } from '../services/db';
+import { formatFloat, roundDecimals } from '../utils';
 
 interface DictionaryOf<T> {
   [key: string]: T | undefined;
@@ -11,7 +12,7 @@ interface MoneyFormatter {
   formatCurrencyNoSymbol: (
     amount: number,
     decimalPrecisionName?: string,
-  ) => number;
+  ) => string;
 }
 export function useMoneyFormatter(): MoneyFormatter {
   const data = useData();
@@ -30,7 +31,12 @@ export function useMoneyFormatter(): MoneyFormatter {
     if (decimalPrecisionName && decimalPrecisionsDict[decimalPrecisionName]) {
       decimals = decimalPrecisionsDict[decimalPrecisionName]!.digits;
     }
-    return 2;
+    let newAmount = roundDecimals(amount, decimals).toFixed(decimals);
+    newAmount = formatFloat(roundDecimals(amount, decimals), {
+      digits: [69, decimals],
+    });
+
+    return newAmount;
   }
 
   function formatCurrency(amount: number, decimalPrecisionName?: string) {
