@@ -7,3 +7,4 @@ export * from './product-variant';
 export * from './product-pricelist-item';
 export * from './currency';
 export * from './decimal-precision';
+export * from './order';

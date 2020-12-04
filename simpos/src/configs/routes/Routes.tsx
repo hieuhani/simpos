@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { PrivateRoute } from '../../components/PrivateRoute';
 import { DataProvider } from '../../contexts/DataProvider';
+import { OrderManager } from '../../contexts/OrderManager';
 
 const POS = lazy(() => import('../../apps/pos'));
 const Login = lazy(() => import('../../apps/auth/Login'));
@@ -18,9 +19,11 @@ export const Routes: React.FunctionComponent = () => (
         <Redirect exact from="/" to="pos" />
         <Route path="/login" component={Login} />
         <DataProvider>
-          <PrivateRoute path="/pos">
-            <POS />
-          </PrivateRoute>
+          <OrderManager>
+            <PrivateRoute path="/pos">
+              <POS />
+            </PrivateRoute>
+          </OrderManager>
         </DataProvider>
       </Switch>
     </Suspense>

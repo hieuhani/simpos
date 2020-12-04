@@ -24,7 +24,7 @@ export const productPricelistRepository = {
     return Promise.all(
       productPricelists.map((productPricelist) =>
         productPricelistItemRepository.db
-          .where('pricelist_id')
+          .where('pricelistId')
           .equals(productPricelist.id)
           .toArray()
           .then((items) => ({

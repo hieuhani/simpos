@@ -115,7 +115,7 @@ export const loadModels: LoadModel[] = [
   {
     model: 'product.pricelist.item',
     fields: [],
-    indexes: '++id, *pricelist_id',
+    indexes: '++id, pricelistId',
   },
   {
     model: 'res.currency',
@@ -137,7 +137,7 @@ export const loadModels: LoadModel[] = [
       'default_code',
       'pos_categ_id',
     ],
-    indexes: '++id, *posCategoryId',
+    indexes: '++id, posCategoryId',
     async load() {
       return fetchModelData(
         this.model,
@@ -216,6 +216,8 @@ export const getDexieSchema = (): Record<string, string> =>
     },
     {
       'auth.user.metas': '++id,name,dbName,username',
+      'pos.order': 'id, posSessionId',
+      'pos.order.line': '++id,orderId',
     },
   );
 
