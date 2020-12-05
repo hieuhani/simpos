@@ -91,6 +91,22 @@ export const loadModels: LoadModel[] = [
     fields: ['name', 'digits'],
   },
   {
+    model: 'res.partner',
+    fields: [
+      'name',
+      'street',
+      'city',
+      'vat',
+      'phone',
+      'mobile',
+      'email',
+      'barcode',
+      'comment',
+      'property_account_position_id',
+      'property_product_pricelist',
+    ],
+  },
+  {
     model: 'uom.uom',
     fields: [],
   },

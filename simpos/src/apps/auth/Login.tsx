@@ -72,7 +72,7 @@ export const Login: React.FunctionComponent = () => {
                 />
               </FormControl>
               <FormControl id="password">
-                <FormLabel>Mat khau</FormLabel>
+                <FormLabel>Mật khẩu</FormLabel>
                 <Input
                   type="password"
                   name="password"
@@ -89,7 +89,7 @@ export const Login: React.FunctionComponent = () => {
                 disabled={isSubmitting || !isValid}
                 isLoading={isSubmitting}
               >
-                Dang nhap
+                Đăng nhập
               </Button>
             </Stack>
           </form>

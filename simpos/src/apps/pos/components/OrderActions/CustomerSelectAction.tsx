@@ -48,7 +48,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Lua chon khach hang</ModalHeader>
+          <ModalHeader>Chọn khách hàng</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <CustomerSelect />
