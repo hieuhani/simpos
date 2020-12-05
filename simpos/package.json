@@ -23,6 +23,7 @@
     "@types/react-dom": "^16.9.8",
     "axios": "^0.21.0",
     "camelcase-keys": "^6.2.2",
+    "dayjs": "^1.9.6",
     "dexie": "^3.0.3",
     "formik": "^2.2.5",
     "framer-motion": "^2.9.4",

@@ -232,3 +232,11 @@ export function formatFloat(
   formatted[0] = insertThousandSeps(formatted[0]);
   return formatted.join(databaseParameters.decimalPoint);
 }
+
+export function zeroPad(num: number, size: number) {
+  var s = '' + num;
+  while (s.length < size) {
+    s = '0' + s;
+  }
+  return s;
+}

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import {
   AuthUserMeta,
@@ -23,11 +29,46 @@ export interface DataContextState {
   decimalPrecisions: DecimalPrecision[];
 }
 
+export type GlobalDataAction =
+  | {
+      type: 'INITIAL_LOAD';
+      payload: DataContextState;
+    }
+  | {
+      type: 'UPDATE_DATA';
+      payload: Partial<DataContextState>;
+    };
+
+export type GlobalDataDispatch = (action: GlobalDataAction) => void;
+
 const DataContext = createContext<DataContextState | undefined>(undefined);
+
+const GlobalDataDispatchContext = React.createContext<
+  GlobalDataDispatch | undefined
+>(undefined);
+
+function globalDataReducer(
+  state: DataContextState | undefined,
+  action: GlobalDataAction,
+): DataContextState | undefined {
+  switch (action.type) {
+    case 'INITIAL_LOAD':
+      return action.payload;
+    case 'UPDATE_DATA':
+      const currentState = state!;
+      return {
+        ...currentState,
+        ...action.payload,
+      };
+    default:
+      return state;
+  }
+}
+const initialState: DataContextState | undefined = undefined;
 
 export const DataProvider: React.FunctionComponent = ({ children }) => {
   const auth = useAuth();
-  const [data, setData] = useState<DataContextState | undefined>(undefined);
+  const [state, dispatch] = useReducer(globalDataReducer, initialState);
 
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
@@ -85,16 +126,19 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
 
     const decimalPrecisions = await decimalPrecisionRepository.all();
 
-    setData({
-      posConfig,
-      posSession: selectedSession,
-      pricelists,
-      defaultPriceList,
-      decimalPrecisions,
+    dispatch({
+      type: 'INITIAL_LOAD',
+      payload: {
+        posConfig,
+        posSession: selectedSession,
+        pricelists,
+        defaultPriceList,
+        decimalPrecisions,
+      },
     });
   };
 
-  const node = data ? (
+  const node = state ? (
     children
   ) : (
     <SessionManager
@@ -104,12 +148,22 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   );
 
   return (
-    <DataContext.Provider value={data}>
-      {!initializing && node}
+    <DataContext.Provider value={state}>
+      <GlobalDataDispatchContext.Provider value={dispatch}>
+        {!initializing && node}
+      </GlobalDataDispatchContext.Provider>
     </DataContext.Provider>
   );
 };
 
 export function useData() {
   return useContext(DataContext)!;
+}
+
+export function useGlobalDataDispatch(): GlobalDataDispatch {
+  const context = useContext(GlobalDataDispatchContext);
+  if (!context) {
+    throw new Error('useGlobalDataDispatch must be inside a DataProvider');
+  }
+  return context;
 }

@@ -2,7 +2,12 @@ import React from 'react';
 import { Flex } from '@chakra-ui/react';
 import { IconPlus } from '../../../../components/icons';
 
-export const OrderTabAdd: React.FunctionComponent = () => (
+export interface OrderTabAddProps {
+  onClick: () => void;
+}
+export const OrderTabAdd: React.FunctionComponent<OrderTabAddProps> = ({
+  onClick,
+}) => (
   <Flex
     as="button"
     borderWidth="2px"
@@ -10,6 +15,7 @@ export const OrderTabAdd: React.FunctionComponent = () => (
     borderRadius="full"
     px="3"
     alignItems="center"
+    onClick={onClick}
   >
     <IconPlus />
   </Flex>

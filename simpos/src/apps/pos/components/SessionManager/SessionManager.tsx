@@ -29,7 +29,7 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
 
   useEffect(() => {
     fetchSession();
-  });
+  }, []);
   return (
     <Modal isOpen={true} onClose={() => {}}>
       <ModalOverlay />

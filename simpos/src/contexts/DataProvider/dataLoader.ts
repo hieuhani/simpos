@@ -49,6 +49,7 @@ export const loadModels: LoadModel[] = [
       'stop_at',
       'sequence_number',
       'payment_method_ids',
+      'login_number',
     ],
     async load() {
       return fetchModelData(

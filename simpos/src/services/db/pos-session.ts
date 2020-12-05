@@ -6,6 +6,7 @@ export interface PosSession {
   sequenceNumber: number;
   posConfigId: number;
   responsibleUserId: number;
+  loginNumber: number;
 }
 
 export const posSessionRepository = {

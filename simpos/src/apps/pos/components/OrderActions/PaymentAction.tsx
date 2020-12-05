@@ -17,7 +17,7 @@ export const PaymentAction: React.FunctionComponent = () => {
   return (
     <>
       <Button width="full" colorScheme="blue" onClick={onOpen}>
-        Thanh toan
+        Thanh toán
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
