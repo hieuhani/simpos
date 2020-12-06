@@ -3,6 +3,7 @@ import { posSessionRepository } from './pos-session';
 
 import { zeroPad } from '../../utils';
 import { DataContextState } from '../../contexts/DataProvider';
+import { Partner, partnerRepository } from './partner';
 
 export interface Order {
   id: string;
@@ -14,15 +15,22 @@ export interface Order {
   tableNo?: string;
   vibrationCardNo?: string;
   partnerId?: number;
+  partner?: Partner;
 }
 
 export const orderRepository = {
   db: db.table<Order>('pos.order'),
+  async findById(id: string): Promise<Order | undefined> {
+    const order = await this.db.get(id);
+    if (!order) {
+      return undefined;
+    }
 
+    return this.enrichOrder(order);
+  },
   async all(): Promise<Order[]> {
     return this.db.toArray();
   },
-
   async addNewOrder({
     posSession,
     defaultPriceList,
@@ -57,5 +65,18 @@ export const orderRepository = {
   },
   delete(id: string): Promise<void> {
     return this.db.delete(id);
+  },
+  update(id: string, order: Partial<Order>): Promise<number> {
+    return this.db.update(id, order);
+  },
+  async enrichOrder(order: Order): Promise<Order> {
+    if (order.partnerId) {
+      const partner = await partnerRepository.findById(order.partnerId);
+      return {
+        ...order,
+        partner,
+      };
+    }
+    return order;
   },
 };

@@ -9,3 +9,4 @@ export * from './currency';
 export * from './decimal-precision';
 export * from './order';
 export * from './partner';
+export * from './order-line';

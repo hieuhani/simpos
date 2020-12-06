@@ -1,1 +1,1 @@
-export * from './CustomerSelect';
+export * from './CustomerRow';
