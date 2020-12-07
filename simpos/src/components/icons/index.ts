@@ -19,6 +19,7 @@ export * from './output/IconShapes';
 export * from './output/IconSmilePlus';
 export * from './output/IconSmile';
 export * from './output/IconSync';
+export * from './output/IconTag';
 export * from './output/IconTimes';
 export * from './output/IconTrashAlt';
 export * from './output/IconWifiSlash';

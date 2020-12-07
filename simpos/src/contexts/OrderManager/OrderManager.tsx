@@ -49,6 +49,8 @@ export interface OrderManagerAction {
   selectOrder: (order: Order) => Promise<Order>;
   deleteOrder: (order: Order) => Promise<Order>;
   selectCustomer: (partnerId?: number) => Promise<number | undefined>;
+  selectTableNo: (no?: string) => Promise<string | undefined>;
+  selectVibrationCardNo: (no?: string) => Promise<string | undefined>;
 }
 
 const initialState: OrderManagerState = {
@@ -180,6 +182,24 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     return partnerId;
   };
 
+  const selectTableNo = async (no?: string): Promise<string | undefined> => {
+    await orderRepository.update(state.activeOrderId, {
+      tableNo: no,
+    });
+    dispatch({ type: 'UPDATE_ACTIVE_ORDER', payload: { tableNo: no } });
+    return no;
+  };
+
+  const selectVibrationCardNo = async (
+    no?: string,
+  ): Promise<string | undefined> => {
+    await orderRepository.update(state.activeOrderId, {
+      vibrationCardNo: no,
+    });
+    dispatch({ type: 'UPDATE_ACTIVE_ORDER', payload: { vibrationCardNo: no } });
+    return no;
+  };
+
   const initilizeOrderManager = async () => {
     const currentOrders = await orderRepository.all();
     if (currentOrders.length > 0) {
@@ -228,6 +248,8 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
           selectOrder,
           deleteOrder,
           selectCustomer,
+          selectTableNo,
+          selectVibrationCardNo,
         }}
       >
         {children}
