@@ -10,6 +10,7 @@ export interface Product {
   description: string;
   lstPrice: number;
   productVariantIds: number[];
+  productVariantId: [number, string];
   posCategoryId: number;
   productVariants: ProductVariant[];
 }

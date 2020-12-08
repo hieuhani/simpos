@@ -8,15 +8,17 @@ import {
 
 export interface ProductCardProps {
   product: Product;
+  onClick: () => void;
 }
 export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
   product,
+  onClick,
 }) => {
   const { getPrice } = useProductVariantExtensions(product.productVariants[0]);
   const price = getPrice();
   const { formatCurrency } = useMoneyFormatter();
   return (
-    <Box as="button" display="flex" mb={2}>
+    <Box as="button" display="flex" mb={2} onClick={onClick}>
       <Box width="66px">
         <Image
           borderRadius="md"
@@ -26,7 +28,7 @@ export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
       </Box>
       <Box textAlign="left" ml={2} flex={1}>
         <Heading size="sm" fontWeight="medium">
-          <Badge mr={1}>{product.defaultCode}</Badge>
+          {product.defaultCode && <Badge mr={1}>{product.defaultCode}</Badge>}
           {product.name}
         </Heading>
 
