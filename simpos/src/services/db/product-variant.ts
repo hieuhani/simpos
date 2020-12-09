@@ -2,7 +2,8 @@ import { db } from './db';
 
 export interface ProductVariant {
   id: number;
-  name: string;
+  defaultCode: string;
+  displayName: string;
   lstPrice: number;
 }
 
