@@ -8,6 +8,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useOrderManagerAction } from '../../../../contexts/OrderManager';
 import { useSearchProductState } from '../../../../contexts/SearchProduct';
 import { Product, ProductVariant } from '../../../../services/db';
 import { ProductCard } from '../ProductCard';
@@ -15,20 +16,21 @@ import { ProductVariantSelect } from '../ProductVariantSelect';
 
 export const ProductsGrid: React.FunctionComponent = () => {
   const state = useSearchProductState();
+  const { addProductVariantToCart } = useOrderManagerAction();
   const [selectingVariants, setSelectingVariants] = useState<ProductVariant[]>(
     [],
   );
 
-  const onSelectVariant = (variantId: number) => {
+  const onSelectVariant = async (variant: ProductVariant) => {
+    await addProductVariantToCart(variant);
     setSelectingVariants([]);
-    console.log(variantId);
   };
 
   const onSelectProduct = (product: Product) => {
     if (product.productVariantIds.length > 1) {
       setSelectingVariants(product.productVariants);
     } else {
-      onSelectVariant(product.productVariantId[0]);
+      onSelectVariant(product.productVariants[0]);
     }
   };
   return (

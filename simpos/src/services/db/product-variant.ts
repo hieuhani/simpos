@@ -5,6 +5,7 @@ export interface ProductVariant {
   defaultCode: string;
   displayName: string;
   lstPrice: number;
+  taxesId: number[];
 }
 
 export const productVariantRepository = {

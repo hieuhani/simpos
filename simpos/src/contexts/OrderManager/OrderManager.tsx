@@ -3,6 +3,7 @@ import {
   OrderLine,
   orderLineRepository,
   partnerRepository,
+  ProductVariant,
 } from '../../services/db';
 import { Order, orderRepository } from '../../services/db/order';
 import { useData, useGlobalDataDispatch } from '../DataProvider';
@@ -51,6 +52,7 @@ export interface OrderManagerAction {
   selectCustomer: (partnerId?: number) => Promise<number | undefined>;
   selectTableNo: (no?: string) => Promise<string | undefined>;
   selectVibrationCardNo: (no?: string) => Promise<string | undefined>;
+  addProductVariantToCart: (variant: ProductVariant) => Promise<ProductVariant>;
 }
 
 const initialState: OrderManagerState = {
@@ -200,6 +202,31 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     return no;
   };
 
+  const getApplicableTaxIds = (variant: ProductVariant): number[] => {
+    const taxesSet = variant.taxesId.reduce((prev, current) => {
+      return {
+        ...prev,
+        [current]: true,
+      };
+    }, {});
+    return [];
+  };
+
+  const addProductVariantToCart = async (variant: ProductVariant) => {
+    await orderLineRepository.create({
+      orderId: state.activeOrderId,
+      // TODO: Use getPrice function and check about fiscalPosition
+      priceUnit: variant.lstPrice,
+      productId: variant.id,
+      discount: 0,
+      qty: 1,
+      note: '',
+      applicableTaxIds: getApplicableTaxIds(variant),
+    });
+    // TODO: Merge order feature
+    return variant;
+  };
+
   const initilizeOrderManager = async () => {
     const currentOrders = await orderRepository.all();
     if (currentOrders.length > 0) {
@@ -250,6 +277,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
           selectCustomer,
           selectTableNo,
           selectVibrationCardNo,
+          addProductVariantToCart,
         }}
       >
         {children}

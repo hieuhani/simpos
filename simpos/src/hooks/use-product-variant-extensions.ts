@@ -5,6 +5,7 @@ import { ProductPricelist } from '../services/db/product-pricelist';
 interface ProductVariantExtensions {
   getPrice: (pricelist?: ProductPricelist, quantity?: number) => number;
 }
+
 export function useProductVariantExtensions(
   productVariant: ProductVariant,
 ): ProductVariantExtensions {

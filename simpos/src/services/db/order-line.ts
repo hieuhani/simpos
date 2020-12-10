@@ -1,14 +1,15 @@
+import { create } from 'domain';
 import { db } from './db';
 
 export interface OrderLine {
-  id: number;
+  id?: number;
   orderId: string;
   priceUnit: number;
   productId: number;
   discount: number;
   qty: number;
   note: string;
-  taxIds: number[];
+  applicableTaxIds: number[];
 }
 
 export const orderLineRepository = {
@@ -20,5 +21,9 @@ export const orderLineRepository = {
 
   async getOrderLines(orderId: string): Promise<OrderLine[]> {
     return this.db.where('orderId').equals(orderId).toArray();
+  },
+
+  async create(orderLine: OrderLine) {
+    return this.db.put(orderLine);
   },
 };

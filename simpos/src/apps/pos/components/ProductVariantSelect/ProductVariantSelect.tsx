@@ -5,7 +5,7 @@ import { ProductVariantLine } from './ProductVariantLine';
 
 export interface ProductVariantSelectProps {
   variants: ProductVariant[];
-  onSelectVariant: (variantId: number) => void;
+  onSelectVariant: (variant: ProductVariant) => void;
 }
 
 export const ProductVariantSelect: React.FunctionComponent<ProductVariantSelectProps> = ({
@@ -17,7 +17,7 @@ export const ProductVariantSelect: React.FunctionComponent<ProductVariantSelectP
       {variants.map((variant) => (
         <ProductVariantLine
           key={variant.id}
-          onSelect={() => onSelectVariant(variant.id)}
+          onSelect={() => onSelectVariant(variant)}
           variant={variant}
         />
       ))}
