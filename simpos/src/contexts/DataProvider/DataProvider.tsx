@@ -7,6 +7,8 @@ import React, {
 } from 'react';
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import {
+  AccountTax,
+  accountTaxRepository,
   AuthUserMeta,
   DecimalPrecision,
   decimalPrecisionRepository,
@@ -27,6 +29,7 @@ export interface DataContextState {
   pricelists: ProductPricelist[];
   defaultPriceList: ProductPricelist;
   decimalPrecisions: DecimalPrecision[];
+  taxes: AccountTax[];
 }
 
 export type GlobalDataAction =
@@ -125,6 +128,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     }
 
     const decimalPrecisions = await decimalPrecisionRepository.all();
+    const taxes = await accountTaxRepository.all();
 
     dispatch({
       type: 'INITIAL_LOAD',
@@ -134,6 +138,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         pricelists,
         defaultPriceList,
         decimalPrecisions,
+        taxes,
       },
     });
   };

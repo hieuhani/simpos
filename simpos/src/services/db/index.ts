@@ -10,3 +10,4 @@ export * from './decimal-precision';
 export * from './order';
 export * from './partner';
 export * from './order-line';
+export * from './account-tax';

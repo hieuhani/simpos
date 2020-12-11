@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import {
+  AccountTax,
   OrderLine,
   orderLineRepository,
   partnerRepository,
@@ -42,6 +43,10 @@ export type OrderManagerDispatchAction =
   | {
       type: 'UPDATE_ACTIVE_ORDER';
       payload: Partial<Order>;
+    }
+  | {
+      type: 'ADD_ORDER_LINE_TO_ACTIVE_ORDER';
+      payload: OrderLine;
     };
 
 export type OrderManagerDispatch = (action: OrderManagerDispatchAction) => void;
@@ -52,7 +57,9 @@ export interface OrderManagerAction {
   selectCustomer: (partnerId?: number) => Promise<number | undefined>;
   selectTableNo: (no?: string) => Promise<string | undefined>;
   selectVibrationCardNo: (no?: string) => Promise<string | undefined>;
-  addProductVariantToCart: (variant: ProductVariant) => Promise<ProductVariant>;
+  addProductVariantToCart: (
+    variant: ProductVariant,
+  ) => Promise<OrderLine | undefined>;
 }
 
 const initialState: OrderManagerState = {
@@ -124,6 +131,14 @@ export function orderManagerReducer(
             ...state.activeOrder!.order,
             ...action.payload,
           },
+        },
+      };
+    case 'ADD_ORDER_LINE_TO_ACTIVE_ORDER':
+      return {
+        ...state,
+        activeOrder: {
+          ...state.activeOrder!,
+          orderLines: [...state.activeOrder!.orderLines, action.payload],
         },
       };
     default:
@@ -202,17 +217,23 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     return no;
   };
 
-  const getApplicableTaxIds = (variant: ProductVariant): number[] => {
-    const taxesSet = variant.taxesId.reduce((prev, current) => {
-      return {
-        ...prev,
-        [current]: true,
-      };
-    }, {});
-    return [];
+  const getApplicableTaxes = (variant: ProductVariant): AccountTax[] => {
+    const taxesSet: Record<number, boolean> = variant.taxesId.reduce(
+      (prev, current) => {
+        return {
+          ...prev,
+          [current]: true,
+        };
+      },
+      {},
+    );
+
+    return data.taxes.filter((tax) => taxesSet[tax.id]);
   };
 
-  const addProductVariantToCart = async (variant: ProductVariant) => {
+  const addProductVariantToCart = async (
+    variant: ProductVariant,
+  ): Promise<OrderLine | undefined> => {
     const orderLineId = await orderLineRepository.create({
       orderId: state.activeOrderId,
       // TODO: Use getPrice function and check about fiscalPosition
@@ -221,10 +242,12 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
       discount: 0,
       qty: 1,
       note: '',
-      applicableTaxIds: getApplicableTaxIds(variant),
+      applicableTaxIds: getApplicableTaxes(variant).map(({ id }) => id),
     });
     // TODO: Merge order feature
-    return variant;
+    const orderLine = await orderLineRepository.findById(orderLineId as number);
+    dispatch({ type: 'ADD_ORDER_LINE_TO_ACTIVE_ORDER', payload: orderLine! });
+    return orderLine;
   };
 
   const initilizeOrderManager = async () => {

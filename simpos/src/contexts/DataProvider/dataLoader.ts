@@ -120,6 +120,34 @@ export const loadModels: LoadModel[] = [
       'amount_type',
       'children_tax_ids',
     ],
+    async load() {
+      return fetchModelData(this.model, this.fields, [], async (rows) => {
+        const taxIds = rows.map((row: any) => row.id);
+        const taxes = await dataService.call(
+          'account.tax',
+          'get_real_tax_amount',
+          [taxIds],
+          {},
+        );
+
+        if (Array.isArray(taxes)) {
+          const taxesSet = taxes.reduce((prev, curr) => {
+            return {
+              ...prev,
+              [curr.id]: curr.amount,
+            };
+          }, {});
+          return rows.map((row: any) => {
+            return {
+              ...row,
+              realTaxAmount: taxesSet[row.id],
+            };
+          });
+        }
+
+        return rows;
+      });
+    },
   },
   {
     model: 'res.users',

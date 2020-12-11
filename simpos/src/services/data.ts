@@ -1,6 +1,6 @@
 import { simApi } from './clients';
 
-type SimApiCallMethod = 'search_read' | 'read';
+type SimApiCallMethod = 'search_read' | 'read' | 'get_real_tax_amount';
 
 interface SearchReadParams {
   model: string;
