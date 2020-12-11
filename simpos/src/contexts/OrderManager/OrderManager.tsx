@@ -213,7 +213,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   };
 
   const addProductVariantToCart = async (variant: ProductVariant) => {
-    await orderLineRepository.create({
+    const orderLineId = await orderLineRepository.create({
       orderId: state.activeOrderId,
       // TODO: Use getPrice function and check about fiscalPosition
       priceUnit: variant.lstPrice,

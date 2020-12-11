@@ -172,6 +172,7 @@ export const loadModels: LoadModel[] = [
   {
     model: 'product.product',
     fields: [
+      'name',
       'display_name',
       'lst_price',
       'standard_price',
