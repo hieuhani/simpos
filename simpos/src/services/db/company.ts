@@ -21,6 +21,10 @@ export const companyRepository = {
     return this.enrichCompany(company);
   },
 
+  async first(): Promise<Company | undefined> {
+    return this.db.limit(1).first();
+  },
+
   async enrichCompany(company: Company): Promise<Company> {
     const [currency] = await Promise.all([
       currencyRepository.findById(company.currencyId[0]),

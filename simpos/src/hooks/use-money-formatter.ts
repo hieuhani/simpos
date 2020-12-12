@@ -2,11 +2,9 @@ import keyBy from 'lodash.keyby';
 import { useMemo } from 'react';
 import { useData } from '../contexts/DataProvider';
 import { DecimalPrecision } from '../services/db';
+import { DictionaryOf } from '../types';
 import { formatFloat, roundDecimals } from '../utils';
 
-interface DictionaryOf<T> {
-  [key: string]: T | undefined;
-}
 interface MoneyFormatter {
   formatCurrency: (amount: number, decimalPrecisionName?: string) => string;
   formatCurrencyNoSymbol: (

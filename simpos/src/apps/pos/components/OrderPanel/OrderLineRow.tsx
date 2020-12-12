@@ -20,7 +20,7 @@ import {
 import { IconTrashAlt } from '../../../../components/icons/output/IconTrashAlt';
 import { Stepper } from '../../../../components/Stepper';
 import { OrderLine } from '../../../../services/db';
-import { useMoneyFormatter } from '../../../../hooks';
+import { useMoneyFormatter, useOrderLineExtensions } from '../../../../hooks';
 
 export interface OrderLineRowProps {
   onClick?: () => void;
@@ -32,6 +32,9 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
   orderLine,
 }) => {
   const { formatCurrency } = useMoneyFormatter();
+  const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
+    orderLine,
+  );
   if (!orderLine.productVariant) {
     return null;
   }
@@ -80,15 +83,14 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
               <Stack direction="row">
                 <Badge>{orderLine.productVariant.defaultCode}</Badge>
                 <Badge>
-                  {formatCurrency(
-                    orderLine.productVariant.lstPrice,
-                    'Product Price',
-                  )}
+                  {formatCurrency(getUnitDisplayPrice(), 'Product Price')}
                 </Badge>
               </Stack>
             </Box>
             <Box ml="auto">
-              <Heading size="sm">120,000d</Heading>
+              <Heading size="sm">
+                {formatCurrency(getDisplayPrice(), 'Product Price')}
+              </Heading>
             </Box>
           </Flex>
         </Flex>

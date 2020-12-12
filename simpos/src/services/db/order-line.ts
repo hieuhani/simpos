@@ -1,4 +1,5 @@
 import { db } from './db';
+import { Order, orderRepository } from './order';
 import { ProductVariant, productVariantRepository } from './product-variant';
 
 export interface OrderLine {
@@ -11,6 +12,7 @@ export interface OrderLine {
   note: string;
   applicableTaxIds: number[];
   productVariant?: ProductVariant;
+  order?: Order;
 }
 
 export const orderLineRepository = {
@@ -33,12 +35,14 @@ export const orderLineRepository = {
     const orderLines = await this.db.where('orderId').equals(orderId).toArray();
     return Promise.all(
       orderLines.map(async (orderLine) => {
-        const productVariant = await productVariantRepository.findById(
-          orderLine.productId,
-        );
+        const [productVariant, order] = await Promise.all([
+          productVariantRepository.findById(orderLine.productId),
+          orderRepository.findById(orderLine.orderId),
+        ]);
         return {
           ...orderLine,
           productVariant,
+          order,
         };
       }),
     );

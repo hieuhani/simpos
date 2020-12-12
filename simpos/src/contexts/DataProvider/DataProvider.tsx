@@ -16,6 +16,7 @@ import {
   posConfigRepository,
   PosSession,
 } from '../../services/db';
+import { Company, companyRepository } from '../../services/db/company';
 import {
   ProductPricelist,
   productPricelistRepository,
@@ -30,6 +31,7 @@ export interface DataContextState {
   defaultPriceList: ProductPricelist;
   decimalPrecisions: DecimalPrecision[];
   taxes: AccountTax[];
+  company: Company;
 }
 
 export type GlobalDataAction =
@@ -130,6 +132,8 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     const decimalPrecisions = await decimalPrecisionRepository.all();
     const taxes = await accountTaxRepository.all();
 
+    const company = await companyRepository.first();
+
     dispatch({
       type: 'INITIAL_LOAD',
       payload: {
@@ -139,6 +143,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         defaultPriceList,
         decimalPrecisions,
         taxes,
+        company: company!,
       },
     });
   };

@@ -119,6 +119,7 @@ export const loadModels: LoadModel[] = [
       'include_base_amount',
       'amount_type',
       'children_tax_ids',
+      'sequence',
     ],
     async load() {
       return fetchModelData(this.model, this.fields, [], async (rows) => {

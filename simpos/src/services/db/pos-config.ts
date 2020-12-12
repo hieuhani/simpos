@@ -15,6 +15,7 @@ export interface PosConfig {
   currencyId: [number, string];
   currency: Currency;
   company: Company;
+  ifaceTaxIncluded: 'subtotal' | 'total';
 }
 
 export const posConfigRepository = {
