@@ -14,11 +14,29 @@ export interface ProductPricelist {
 
 export const productPricelistRepository = {
   db: db.table<ProductPricelist>('product.pricelist'),
+
+  async findById(id: number): Promise<ProductPricelist | undefined> {
+    const pricelist = await this.db.get(id);
+    if (!pricelist) {
+      return undefined;
+    }
+
+    const pricelistItems = await productPricelistItemRepository.db
+      .where('pricelistId')
+      .equals(pricelist.id)
+      .toArray();
+
+    return {
+      ...pricelist,
+      items: pricelistItems,
+    };
+  },
+
   async findByIds(ids: number[]): Promise<ProductPricelist[]> {
     const pricelists = await this.db.where('id').anyOf(ids).toArray();
-    return this.enrichProductPricelist(pricelists);
+    return this.enrichProductPricelists(pricelists);
   },
-  async enrichProductPricelist(
+  async enrichProductPricelists(
     productPricelists: ProductPricelist[],
   ): Promise<ProductPricelist[]> {
     return Promise.all(

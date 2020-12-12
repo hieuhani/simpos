@@ -4,6 +4,10 @@ import { posSessionRepository } from './pos-session';
 import { zeroPad } from '../../utils';
 import { DataContextState } from '../../contexts/DataProvider';
 import { Partner, partnerRepository } from './partner';
+import {
+  ProductPricelist,
+  productPricelistRepository,
+} from './product-pricelist';
 
 export interface Order {
   id: string;
@@ -16,6 +20,7 @@ export interface Order {
   vibrationCardNo?: string;
   partnerId?: number;
   partner?: Partner;
+  pricelist?: ProductPricelist;
 }
 
 export const orderRepository = {
@@ -61,7 +66,10 @@ export const orderRepository = {
         sequenceNumber,
       });
     });
-    return order;
+    return {
+      ...order,
+      pricelist: defaultPriceList,
+    };
   },
   delete(id: string): Promise<void> {
     return this.db.delete(id);
@@ -70,13 +78,18 @@ export const orderRepository = {
     return this.db.update(id, order);
   },
   async enrichOrder(order: Order): Promise<Order> {
+    let partner;
     if (order.partnerId) {
-      const partner = await partnerRepository.findById(order.partnerId);
-      return {
-        ...order,
-        partner,
-      };
+      partner = await partnerRepository.findById(order.partnerId);
     }
-    return order;
+
+    const pricelist = await productPricelistRepository.findById(
+      order.pricelistId,
+    );
+    return {
+      ...order,
+      partner,
+      pricelist,
+    };
   },
 };

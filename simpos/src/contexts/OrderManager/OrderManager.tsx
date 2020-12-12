@@ -150,6 +150,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(orderManagerReducer, initialState);
   const globalDataDispatch = useGlobalDataDispatch();
   const data = useData();
+  // TODO: Here we only use the default pricelist
   const addNewOrder = async (): Promise<Order> => {
     const newOrder = await orderRepository.addNewOrder({
       posSession: data.posSession,
