@@ -1,10 +1,15 @@
 import React, { useMemo } from 'react';
 import { Box, Stack } from '@chakra-ui/react';
 import { OrderLineRow } from './OrderLineRow';
-import { useOrderManagerState } from '../../../../contexts/OrderManager';
+import { ActiveOrder } from '../../../../contexts/OrderManager';
 
-export const OrderPanel: React.FunctionComponent = () => {
-  const { activeOrder } = useOrderManagerState();
+export interface OrderPanelProps {
+  activeOrder: ActiveOrder;
+}
+
+export const OrderPanel: React.FunctionComponent<OrderPanelProps> = ({
+  activeOrder,
+}) => {
   const orderLines = useMemo(() => {
     return activeOrder?.orderLines || [];
   }, [activeOrder?.orderLines]);

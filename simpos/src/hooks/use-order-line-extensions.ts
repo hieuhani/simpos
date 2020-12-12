@@ -11,6 +11,7 @@ interface OrderLineExtensions {
   getUnitPrice: () => number;
   getLstPrice: () => number;
   getDisplayPrice: () => number;
+  getPriceWithoutTax: () => number;
 }
 
 interface TaxValue {
@@ -327,10 +328,15 @@ export function useOrderLineExtensions(
     return getBasePrice();
   }
 
+  function getPriceWithoutTax(): number {
+    return getAllPrices().priceWithoutTax;
+  }
+
   return {
     getUnitDisplayPrice,
     getUnitPrice,
     getLstPrice,
     getDisplayPrice,
+    getPriceWithoutTax,
   };
 }
