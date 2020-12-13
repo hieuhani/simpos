@@ -11,3 +11,5 @@ export * from './order';
 export * from './partner';
 export * from './order-line';
 export * from './account-tax';
+export * from './uom';
+export * from './payment-method';

@@ -61,4 +61,12 @@ export const orderLineRepository = {
   async create(orderLine: OrderLine) {
     return this.db.put(orderLine);
   },
+
+  async update(id: number, data: Partial<OrderLine>): Promise<number> {
+    return this.db.update(id, data);
+  },
+
+  async delete(id: number): Promise<void> {
+    return this.db.delete(id);
+  },
 };

@@ -21,6 +21,8 @@ import { IconTrashAlt } from '../../../../components/icons/output/IconTrashAlt';
 import { Stepper } from '../../../../components/Stepper';
 import { OrderLine } from '../../../../services/db';
 import { useMoneyFormatter, useOrderLineExtensions } from '../../../../hooks';
+import { EditOrderLine } from './EditOrderLine';
+import { useOrderManagerAction } from '../../../../contexts/OrderManager';
 
 export interface OrderLineRowProps {
   onClick?: () => void;
@@ -35,9 +37,27 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
   const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
     orderLine,
   );
+  const { updateOrderLine, deleteOrderLine } = useOrderManagerAction();
   if (!orderLine.productVariant) {
     return null;
   }
+
+  const onChange = (value: number) => {
+    if (value !== orderLine.qty) {
+      if (value === 0) {
+        deleteOrderLine(orderLine.id!);
+      } else {
+        updateOrderLine(orderLine.id!, {
+          qty: value,
+        });
+      }
+    }
+  };
+
+  const onDeleteOrderLine = () => {
+    deleteOrderLine(orderLine.id!);
+  };
+
   return (
     <Popover placement="left" isLazy>
       <PopoverTrigger>
@@ -99,14 +119,22 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
         <PopoverContent>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>Confirmation!</PopoverHeader>
+          <PopoverHeader>Chỉnh sửa sản phẩm</PopoverHeader>
           <PopoverBody>
-            Are you sure you want to have that milkshake?
+            <EditOrderLine
+              productVariant={orderLine.productVariant}
+              unitPrice={formatCurrency(getUnitDisplayPrice(), 'Product Price')}
+            />
           </PopoverBody>
           <PopoverFooter>
             <Flex>
-              <Stepper />
-              <Button ml="auto" colorScheme="red" size="sm">
+              <Stepper value={orderLine.qty} onChange={onChange} />
+              <Button
+                ml="auto"
+                colorScheme="red"
+                size="sm"
+                onClick={onDeleteOrderLine}
+              >
                 <IconTrashAlt size="20" />
               </Button>
             </Flex>

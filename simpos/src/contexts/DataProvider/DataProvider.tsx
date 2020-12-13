@@ -12,9 +12,13 @@ import {
   AuthUserMeta,
   DecimalPrecision,
   decimalPrecisionRepository,
+  PaymentMethod,
+  paymentMethodRepository,
   PosConfig,
   posConfigRepository,
   PosSession,
+  UOM,
+  uomRepository,
 } from '../../services/db';
 import { Company, companyRepository } from '../../services/db/company';
 import {
@@ -32,6 +36,8 @@ export interface DataContextState {
   decimalPrecisions: DecimalPrecision[];
   taxes: AccountTax[];
   company: Company;
+  uoms: UOM[];
+  paymentMethods: PaymentMethod[];
 }
 
 export type GlobalDataAction =
@@ -131,8 +137,9 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
 
     const decimalPrecisions = await decimalPrecisionRepository.all();
     const taxes = await accountTaxRepository.all();
-
     const company = await companyRepository.first();
+    const uoms = await uomRepository.all();
+    const paymentMethods = await paymentMethodRepository.all();
 
     dispatch({
       type: 'INITIAL_LOAD',
@@ -143,7 +150,9 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         defaultPriceList,
         decimalPrecisions,
         taxes,
+        uoms,
         company: company!,
+        paymentMethods,
       },
     });
   };

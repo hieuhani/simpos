@@ -11,7 +11,13 @@ import {
 } from '@chakra-ui/react';
 import { MakePayment } from '../MakePayment';
 
-export const PaymentAction: React.FunctionComponent = () => {
+export interface PaymentActionProps {
+  totalAmount: string;
+}
+
+export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
+  totalAmount,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -22,7 +28,7 @@ export const PaymentAction: React.FunctionComponent = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Thanh toan 595.000d</ModalHeader>
+          <ModalHeader>Thanh toán {totalAmount}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <MakePayment />

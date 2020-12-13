@@ -19,7 +19,11 @@ export interface PosSidebarProps {
 export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
   activeOrder,
 }) => {
-  const { getTotalWithTax } = useActiveOrderExtensions(activeOrder);
+  const {
+    getTotalWithTax,
+    getTotalItems,
+    getTotalDiscount,
+  } = useActiveOrderExtensions(activeOrder);
   const { formatCurrency } = useMoneyFormatter();
   return (
     <>
@@ -37,12 +41,12 @@ export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
         px={4}
         py={2}
         totalAmount={formatCurrency(getTotalWithTax())}
-        totalItems={2}
-        discount="xxx"
+        totalItems={getTotalItems()}
+        discount={formatCurrency(getTotalDiscount())}
       />
 
       <Box px={4} py={2}>
-        <PaymentAction />
+        <PaymentAction totalAmount={formatCurrency(getTotalWithTax())} />
       </Box>
     </>
   );

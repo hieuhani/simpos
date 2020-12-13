@@ -7,6 +7,8 @@ export interface ProductVariant {
   name: string;
   lstPrice: number;
   taxesId: number[];
+  uomId: [number, string];
+  tracking: 'lot' | 'none' | 'serial';
 }
 
 export const productVariantRepository = {

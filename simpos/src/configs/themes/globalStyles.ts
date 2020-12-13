@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 
 export const globalStyles = css`
+  body {
+    overflow: hidden;
+  }
   .swiper-container {
     margin-left: auto;
     margin-right: auto;

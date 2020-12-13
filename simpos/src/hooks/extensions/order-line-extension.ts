@@ -1,17 +1,21 @@
 import keyBy from 'lodash.keyby';
-import { useMemo } from 'react';
 import uniqBy from 'lodash.uniqby';
-import { useData } from '../contexts/DataProvider';
-import { AccountTax, DecimalPrecision, OrderLine } from '../services/db';
-import { DictionaryOf } from '../types';
-import { roundDecimals, roundPrecision } from '../utils';
+import { DataContextState } from '../../contexts/DataProvider';
+import {
+  AccountTax,
+  DecimalPrecision,
+  OrderLine,
+  UOM,
+} from '../../services/db';
+import { DictionaryOf } from '../../types';
+import { roundDecimals, roundPrecision } from '../../utils';
 
-interface OrderLineExtensions {
-  getUnitDisplayPrice: () => number;
-  getUnitPrice: () => number;
-  getLstPrice: () => number;
-  getDisplayPrice: () => number;
-  getPriceWithoutTax: () => number;
+export interface AllPrice {
+  priceWithTax: number;
+  priceWithoutTax: number;
+  priceWithTaxBeforeDiscount: number;
+  tax: number;
+  taxDetails: Record<number, number>;
 }
 
 interface TaxValue {
@@ -27,55 +31,59 @@ interface ComputedTax {
   totalIncluded: number;
 }
 
-interface AllPrice {
-  priceWithTax: number;
-  priceWithoutTax: number;
-  priceWithTaxBeforeDiscount: number;
-  tax: number;
-  taxDetails: Record<number, number>;
-}
+export class OrderLineExtension {
+  private decimalPrecisionsDict: DictionaryOf<DecimalPrecision>;
+  private uomsDict: DictionaryOf<UOM>;
+  constructor(
+    private readonly orderLine: OrderLine,
+    private readonly globalData: DataContextState,
+  ) {
+    this.decimalPrecisionsDict = keyBy(globalData.decimalPrecisions, 'name');
+    this.uomsDict = keyBy(globalData.uoms, 'id');
+  }
 
-export function useOrderLineExtensions(
-  orderLine: OrderLine,
-): OrderLineExtensions {
-  const data = useData();
-  const decimalPrecisionsDict = useMemo<DictionaryOf<DecimalPrecision>>(
-    () => keyBy(data.decimalPrecisions, 'name'),
-    [data.decimalPrecisions],
-  );
-
-  function getUnitPrice(): number {
-    const digits = decimalPrecisionsDict['Product Price']?.digits || 2;
+  getUnitPrice(): number {
+    const digits = this.decimalPrecisionsDict['Product Price']?.digits || 2;
     return parseFloat(
-      roundDecimals(orderLine.priceUnit || 0, digits).toFixed(digits),
+      roundDecimals(this.orderLine.priceUnit || 0, digits).toFixed(digits),
     );
   }
 
-  function getUnitDisplayPrice() {
-    if (data.posConfig.ifaceTaxIncluded === 'total') {
-      return getAllPrices().priceWithTax;
+  getDiscount(): number {
+    return this.orderLine.discount;
+  }
+
+  getQuantity(): number {
+    return this.orderLine.qty;
+  }
+
+  getUnitDisplayPrice() {
+    if (this.globalData.posConfig.ifaceTaxIncluded === 'total') {
+      return this.getAllPrices().priceWithTax;
     }
-    return getUnitPrice();
+    return this.getUnitPrice();
   }
 
-  function getLstPrice(): number {
-    return orderLine.productVariant!.lstPrice;
+  getLstPrice(): number {
+    return this.orderLine.productVariant!.lstPrice;
   }
 
-  function getBasePrice(): number {
-    const rounding = data.posConfig.currency.rounding;
+  getBasePrice(): number {
+    const rounding = this.globalData.posConfig.currency.rounding;
     return roundPrecision(
-      getUnitPrice() * orderLine.qty * (1 - orderLine.discount / 100),
+      this.getUnitPrice() *
+        this.orderLine.qty *
+        (1 - this.orderLine.discount / 100),
       rounding,
     );
   }
 
-  function mapTaxFiscalPosition(tax: AccountTax): AccountTax[] {
+  mapTaxFiscalPosition(tax: AccountTax): AccountTax[] {
     // TODO: check fiscal position
     return [tax];
   }
 
-  function computeAmount(
+  computeAmount(
     tax: AccountTax,
     baseAmount: number,
     quantity: number,
@@ -106,7 +114,7 @@ export function useOrderLineExtensions(
     return 0;
   }
 
-  function computeAll(
+  computeAll(
     computingTaxes: AccountTax[],
     priceUnit: number,
     quantity: number,
@@ -152,7 +160,7 @@ export function useOrderLineExtensions(
     // 3) Deal with the rounding methods
 
     const roundTax =
-      data.company.taxCalculationRoundingMethod !== 'round_globally';
+      this.globalData.company.taxCalculationRoundingMethod !== 'round_globally';
     const initialCurrencyRounding = currencyRounding;
     if (!roundTax) {
       currencyRounding = currencyRounding * 0.00001;
@@ -209,7 +217,7 @@ export function useOrderLineExtensions(
           else if (tax.amountType === 'fixed')
             inclFixedAmount += quantity * tax.amount;
           else {
-            const taxAmount = computeAmount(tax, base, quantity);
+            const taxAmount = this.computeAmount(tax, base, quantity);
             inclFixedAmount += taxAmount;
             cachedTaxAmounts[i] = taxAmount;
           }
@@ -246,7 +254,7 @@ export function useOrderLineExtensions(
         taxAmount =
           totalIncludedCheckpoints[i] - (base + cumulatedTaxIncludedAmount);
         cumulatedTaxIncludedAmount = 0;
-      } else taxAmount = computeAmount(tax, base, quantity, true);
+      } else taxAmount = this.computeAmount(tax, base, quantity, true);
 
       taxAmount = roundPrecision(taxAmount, currencyRounding);
 
@@ -269,17 +277,26 @@ export function useOrderLineExtensions(
     return {
       taxes: taxesVals,
       totalExcluded:
-        sign * roundPrecision(totalExcluded, data.posConfig.currency.rounding),
+        sign *
+        roundPrecision(
+          totalExcluded,
+          this.globalData.posConfig.currency.rounding,
+        ),
       totalIncluded:
-        sign * roundPrecision(totalIncluded, data.posConfig.currency.rounding),
+        sign *
+        roundPrecision(
+          totalIncluded,
+          this.globalData.posConfig.currency.rounding,
+        ),
     };
   }
 
-  function getAllPrices(sampleQty?: number): AllPrice {
-    const priceUnit = getUnitPrice() * (1.0 - orderLine.discount / 100.0);
+  getAllPrices(sampleQty?: number): AllPrice {
+    const priceUnit =
+      this.getUnitPrice() * (1.0 - this.orderLine.discount / 100.0);
     let taxTotal = 0;
-    const { taxesId } = orderLine.productVariant!;
-    const { taxes } = data;
+    const { taxesId } = this.orderLine.productVariant!;
+    const { taxes } = this.globalData;
     const taxDetails: Record<number, number> = {};
 
     let productTaxes: AccountTax[] = [];
@@ -288,21 +305,21 @@ export function useOrderLineExtensions(
       const tax = taxes.find(({ id }) => id === taxId);
 
       if (tax) {
-        productTaxes.push.apply(productTaxes, mapTaxFiscalPosition(tax));
+        productTaxes.push.apply(productTaxes, this.mapTaxFiscalPosition(tax));
       }
     });
     productTaxes = uniqBy(productTaxes, 'id');
-    const allTaxes = computeAll(
+    const allTaxes = this.computeAll(
       productTaxes,
       priceUnit,
-      sampleQty || orderLine.qty,
-      data.posConfig.currency.rounding,
+      sampleQty || this.orderLine.qty,
+      this.globalData.posConfig.currency.rounding,
     );
-    const allTaxesBeforeDiscount = computeAll(
+    const allTaxesBeforeDiscount = this.computeAll(
       productTaxes,
-      getUnitPrice(),
-      sampleQty || orderLine.qty,
-      data.posConfig.currency.rounding,
+      this.getUnitPrice(),
+      sampleQty || this.orderLine.qty,
+      this.globalData.posConfig.currency.rounding,
     );
 
     allTaxesBeforeDiscount.taxes.forEach((tax) => {
@@ -318,26 +335,39 @@ export function useOrderLineExtensions(
     };
   }
 
-  function getPriceWithTax(): number {
-    return getAllPrices().priceWithTax;
+  getPriceWithTax(): number {
+    return this.getAllPrices().priceWithTax;
   }
 
-  function getDisplayPrice(): number {
-    if (data.posConfig.ifaceTaxIncluded === 'total') {
-      return getPriceWithTax();
+  getDisplayPrice(): number {
+    if (this.globalData.posConfig.ifaceTaxIncluded === 'total') {
+      return this.getPriceWithTax();
     }
-    return getBasePrice();
+    return this.getBasePrice();
   }
 
-  function getPriceWithoutTax(): number {
-    return getAllPrices().priceWithoutTax;
+  getPriceWithoutTax(): number {
+    return this.getAllPrices().priceWithoutTax;
   }
 
-  return {
-    getUnitDisplayPrice,
-    getUnitPrice,
-    getLstPrice,
-    getDisplayPrice,
-    getPriceWithoutTax,
-  };
+  getTaxDetails(): Record<number | string, number> {
+    return this.getAllPrices().taxDetails;
+  }
+
+  getTax(): number {
+    return this.getAllPrices().tax;
+  }
+
+  computeFixedPrice(price: number): number {
+    // TODO: skip fiscal position
+    return price;
+  }
+
+  getUnit(): UOM | undefined {
+    const uomId = this.orderLine.productVariant?.uomId[0];
+    if (!uomId) {
+      return undefined;
+    }
+    return this.uomsDict[uomId];
+  }
 }

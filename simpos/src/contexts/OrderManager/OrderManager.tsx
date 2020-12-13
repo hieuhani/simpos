@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react';
+import { OrderLineExtension } from '../../hooks/extensions/order-line-extension';
 import {
   AccountTax,
   OrderLine,
@@ -47,6 +48,17 @@ export type OrderManagerDispatchAction =
   | {
       type: 'ADD_ORDER_LINE_TO_ACTIVE_ORDER';
       payload: OrderLine;
+    }
+  | {
+      type: 'UPDATE_ORDER_LINE';
+      payload: {
+        id: number;
+        data: Partial<OrderLine>;
+      };
+    }
+  | {
+      type: 'DELETE_ORDER_LINE';
+      payload: number;
     };
 
 export type OrderManagerDispatch = (action: OrderManagerDispatchAction) => void;
@@ -60,6 +72,8 @@ export interface OrderManagerAction {
   addProductVariantToCart: (
     variant: ProductVariant,
   ) => Promise<OrderLine | undefined>;
+  updateOrderLine: (id: number, data: Partial<OrderLine>) => Promise<void>;
+  deleteOrderLine: (id: number) => Promise<void>;
 }
 
 const initialState: OrderManagerState = {
@@ -141,6 +155,32 @@ export function orderManagerReducer(
           orderLines: [...state.activeOrder!.orderLines, action.payload],
         },
       };
+    case 'UPDATE_ORDER_LINE':
+      return {
+        ...state,
+        activeOrder: {
+          ...state.activeOrder!,
+          orderLines: state.activeOrder!.orderLines.map((orderLine) => {
+            if (orderLine.id === action.payload.id) {
+              return {
+                ...orderLine,
+                ...action.payload.data,
+              };
+            }
+            return orderLine;
+          }),
+        },
+      };
+    case 'DELETE_ORDER_LINE':
+      return {
+        ...state,
+        activeOrder: {
+          ...state.activeOrder!,
+          orderLines: state.activeOrder!.orderLines.filter(
+            ({ id }) => id !== action.payload,
+          ),
+        },
+      };
     default:
       return state;
   }
@@ -150,6 +190,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(orderManagerReducer, initialState);
   const globalDataDispatch = useGlobalDataDispatch();
   const data = useData();
+
   // TODO: Here we only use the default pricelist
   const addNewOrder = async (): Promise<Order> => {
     const newOrder = await orderRepository.addNewOrder({
@@ -235,6 +276,35 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   const addProductVariantToCart = async (
     variant: ProductVariant,
   ): Promise<OrderLine | undefined> => {
+    if (!state.activeOrder) {
+      return undefined;
+    }
+    const canBeMergeOrderLine = state.activeOrder.orderLines
+      //only orderline of the same product can be merged
+      .filter((orderLine) => orderLine.productId === variant.id)
+      .find((orderLine) => {
+        const orderLineExt = new OrderLineExtension(orderLine, data);
+
+        if (!orderLineExt.getUnit()?.isPosGroupable) {
+          return false;
+          // we don't merge discounted orderlines
+        } else if (orderLineExt.getDiscount() > 0) {
+          return false;
+        } else if (orderLine.productVariant?.tracking === 'lot') {
+          return false;
+        }
+        // TODO: We ignore to adjust product price
+        return true;
+      });
+
+    if (canBeMergeOrderLine) {
+      await updateOrderLine(canBeMergeOrderLine.id!, {
+        qty: canBeMergeOrderLine.qty + 1,
+      });
+
+      return canBeMergeOrderLine;
+    }
+
     const orderLineId = await orderLineRepository.create({
       orderId: state.activeOrderId,
       // TODO: Use getPrice function and check about fiscalPosition
@@ -249,6 +319,17 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     const orderLine = await orderLineRepository.findById(orderLineId as number);
     dispatch({ type: 'ADD_ORDER_LINE_TO_ACTIVE_ORDER', payload: orderLine! });
     return orderLine;
+  };
+
+  const updateOrderLine = async (id: number, data: Partial<OrderLine>) => {
+    if (await orderLineRepository.update(id, data)) {
+      dispatch({ type: 'UPDATE_ORDER_LINE', payload: { id, data } });
+    }
+  };
+
+  const deleteOrderLine = async (id: number) => {
+    await orderLineRepository.delete(id);
+    dispatch({ type: 'DELETE_ORDER_LINE', payload: id });
   };
 
   const initilizeOrderManager = async () => {
@@ -302,6 +383,8 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
           selectTableNo,
           selectVibrationCardNo,
           addProductVariantToCart,
+          updateOrderLine,
+          deleteOrderLine,
         }}
       >
         {children}
