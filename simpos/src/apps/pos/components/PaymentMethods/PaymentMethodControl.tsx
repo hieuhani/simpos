@@ -14,9 +14,9 @@ export const PaymentMethodControl: React.FunctionComponent<PaymentMethodProps> =
 }) => {
   const icon =
     paymentMethod.id === 1 ? (
-      <IconMoneyBill size="44" />
+      <IconMoneyBill size="44" color="#666" />
     ) : (
-      <IconCreditCard size="40" />
+      <IconCreditCard size="40" color="#666" />
     );
   return (
     <Button
@@ -25,12 +25,11 @@ export const PaymentMethodControl: React.FunctionComponent<PaymentMethodProps> =
       alignItems="center"
       flexDirection="column"
       p={2}
-      h="auto"
-      backgroundColor="white"
+      h="8rem"
       onClick={onSelect}
     >
       {icon}
-      <Heading size="md" fontWeight="medium">
+      <Heading size="md" fontWeight="medium" mt={2}>
         {paymentMethod.name}
       </Heading>
     </Button>

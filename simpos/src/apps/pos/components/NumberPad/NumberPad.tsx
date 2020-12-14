@@ -2,26 +2,53 @@ import React from 'react';
 import { Button, Grid } from '@chakra-ui/react';
 import { IconBackspace, IconChevronRight } from '../../../../components/icons';
 
-export const NumberPad: React.FunctionComponent = () => (
-  <Grid templateColumns="1fr 1fr 1fr 2fr" gridGap={2}>
-    <Button>7</Button>
-    <Button>8</Button>
-    <Button>9</Button>
-    <Button>
-      <IconBackspace size="26" />
-    </Button>
-    <Button>4</Button>
-    <Button>5</Button>
-    <Button>6</Button>
-    <Button>AC</Button>
-    <Button>1</Button>
-    <Button>2</Button>
-    <Button>3</Button>
-    <Button gridColumn="4 / 5" gridRow="3 / 5" height="auto" colorScheme="red">
-      <IconChevronRight size={33} />
-    </Button>
-    <Button>000</Button>
-    <Button>0</Button>
-    <Button>0000</Button>
-  </Grid>
-);
+export type NumberPadType = 'number' | 'action';
+
+export type NumberPadValue = 'BACKSPACE' | 'ALL_CLEAR' | 'SUBMIT' | string;
+export interface NumberPadProps {
+  onClick: (value: NumberPadValue, type: NumberPadType) => void;
+}
+
+export const NumberPad: React.FunctionComponent<NumberPadProps> = ({
+  onClick,
+}) => {
+  return (
+    <Grid templateColumns="1fr 1fr 1fr 2fr" gridGap={2}>
+      {['7', '8', '9'].map((value) => (
+        <Button key={value} onClick={() => onClick(value, 'number')}>
+          {value}
+        </Button>
+      ))}
+
+      <Button onClick={() => onClick('BACKSPACE', 'action')}>
+        <IconBackspace size="26" />
+      </Button>
+      {['4', '5', '6'].map((value) => (
+        <Button key={value} onClick={() => onClick(value, 'number')}>
+          {value}
+        </Button>
+      ))}
+
+      <Button onClick={() => onClick('ALL_CLEAR', 'action')}>AC</Button>
+      {['1', '2', '3'].map((value) => (
+        <Button key={value} onClick={() => onClick(value, 'number')}>
+          {value}
+        </Button>
+      ))}
+      <Button
+        gridColumn="4 / 5"
+        gridRow="3 / 5"
+        height="auto"
+        colorScheme="red"
+        onClick={() => onClick('SUBMIT', 'action')}
+      >
+        <IconChevronRight size={33} />
+      </Button>
+      {['000', '0', '0000'].map((value) => (
+        <Button key={value} onClick={() => onClick(value, 'number')}>
+          {value}
+        </Button>
+      ))}
+    </Grid>
+  );
+};

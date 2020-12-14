@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { PaymentMethods } from '../PaymentMethods';
 import { PaymentPane } from '../PaymentPane';
 
-export const MakePayment: React.FunctionComponent = () => {
+export interface MakePaymentProps {
+  totalAmount: number;
+}
+
+export const MakePayment: React.FunctionComponent<MakePaymentProps> = ({
+  totalAmount,
+}) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     number | null
   >(null);
@@ -11,16 +17,18 @@ export const MakePayment: React.FunctionComponent = () => {
     setSelectedPaymentMethod(id);
   };
 
-  const view = selectedPaymentMethod ? (
-    <PaymentPane />
-  ) : (
-    <PaymentMethods onSelect={onSelectPaymentMethod} />
-  );
-
   return (
-    <Box>
-      {view}
-      <Box h={4} />
+    <Box mb={4}>
+      {selectedPaymentMethod ? (
+        <>
+          <PaymentPane paymentValue={totalAmount} />
+          <Button mt={4} py={2} w="full" variant="link">
+            Chọn phương thức khác
+          </Button>
+        </>
+      ) : (
+        <PaymentMethods onSelect={onSelectPaymentMethod} />
+      )}
     </Box>
   );
 };

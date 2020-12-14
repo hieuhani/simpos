@@ -46,7 +46,7 @@ export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
       />
 
       <Box px={4} py={2}>
-        <PaymentAction totalAmount={formatCurrency(getTotalWithTax())} />
+        <PaymentAction totalAmount={getTotalWithTax()} />
       </Box>
     </>
   );

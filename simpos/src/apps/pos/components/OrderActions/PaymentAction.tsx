@@ -10,15 +10,17 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { MakePayment } from '../MakePayment';
+import { useMoneyFormatter } from '../../../../hooks';
 
 export interface PaymentActionProps {
-  totalAmount: string;
+  totalAmount: number;
 }
 
 export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
   totalAmount,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { formatCurrency } = useMoneyFormatter();
 
   return (
     <>
@@ -28,10 +30,10 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Thanh toán {totalAmount}</ModalHeader>
+          <ModalHeader>Thanh toán {formatCurrency(totalAmount)}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <MakePayment />
+            <MakePayment totalAmount={totalAmount} />
           </ModalBody>
         </ModalContent>
       </Modal>
