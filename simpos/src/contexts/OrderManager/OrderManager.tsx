@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react';
+import dayjs from 'dayjs';
+import { ActiveOrderExtension } from '../../hooks/extensions/order-extension';
 import { OrderLineExtension } from '../../hooks/extensions/order-line-extension';
 import {
   AccountTax,
@@ -8,6 +10,7 @@ import {
   ProductVariant,
 } from '../../services/db';
 import { Order, orderRepository } from '../../services/db/order';
+import { orderService } from '../../services/order';
 import { useData, useGlobalDataDispatch } from '../DataProvider';
 
 export interface ActiveOrder {
@@ -74,6 +77,7 @@ export interface OrderManagerAction {
   ) => Promise<OrderLine | undefined>;
   updateOrderLine: (id: number, data: Partial<OrderLine>) => Promise<void>;
   deleteOrderLine: (id: number) => Promise<void>;
+  payOrder: (amount: number, paymentMethodId: number) => Promise<void>;
 }
 
 const initialState: OrderManagerState = {
@@ -332,6 +336,103 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     dispatch({ type: 'DELETE_ORDER_LINE', payload: id });
   };
 
+  const createOrder = async (orderId: string, orderPayload: unknown) => {
+    await orderRepository.delete(orderId);
+    await orderService.createOrders([[orderPayload]]);
+  };
+
+  const payOrder = async (amount: number, paymentMethodId: number) => {
+    const { activeOrder } = state;
+    if (!activeOrder || (activeOrder?.orderLines || []).length === 0) {
+      throw new Error('Empty order');
+    }
+    const { order, orderLines } = activeOrder;
+    await orderRepository.update(order.id, {
+      paid: true,
+      paymentLines: [
+        {
+          amount,
+          paymentMethodId,
+        },
+      ],
+    });
+
+    const activeOrderExt = new ActiveOrderExtension(activeOrder, data);
+    const time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    const orderPayload = {
+      id: order.id,
+      data: {
+        name: order.name,
+        amount_paid: activeOrderExt.getTotalWithTax(),
+        amount_total: activeOrderExt.getTotalWithTax(),
+        amount_tax: activeOrderExt.getTotalTax(),
+        amount_return: amount - activeOrderExt.getTotalWithTax(),
+        lines: orderLines.map((orderLine) => {
+          const orderLineExt = new OrderLineExtension(orderLine, data);
+          return [
+            0,
+            0,
+            {
+              qty: orderLine.qty,
+              price_unit: orderLineExt.getUnitPrice(),
+              price_subtotal: orderLineExt.getPriceWithoutTax(),
+              price_subtotal_incl: orderLineExt.getPriceWithTax(),
+              discount: orderLine.discount,
+              product_id: orderLine.productId,
+              tax_ids: [
+                [
+                  6,
+                  false,
+                  getApplicableTaxes(orderLine.productVariant!).map(
+                    (tax) => tax.id,
+                  ),
+                ],
+              ],
+              id: orderLine.id,
+              pack_lot_ids: [],
+            },
+          ];
+        }),
+        statement_ids: [
+          [
+            0,
+            0,
+            {
+              amount,
+              name: time,
+              payment_method_id: paymentMethodId,
+              card_type: '',
+              payment_status: '',
+              ticket: '',
+              transaction_id: '',
+            },
+          ],
+        ],
+        pos_session_id: order.posSessionId,
+        pricelist_id: order.pricelistId,
+        partner_id: order.partnerId || false,
+        user_id: 2,
+        employee_id: 3,
+        uid: order.id,
+        sequence_number: order.sequenceNumber,
+        creation_date: time,
+        fiscal_position_id: false,
+        server_id: false,
+        to_invoice: false,
+      },
+      to_invoice: false,
+    };
+    createOrder(order.id, orderPayload);
+
+    const deletingLastOrder = state.orders.length === 1;
+    dispatch({ type: 'DELETE_ORDER', payload: order });
+    if (deletingLastOrder) {
+      addNewOrder();
+    } else {
+      selectOrder(state.orders.filter(({ id }) => id !== order.id)[0]);
+    }
+  };
+
   const initilizeOrderManager = async () => {
     const currentOrders = await orderRepository.all();
     if (currentOrders.length > 0) {
@@ -385,6 +486,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
           addProductVariantToCart,
           updateOrderLine,
           deleteOrderLine,
+          payOrder,
         }}
       >
         {children}

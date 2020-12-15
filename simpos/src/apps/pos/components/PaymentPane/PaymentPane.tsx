@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Box, Button, HStack, Text } from '@chakra-ui/react';
+import { Alert, Box, Button, HStack, Text } from '@chakra-ui/react';
 import {
   NumberPad,
   NumberPadType,
@@ -24,10 +24,12 @@ const denominations = [
 
 export interface PaymentPaneProps {
   paymentValue: number;
+  onSubmitPayment: (value: number) => void;
 }
 
 export const PaymentPane: React.FunctionComponent<PaymentPaneProps> = ({
   paymentValue,
+  onSubmitPayment,
 }) => {
   const [value, setValue] = useState(0);
   const recommendedValues = useMemo(() => {
@@ -36,7 +38,7 @@ export const PaymentPane: React.FunctionComponent<PaymentPaneProps> = ({
       ...denominations.filter((denomination, i) => denomination > paymentValue),
     ].filter((_, i) => i < 5);
   }, [paymentValue]);
-  const { formatCurrencyNoSymbol } = useMoneyFormatter();
+  const { formatCurrencyNoSymbol, formatCurrency } = useMoneyFormatter();
   const handlePadClick = (padValue: NumberPadValue, type: NumberPadType) => {
     switch (type) {
       case 'number': {
@@ -59,6 +61,7 @@ export const PaymentPane: React.FunctionComponent<PaymentPaneProps> = ({
         } else if (padValue === 'ALL_CLEAR') {
           setValue(0);
         } else if (padValue === 'SUBMIT') {
+          onSubmitPayment(value);
         }
         break;
       }
@@ -87,7 +90,15 @@ export const PaymentPane: React.FunctionComponent<PaymentPaneProps> = ({
           </Button>
         ))}
       </HStack>
-      <NumberPad onClick={handlePadClick} />
+      <NumberPad onClick={handlePadClick} submittable={value >= paymentValue} />
+      {value > paymentValue && (
+        <Alert mt={2} status="warning" borderRadius="md">
+          Tiền trả lại khách:
+          <Text ml={2} fontWeight="bold" fontSize="xl">
+            {formatCurrency(value - paymentValue)}
+          </Text>
+        </Alert>
+      )}
     </Box>
   );
 };

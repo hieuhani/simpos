@@ -9,6 +9,10 @@ import {
   productPricelistRepository,
 } from './product-pricelist';
 
+export interface PaymentLine {
+  amount: number;
+  paymentMethodId: number;
+}
 export interface Order {
   id: string;
   name: string;
@@ -21,6 +25,8 @@ export interface Order {
   partnerId?: number;
   partner?: Partner;
   pricelist?: ProductPricelist;
+  paymentLines?: PaymentLine[];
+  paid?: boolean;
 }
 
 export const orderRepository = {

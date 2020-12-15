@@ -7,10 +7,12 @@ export type NumberPadType = 'number' | 'action';
 export type NumberPadValue = 'BACKSPACE' | 'ALL_CLEAR' | 'SUBMIT' | string;
 export interface NumberPadProps {
   onClick: (value: NumberPadValue, type: NumberPadType) => void;
+  submittable?: boolean;
 }
 
 export const NumberPad: React.FunctionComponent<NumberPadProps> = ({
   onClick,
+  submittable,
 }) => {
   return (
     <Grid templateColumns="1fr 1fr 1fr 2fr" gridGap={2}>
@@ -41,6 +43,7 @@ export const NumberPad: React.FunctionComponent<NumberPadProps> = ({
         height="auto"
         colorScheme="red"
         onClick={() => onClick('SUBMIT', 'action')}
+        disabled={!submittable}
       >
         <IconChevronRight size={33} />
       </Button>
