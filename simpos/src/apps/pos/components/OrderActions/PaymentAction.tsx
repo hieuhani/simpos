@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Modal,
@@ -11,6 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { MakePayment } from '../MakePayment';
 import { useMoneyFormatter } from '../../../../hooks';
+import { OrderComplete } from '../OrderStatus';
+import { ActiveOrder } from '../../../../contexts/OrderManager';
 
 export interface PaymentActionProps {
   totalAmount: number;
@@ -20,7 +22,12 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
   totalAmount,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [paidOrder, setPaidOrder] = useState<ActiveOrder | undefined>();
   const { formatCurrency } = useMoneyFormatter();
+
+  const onPaid = (order: ActiveOrder) => {
+    setPaidOrder(order);
+  };
 
   return (
     <>
@@ -29,13 +36,21 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Thanh toán {formatCurrency(totalAmount)}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <MakePayment totalAmount={totalAmount} />
-          </ModalBody>
-        </ModalContent>
+        {paidOrder ? (
+          <ModalContent>
+            <ModalBody>
+              <OrderComplete activeOrder={paidOrder} onComplete={onClose} />
+            </ModalBody>
+          </ModalContent>
+        ) : (
+          <ModalContent>
+            <ModalHeader>Thanh toán {formatCurrency(totalAmount)}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <MakePayment totalAmount={totalAmount} onPaid={onPaid} />
+            </ModalBody>
+          </ModalContent>
+        )}
       </Modal>
     </>
   );

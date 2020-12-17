@@ -77,7 +77,7 @@ export interface OrderManagerAction {
   ) => Promise<OrderLine | undefined>;
   updateOrderLine: (id: number, data: Partial<OrderLine>) => Promise<void>;
   deleteOrderLine: (id: number) => Promise<void>;
-  payOrder: (amount: number, paymentMethodId: number) => Promise<void>;
+  payOrder: (amount: number, paymentMethodId: number) => Promise<ActiveOrder>;
 }
 
 const initialState: OrderManagerState = {
@@ -431,6 +431,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     } else {
       selectOrder(state.orders.filter(({ id }) => id !== order.id)[0]);
     }
+    return activeOrder;
   };
 
   const initilizeOrderManager = async () => {

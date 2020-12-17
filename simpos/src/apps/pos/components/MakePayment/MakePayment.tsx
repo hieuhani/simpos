@@ -1,26 +1,45 @@
 import React, { useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import { PaymentMethods } from '../PaymentMethods';
 import { PaymentPane } from '../PaymentPane';
-import { useOrderManagerAction } from '../../../../contexts/OrderManager';
+import {
+  ActiveOrder,
+  useOrderManagerAction,
+} from '../../../../contexts/OrderManager';
 
 export interface MakePaymentProps {
   totalAmount: number;
+  onPaid: (order: ActiveOrder) => void;
 }
 
 export const MakePayment: React.FunctionComponent<MakePaymentProps> = ({
   totalAmount,
+  onPaid,
 }) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     number | null
   >(null);
+  const toast = useToast();
   const { payOrder } = useOrderManagerAction();
   const onSelectPaymentMethod = (id: number) => {
     setSelectedPaymentMethod(id);
   };
 
   const onSubmitPayment = async (amount: number) => {
-    await payOrder(amount, selectedPaymentMethod!);
+    try {
+      const order = await payOrder(amount, selectedPaymentMethod!);
+      onPaid(order);
+    } catch (e) {
+      console.error(e);
+      toast({
+        title: 'Error',
+        description: 'Payment error',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
