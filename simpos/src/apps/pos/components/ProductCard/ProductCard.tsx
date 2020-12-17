@@ -6,6 +6,8 @@ import {
   useProductVariantExtensions,
 } from '../../../../hooks';
 
+import noImage from './noimage.svg';
+
 export interface ProductCardProps {
   product: Product;
   onClick: () => void;
@@ -20,11 +22,7 @@ export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
   return (
     <Box as="button" display="flex" mb={2} onClick={onClick}>
       <Box width="66px">
-        <Image
-          borderRadius="md"
-          src="https://images.foody.vn/res/g101/1002166/s120x120/bd77f2d7-36a3-43ef-953f-536f50001570.jpg"
-          alt="Banh my"
-        />
+        <Image borderRadius="md" src={noImage} alt={product.name} />
       </Box>
       <Box textAlign="left" ml={2} flex={1}>
         <Heading size="sm" fontWeight="medium">
