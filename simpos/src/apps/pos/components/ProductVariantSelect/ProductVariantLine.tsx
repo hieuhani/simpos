@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Heading, Box, Badge, Image } from '@chakra-ui/react';
 import { IconChevronRight } from '../../../../components/icons';
 import { ProductVariant } from '../../../../services/db';
+import { ProductImageThumb } from '../ProductCard/ProductImageThumb';
 
 export interface ProductVariantLineProps {
   onSelect: () => void;
@@ -25,11 +26,7 @@ export const ProductVariantLine: React.FunctionComponent<ProductVariantLineProps
       height="auto"
     >
       <Box width="48px" mr={2}>
-        <Image
-          borderRadius="md"
-          src="https://images.foody.vn/res/g101/1002166/s120x120/bd77f2d7-36a3-43ef-953f-536f50001570.jpg"
-          alt="Banh my"
-        />
+        <ProductImageThumb variant={variant} />
       </Box>
       <Box textAlign="left">
         <Badge>{variant.defaultCode}</Badge>

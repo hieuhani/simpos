@@ -23,6 +23,7 @@ import { OrderLine } from '../../../../services/db';
 import { useMoneyFormatter, useOrderLineExtensions } from '../../../../hooks';
 import { EditOrderLine } from './EditOrderLine';
 import { useOrderManagerAction } from '../../../../contexts/OrderManager';
+import { ProductImageThumb } from '../ProductCard/ProductImageThumb';
 
 export interface OrderLineRowProps {
   onClick?: () => void;
@@ -75,11 +76,7 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
             }}
           >
             <Box width="50px" position="relative">
-              <Image
-                borderRadius="md"
-                src="https://images.foody.vn/res/g101/1002166/s120x120/bd77f2d7-36a3-43ef-953f-536f50001570.jpg"
-                alt="Banh my"
-              />
+              <ProductImageThumb variant={orderLine.productVariant} />
               <Badge
                 position="absolute"
                 top="-0.5rem"

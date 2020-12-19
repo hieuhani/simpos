@@ -5,6 +5,9 @@ import React, {
   useReducer,
   useState,
 } from 'react';
+/* eslint-disable import/no-webpack-loader-syntax */
+import Worker from 'worker-loader!../../workers';
+
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import {
   AccountTax,
@@ -27,6 +30,8 @@ import {
 } from '../../services/db/product-pricelist';
 import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
+
+const worker = new Worker();
 
 export interface DataContextState {
   posConfig: PosConfig;
@@ -85,7 +90,6 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   const initializeData = async (userMeta: AuthUserMeta) => {
     const loadModelsMap = getLoadModelsMap();
     const requiredKeys = getModelNames();
-
     await Promise.all(
       requiredKeys
         .map((key) => {
@@ -98,7 +102,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         })
         .filter(Boolean),
     );
-
+    worker.postMessage({ type: 'DATA_INITIALIZED' });
     setInitializing(false);
   };
 

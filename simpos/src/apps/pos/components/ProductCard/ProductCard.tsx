@@ -1,12 +1,11 @@
 import React from 'react';
-import { Badge, Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { Product } from '../../../../services/db';
 import {
   useMoneyFormatter,
   useProductVariantExtensions,
 } from '../../../../hooks';
-
-import noImage from './noimage.svg';
+import { ProductImageThumb } from './ProductImageThumb';
 
 export interface ProductCardProps {
   product: Product;
@@ -19,10 +18,11 @@ export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
   const { getPrice } = useProductVariantExtensions(product.productVariants[0]);
   const price = getPrice();
   const { formatCurrency } = useMoneyFormatter();
+
   return (
     <Box as="button" display="flex" mb={2} onClick={onClick}>
       <Box width="66px">
-        <Image borderRadius="md" src={noImage} alt={product.name} />
+        <ProductImageThumb variant={product.productVariants[0]} />
       </Box>
       <Box textAlign="left" ml={2} flex={1}>
         <Heading size="sm" fontWeight="medium">
