@@ -13,7 +13,7 @@ export const PaymentMethods: React.FunctionComponent<PaymentMethodsProps> = ({
   const data = useData();
 
   return (
-    <Grid gridGap={2} templateColumns="1fr 1fr">
+    <Grid gridGap={4} templateColumns="1fr 1fr">
       {data.paymentMethods.map((paymentMethod) => (
         <PaymentMethodControl
           key={paymentMethod.id}

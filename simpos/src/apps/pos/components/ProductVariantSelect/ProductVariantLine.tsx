@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Heading, Box, Badge, Image } from '@chakra-ui/react';
+import { Button, Heading, Box, Badge } from '@chakra-ui/react';
 import { IconChevronRight } from '../../../../components/icons';
 import { ProductVariant } from '../../../../services/db';
 import { ProductImageThumb } from '../ProductCard/ProductImageThumb';

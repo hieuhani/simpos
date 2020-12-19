@@ -20,7 +20,15 @@ export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
   const { formatCurrency } = useMoneyFormatter();
 
   return (
-    <Box as="button" display="flex" mb={2} onClick={onClick}>
+    <Box
+      as="button"
+      display="flex"
+      onClick={onClick}
+      background="white"
+      p={2}
+      shadow="sm"
+      borderRadius="sm"
+    >
       <Box width="66px">
         <ProductImageThumb variant={product.productVariants[0]} />
       </Box>

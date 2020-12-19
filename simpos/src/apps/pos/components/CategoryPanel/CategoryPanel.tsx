@@ -31,9 +31,7 @@ export const CategoryPanel: React.FunctionComponent = () => {
     dispatch({ type: 'CATEGORY_CHANGED', payload: category.id });
   };
   const onClickRootCategory = (category: PosCategory) => {
-    setSelectedCategory(
-      category.children && category.children.length > 0 ? category.id : 0,
-    );
+    setSelectedCategory(category.id);
     onClickCategory(category);
   };
 
@@ -45,6 +43,7 @@ export const CategoryPanel: React.FunctionComponent = () => {
             <SwiperSlide key={category.id} style={{ width: 'auto' }}>
               <CategoryButton
                 name={category.name}
+                active={selectedCategoryId === category.id}
                 onClick={() => onClickRootCategory(category)}
               />
             </SwiperSlide>

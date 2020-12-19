@@ -12,6 +12,8 @@ import { OrderManager } from '../../contexts/OrderManager';
 const POS = lazy(() => import('../../apps/pos'));
 const Login = lazy(() => import('../../apps/auth/Login'));
 
+const Purchase = lazy(() => import('../../apps/purchase'));
+
 export const Routes: React.FunctionComponent = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
@@ -24,6 +26,9 @@ export const Routes: React.FunctionComponent = () => (
               <POS />
             </PrivateRoute>
           </OrderManager>
+          <PrivateRoute path="/purchase">
+            <Purchase />
+          </PrivateRoute>
         </DataProvider>
       </Switch>
     </Suspense>

@@ -36,7 +36,10 @@ export const ProductsGrid: React.FunctionComponent = () => {
   return (
     <>
       <Grid
-        gap={2}
+        gap={1}
+        background="gray.50"
+        border="gray.50"
+        borderWidth="1"
         templateColumns={[
           '1fr',
           '1fr',

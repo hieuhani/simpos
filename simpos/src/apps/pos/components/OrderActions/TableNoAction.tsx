@@ -37,7 +37,8 @@ export const TableNoAction: React.FunctionComponent = () => {
           width="100px"
           height="66px"
           as={Button}
-          backgroundColor="gray.200"
+          backgroundColor="brand.500"
+          color="brand.100"
           borderRadius="md"
           d="flex"
           flexDirection="column"
@@ -47,7 +48,7 @@ export const TableNoAction: React.FunctionComponent = () => {
           <Flex h="33px" alignItems="center" justifyContent="center">
             {activeOrder?.order.tableNo ? (
               <Box
-                backgroundColor="red.500"
+                backgroundColor="brand.100"
                 color="white"
                 w="28px"
                 h="28px"

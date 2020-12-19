@@ -5,7 +5,7 @@ import { AuthUserMeta } from '../../services/db';
 
 export interface AuthContextState {
   signIn: (authUserMeta: AuthUserMeta) => void | Promise<void>;
-  signOut: (cb: any) => void | Promise<void>;
+  signOut: (cb?: any) => void | Promise<void>;
   userMeta?: AuthUserMeta;
   isLoggedIn: boolean;
 }
@@ -31,8 +31,9 @@ export const AuthProvider: React.FunctionComponent = ({ children }) => {
     setUserMeta(authUserMeta);
     window.location.href = '/';
   };
-  const signOut = () => {
-    console.log('signUp');
+  const signOut = async () => {
+    await authService.clearLogin();
+    window.location.href = '/login';
   };
 
   const getCurrentAuthMeta = async () => {

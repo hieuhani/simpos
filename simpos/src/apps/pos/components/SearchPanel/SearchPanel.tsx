@@ -17,11 +17,11 @@ export const SearchPanel: React.FunctionComponent = () => {
   const state = useSearchProductState();
   const dispatch = useSearchProductDispatch();
   return (
-    <Flex align="center" px={4} mb={2}>
+    <Flex align="center" px={4} py={2} background="gray.50">
       <Box mr="auto">
         <Heading size="md">Danh sách sản phẩm</Heading>
       </Box>
-      <InputGroup size="md" width="250px">
+      <InputGroup size="md" width="250px" background="white">
         <Input
           pr="3rem"
           placeholder="Tìm kiếm"

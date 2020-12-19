@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Image,
   Heading,
   Badge,
   Flex,
@@ -62,54 +61,57 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
   return (
     <Popover placement="left" isLazy>
       <PopoverTrigger>
-        <Flex w="full">
-          <Flex
-            alignItems="center"
-            mt={1}
-            py={2}
-            w="full"
-            borderRadius="md"
-            onClick={onClick}
-            _focus={{
-              outline: 'none',
-              boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',
-            }}
-          >
-            <Box width="50px" position="relative">
-              <ProductImageThumb variant={orderLine.productVariant} />
-              <Badge
-                position="absolute"
-                top="-0.5rem"
-                right="-0.5rem"
-                backgroundColor="green.500"
-                color="white"
-                borderRadius="full"
-                width={6}
-                height={6}
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-              >
-                {orderLine.qty}
+        <Flex
+          alignItems="center"
+          mt={1}
+          py={4}
+          px={4}
+          w="full"
+          as="button"
+          rounded="md"
+          boxShadow="sm"
+          borderRadius="md"
+          onClick={onClick}
+          background="white"
+          _focus={{
+            outline: 'none',
+            boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',
+          }}
+        >
+          <Box width="55px" position="relative">
+            <ProductImageThumb variant={orderLine.productVariant} />
+            <Badge
+              position="absolute"
+              top="-0.5rem"
+              right="-0.5rem"
+              backgroundColor="green.500"
+              color="white"
+              borderRadius="full"
+              width={6}
+              height={6}
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+            >
+              {orderLine.qty}
+            </Badge>
+          </Box>
+          <Box ml={4} textAlign="left">
+            <Heading size="sm" fontWeight="medium" mb={1}>
+              {orderLine.productVariant?.name}
+            </Heading>
+            <Stack direction="row">
+              <Badge>{orderLine.productVariant.defaultCode}</Badge>
+              <Badge>
+                {formatCurrency(getUnitDisplayPrice(), 'Product Price')}
               </Badge>
-            </Box>
-            <Box ml={2} textAlign="left">
-              <Heading size="sm" fontWeight="medium" mb={1}>
-                {orderLine.productVariant?.name}
-              </Heading>
-              <Stack direction="row">
-                <Badge>{orderLine.productVariant.defaultCode}</Badge>
-                <Badge>
-                  {formatCurrency(getUnitDisplayPrice(), 'Product Price')}
-                </Badge>
-              </Stack>
-            </Box>
-            <Box ml="auto">
-              <Heading size="sm">
-                {formatCurrency(getDisplayPrice(), 'Product Price')}
-              </Heading>
-            </Box>
-          </Flex>
+            </Stack>
+          </Box>
+          <Box ml="auto">
+            <Heading size="sm">
+              {formatCurrency(getDisplayPrice(), 'Product Price')}
+            </Heading>
+          </Box>
         </Flex>
       </PopoverTrigger>
       <Portal>

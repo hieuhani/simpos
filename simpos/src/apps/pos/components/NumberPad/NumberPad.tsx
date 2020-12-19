@@ -41,7 +41,8 @@ export const NumberPad: React.FunctionComponent<NumberPadProps> = ({
         gridColumn="4 / 5"
         gridRow="3 / 5"
         height="auto"
-        colorScheme="red"
+        background="brand.100"
+        color="white"
         onClick={() => onClick('SUBMIT', 'action')}
         disabled={!submittable}
       >

@@ -65,7 +65,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
     <>
       <Box
         as="button"
-        backgroundColor="gray.200"
+        backgroundColor="brand.500"
         p={2}
         w="full"
         height="66px"
@@ -73,6 +73,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
         textAlign="left"
         alignItems="center"
         borderRadius="md"
+        color="brand.100"
         _focus={{
           outline: 'none',
           boxShadow: '0 0 0 3px rgba(66, 153, 225, 0.6)',

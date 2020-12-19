@@ -16,4 +16,5 @@ export const authService = {
     await authUserMeta.create(authMeta);
   },
   getAuthMeta: async () => authUserMeta.first(),
+  clearLogin: async () => authUserMeta.clear(),
 };

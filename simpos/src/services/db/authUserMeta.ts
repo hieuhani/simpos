@@ -1,3 +1,4 @@
+import { clear } from 'console';
 import { db } from './db';
 export interface AuthUserContext {
   lang: string;
@@ -20,5 +21,8 @@ export const authUserMeta = {
 
   async first(): Promise<AuthUserMeta | undefined> {
     return this.db.limit(1).first();
+  },
+  async clear(): Promise<void> {
+    return this.db.clear();
   },
 };

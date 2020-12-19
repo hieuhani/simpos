@@ -19,8 +19,8 @@ export const OrderTab: React.FunctionComponent<OrderTabProps> = ({
 }) => (
   <Flex
     borderWidth="2px"
-    borderColor={active ? 'blue.500' : 'gray.100'}
-    backgroundColor={active ? 'blue.500' : 'transparent'}
+    borderColor={active ? 'brand.100' : 'gray.100'}
+    backgroundColor={active ? 'brand.100' : 'transparent'}
     borderRadius="full"
     color={active ? 'white' : 'gray.800'}
     flexDirection="row"
@@ -32,7 +32,7 @@ export const OrderTab: React.FunctionComponent<OrderTabProps> = ({
       d="flex"
       alignItems="center"
       borderRight="2px solid"
-      borderColor={active ? 'blue.400' : 'gray.100'}
+      borderColor={active ? 'brand.200' : 'gray.100'}
       onClick={onSelectOrder}
     >
       <Text mr="2">#{order.sequenceNumber}</Text>

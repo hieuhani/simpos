@@ -31,7 +31,12 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
 
   return (
     <>
-      <Button width="full" colorScheme="blue" onClick={onOpen}>
+      <Button
+        width="full"
+        color="white"
+        background="brand.100"
+        onClick={onOpen}
+      >
         Thanh toán
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

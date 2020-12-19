@@ -4,10 +4,6 @@ import {
   Button,
   useDisclosure,
   Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -18,6 +14,7 @@ import {
   useOrderManagerAction,
   useOrderManagerState,
 } from '../../../../contexts/OrderManager';
+import { DrawerNavigation } from '../../../../components/DrawerNavigation';
 
 const StyledSwiper = styled(Swiper)`
   margin-left: 0;
@@ -58,12 +55,7 @@ export const NavigationBar: React.FunctionComponent = () => {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>SimPOS</DrawerHeader>
-
-            <DrawerBody>Hello world</DrawerBody>
-          </DrawerContent>
+          <DrawerNavigation />
         </DrawerOverlay>
       </Drawer>
     </>

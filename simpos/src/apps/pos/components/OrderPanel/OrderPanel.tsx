@@ -15,7 +15,7 @@ export const OrderPanel: React.FunctionComponent<OrderPanelProps> = ({
   }, [activeOrder?.orderLines]);
   return (
     <Box px="4">
-      <Stack spacing={2}>
+      <Stack spacing={4}>
         {orderLines.map((orderLine) => (
           <OrderLineRow key={orderLine.id} orderLine={orderLine} />
         ))}
