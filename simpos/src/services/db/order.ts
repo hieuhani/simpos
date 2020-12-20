@@ -40,7 +40,7 @@ export const orderRepository = {
     return this.enrichOrder(order);
   },
   async all(): Promise<Order[]> {
-    return this.db.toArray();
+    return this.db.filter((it) => !it.paid).toArray();
   },
   async addNewOrder({
     posSession,

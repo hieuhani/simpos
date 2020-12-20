@@ -338,8 +338,12 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   };
 
   const createOrder = async (orderId: string, orderPayload: unknown) => {
-    await orderRepository.delete(orderId);
-    await orderService.createOrders([[orderPayload]]);
+    try {
+      await orderService.createOrders([[orderPayload]]);
+      await orderRepository.delete(orderId);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const payOrder = async (amount: number, paymentMethodId: number) => {
