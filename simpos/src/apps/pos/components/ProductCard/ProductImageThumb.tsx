@@ -12,7 +12,7 @@ export const ProductImageThumb: React.FunctionComponent<ProductImageThumbProps> 
   variant,
 }) => {
   const productImage = useMemo(() => {
-    if (!variant?.images) {
+    if (!variant?.images || (variant.images && !variant.images[128])) {
       return noImage;
     }
 

@@ -5,8 +5,6 @@ import React, {
   useReducer,
   useState,
 } from 'react';
-/* eslint-disable import/no-webpack-loader-syntax */
-import Worker from 'worker-loader!../../workers';
 
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import {
@@ -28,10 +26,9 @@ import {
   ProductPricelist,
   productPricelistRepository,
 } from '../../services/db/product-pricelist';
+import { worker } from '../../workers';
 import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
-
-const worker = new Worker();
 
 export interface DataContextState {
   posConfig: PosConfig;
@@ -102,8 +99,9 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         })
         .filter(Boolean),
     );
-    worker.postMessage({ type: 'DATA_INITIALIZED' });
+
     setInitializing(false);
+    worker.postMessage({ type: 'DATA_INITIALIZED' });
   };
 
   useEffect(() => {

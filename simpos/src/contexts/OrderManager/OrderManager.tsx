@@ -12,6 +12,7 @@ import {
 import { Order, orderRepository } from '../../services/db/order';
 import { orderService } from '../../services/order';
 import { useData, useGlobalDataDispatch } from '../DataProvider';
+import { worker } from '../../workers';
 
 export interface ActiveOrder {
   order: Order;
@@ -473,6 +474,13 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   useEffect(() => {
     fetchOrder(state.activeOrderId);
   }, [state.activeOrderId]);
+
+  useEffect(() => {
+    worker.postMessage({
+      type: 'ACTIVE_ORDER_CHANGED',
+      payload: state.activeOrder,
+    });
+  }, [state.activeOrder]);
 
   return (
     <OrderManagerStateContext.Provider value={state}>

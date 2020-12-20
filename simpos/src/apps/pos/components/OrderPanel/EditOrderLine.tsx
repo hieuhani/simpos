@@ -1,6 +1,7 @@
-import { Flex, Box, Heading, Image } from '@chakra-ui/react';
+import { Flex, Box, Heading } from '@chakra-ui/react';
 import React from 'react';
 import { ProductVariant } from '../../../../services/db';
+import { ProductImageThumb } from '../ProductCard/ProductImageThumb';
 
 export interface EditOrderLineProps {
   productVariant: ProductVariant;
@@ -14,11 +15,7 @@ export const EditOrderLine: React.FunctionComponent<EditOrderLineProps> = ({
   return (
     <Flex>
       <Box width="55px" position="relative">
-        <Image
-          borderRadius="md"
-          src="https://images.foody.vn/res/g101/1002166/s120x120/bd77f2d7-36a3-43ef-953f-536f50001570.jpg"
-          alt="Banh my"
-        />
+        <ProductImageThumb variant={productVariant} />
       </Box>
       <Box textAlign="left" ml={2} flex={1}>
         <Heading size="sm" fontWeight="medium">

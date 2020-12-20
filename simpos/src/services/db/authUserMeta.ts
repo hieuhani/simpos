@@ -1,4 +1,3 @@
-import { clear } from 'console';
 import { db } from './db';
 export interface AuthUserContext {
   lang: string;
