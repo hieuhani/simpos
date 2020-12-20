@@ -16,10 +16,12 @@ import { ActiveOrder } from '../../../../contexts/OrderManager';
 
 export interface PaymentActionProps {
   totalAmount: number;
+  disabled: boolean;
 }
 
 export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
   totalAmount,
+  disabled,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [paidOrder, setPaidOrder] = useState<ActiveOrder | undefined>();
@@ -29,6 +31,11 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
     setPaidOrder(order);
   };
 
+  const onComplete = () => {
+    onClose();
+    setPaidOrder(undefined);
+  };
+
   return (
     <>
       <Button
@@ -36,6 +43,7 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
         color="white"
         background="brand.100"
         onClick={onOpen}
+        disabled={disabled}
       >
         Thanh toán
       </Button>
@@ -44,7 +52,7 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
         {paidOrder ? (
           <ModalContent>
             <ModalBody>
-              <OrderComplete activeOrder={paidOrder} onComplete={onClose} />
+              <OrderComplete activeOrder={paidOrder} onComplete={onComplete} />
             </ModalBody>
           </ModalContent>
         ) : (
