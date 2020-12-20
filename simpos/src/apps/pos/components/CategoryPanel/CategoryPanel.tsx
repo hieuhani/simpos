@@ -1,7 +1,10 @@
 import { Box } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useSearchProductDispatch } from '../../../../contexts/SearchProduct';
+import {
+  useSearchProductDispatch,
+  useSearchProductState,
+} from '../../../../contexts/SearchProduct';
 import { PosCategory, posCategoryRepository } from '../../../../services/db';
 import { CategoryButton } from './CategoryButton';
 
@@ -9,6 +12,7 @@ export const CategoryPanel: React.FunctionComponent = () => {
   const [categories, setCategories] = useState<PosCategory[]>([]);
   const [selectedCategoryId, setSelectedCategory] = useState<number>(0);
   const dispatch = useSearchProductDispatch();
+  const state = useSearchProductState();
   const fetchCategories = async () => {
     const dbCategories = await posCategoryRepository.treeCategories();
     setCategories([{ id: 0, name: 'Tất cả' }, ...dbCategories]);
@@ -58,6 +62,7 @@ export const CategoryPanel: React.FunctionComponent = () => {
             <SwiperSlide key={category.id} style={{ width: 'auto' }}>
               <CategoryButton
                 name={category.name}
+                active={state.categoryId === category.id}
                 onClick={() => onClickCategory(category)}
               />
             </SwiperSlide>

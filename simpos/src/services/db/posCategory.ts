@@ -5,11 +5,14 @@ export interface PosCategory {
   name: string;
   children?: PosCategory[];
   parentId?: Array<number | string>;
+  childId?: number[];
 }
 
 export const posCategoryRepository = {
   db: db.table<PosCategory>('pos.category'),
-
+  async findById(id: number): Promise<PosCategory | undefined> {
+    return this.db.get(id);
+  },
   async all(): Promise<PosCategory[]> {
     return this.db.toArray();
   },

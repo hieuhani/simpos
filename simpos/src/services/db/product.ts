@@ -1,4 +1,5 @@
 import { db } from './db';
+import { posCategoryRepository } from './posCategory';
 import { ProductVariant, productVariantRepository } from './product-variant';
 
 export interface Product {
@@ -25,9 +26,12 @@ export const productRepository = {
   async findProducts(categoryId?: number, keyword = ''): Promise<Product[]> {
     let products = [];
     if (categoryId) {
+      const posCategory = await posCategoryRepository.findById(categoryId);
+      const categoryIds = posCategory?.childId || [];
+      categoryIds.push(categoryId);
       products = await this.db
         .where('posCategoryId')
-        .equals(categoryId)
+        .anyOf(categoryIds)
         .toArray();
     } else {
       products = await this.db.toArray();
