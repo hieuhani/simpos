@@ -5,7 +5,7 @@ import {
   ModalHeader,
   ModalBody,
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PosSession, posSessionRepository } from '../../../../services/db';
 import { AuthUserMeta } from '../../../../services/db/root';
 
@@ -17,19 +17,27 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
   authUserMeta,
   onSessionSelected,
 }) => {
-  const fetchSession = async () => {
-    const sessions = await posSessionRepository.all();
-    const assignedSession = sessions.find(
-      (session) => session.responsibleUserId === authUserMeta.uid,
-    );
-    if (assignedSession) {
-      onSessionSelected(assignedSession);
-    }
-  };
+  const [sessions, setSessions] = useState<PosSession[]>([]);
 
   useEffect(() => {
+    const fetchSession = async () => {
+      const posSessions = await posSessionRepository.all();
+      setSessions(posSessions);
+      const assignedSession = posSessions.find(
+        (session) => session.responsibleUserId === authUserMeta.uid,
+      );
+
+      if (assignedSession) {
+        onSessionSelected(assignedSession);
+      }
+    };
     fetchSession();
-  }, []);
+  }, [authUserMeta, onSessionSelected]);
+
+  if (sessions.length === 0) {
+    return null;
+  }
+
   return (
     <Modal isOpen={true} onClose={() => {}}>
       <ModalOverlay />
