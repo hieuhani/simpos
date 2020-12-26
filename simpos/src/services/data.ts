@@ -4,7 +4,8 @@ type SimApiCallMethod =
   | 'search_read'
   | 'read'
   | 'get_real_tax_amount'
-  | 'create_from_ui';
+  | 'create_from_ui'
+  | 'open_session_cb';
 
 interface SearchReadParams {
   model: string;

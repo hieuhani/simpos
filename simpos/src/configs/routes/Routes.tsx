@@ -5,13 +5,16 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { PrivateRoute } from '../../components/PrivateRoute';
+import { RequireLogin } from '../../components/PrivateRoute';
 import { DataProvider } from '../../contexts/DataProvider';
 import { OrderManager } from '../../contexts/OrderManager';
 
 const POS = lazy(() => import('../../apps/pos'));
 const CustomerScreen = lazy(() => import('../../apps/pos/CustomerScreen'));
+const SessionScreen = lazy(() => import('../../apps/pos/SessionScreen'));
+
 const Login = lazy(() => import('../../apps/auth/Login'));
+
 const Purchase = lazy(() => import('../../apps/purchase'));
 
 export const Routes: React.FunctionComponent = () => (
@@ -20,19 +23,16 @@ export const Routes: React.FunctionComponent = () => (
       <Switch>
         <Redirect exact from="/" to="pos" />
         <Route path="/login" component={Login} />
-        <DataProvider>
-          <OrderManager>
-            <PrivateRoute path="/pos" exact>
-              <POS />
-            </PrivateRoute>
-            <PrivateRoute path="/pos/customer_screen">
-              <CustomerScreen />
-            </PrivateRoute>
-          </OrderManager>
-          <PrivateRoute path="/purchase">
-            <Purchase />
-          </PrivateRoute>
-        </DataProvider>
+        <RequireLogin>
+          <DataProvider>
+            <OrderManager>
+              <Route path="/pos" exact component={POS} />
+              <Route path="/pos/customer_screen" component={CustomerScreen} />
+              <Route path="/pos/session" component={SessionScreen} />
+            </OrderManager>
+          </DataProvider>
+          <Route path="/purchase" component={Purchase} />
+        </RequireLogin>
       </Switch>
     </Suspense>
   </Router>

@@ -72,7 +72,7 @@ export const DrawerNavigation: React.FunctionComponent = () => {
           </Heading>
           <Box as="li" mb={1}>
             <Link
-              to="/pos/orders"
+              to="/pos/session"
               as={RouterLink}
               d="flex"
               backgroundColor="brand.500"
@@ -85,7 +85,7 @@ export const DrawerNavigation: React.FunctionComponent = () => {
                 textTransform: 'none',
               }}
             >
-              Đơn hàng
+              Phiên bán hàng
             </Link>
           </Box>
           <Box as="li" mb={1}>

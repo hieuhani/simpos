@@ -97,9 +97,9 @@ export const Icon${pascalName}: React.FunctionComponent<IconBaseProps> = (props:
     );
   }
 
-  await exec(
-    'node_modules/.bin/eslint --ext .ts,.tsx ./src/components/icons --fix',
-  );
+  // await exec(
+  //   'node_modules/.bin/eslint --ext .ts,.tsx ./src/components/icons --fix',
+  // );
 }
 
 generate();

@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 export const globalStyles = css`
   body {
     overflow: hidden;
+    color: #2d3748;
   }
   .swiper-container {
     margin-left: auto;

@@ -101,7 +101,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     );
 
     setInitializing(false);
-    worker.postMessage({ type: 'DATA_INITIALIZED' });
+    // worker.postMessage({ type: 'DATA_INITIALIZED' });
   };
 
   useEffect(() => {

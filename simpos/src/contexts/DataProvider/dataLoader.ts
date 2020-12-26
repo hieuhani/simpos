@@ -2,7 +2,8 @@ import { dataService } from '../../services/data';
 import { AuthUserMeta, rootDb } from '../../services/db/root';
 
 export interface LoadModelOption {
-  userMeta: AuthUserMeta;
+  userMeta?: AuthUserMeta;
+  nocache?: boolean;
 }
 export interface LoadModel {
   model: string;
@@ -16,8 +17,12 @@ const fetchModelData = async (
   fields: string[],
   domain?: Array<any>,
   transform = (data: any) => data,
+  options?: LoadModelOption,
 ): Promise<any> => {
-  const currentModelData = await rootDb.getByTableName(model);
+  let currentModelData;
+  if (!options?.nocache) {
+    currentModelData = await rootDb.getByTableName(model);
+  }
   if (currentModelData && currentModelData.length > 0) {
     return currentModelData;
   }
@@ -47,11 +52,12 @@ export const loadModels: LoadModel[] = [
       'config_id',
       'start_at',
       'stop_at',
+      'state',
       'sequence_number',
       'payment_method_ids',
       'login_number',
     ],
-    async load() {
+    async load(options: LoadModelOption | undefined) {
       return fetchModelData(
         this.model,
         this.fields,
@@ -66,6 +72,7 @@ export const loadModels: LoadModel[] = [
             responsibleUserId: row.userId ? row.userId[0] : null,
           }));
         },
+        options,
       );
     },
     indexes: '++id, name',

@@ -16,6 +16,12 @@ export interface PosConfig {
   currency: Currency;
   company: Company;
   ifaceTaxIncluded: 'subtotal' | 'total';
+  posSessionUsername?: string;
+  posSessionState?:
+    | 'new_session'
+    | 'opening_control'
+    | 'opened'
+    | 'closing_control';
 }
 
 export const posConfigRepository = {
