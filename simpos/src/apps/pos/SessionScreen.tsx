@@ -10,14 +10,20 @@ import { SessionSummary } from './components/SessionSummary';
 export const SessionScreen: React.FunctionComponent = () => {
   const [session, setSession] = useState<PosSession>();
   const { posSession } = useData();
+  const getSession = async () => {
+    const sessionData = await posSessionService.getSession(posSession.id);
+    setSession(sessionData);
+  };
 
   useEffect(() => {
-    const getSession = async () => {
-      const sessionData = await posSessionService.getSession(posSession.id);
-      setSession(sessionData);
-    };
     getSession();
   }, [posSession.id]);
+
+  const closeSession = async () => {
+    await posSessionService.closeSession(posSession.id);
+    getSession();
+  };
+
   return (
     <>
       <NavigationBarGeneral />
@@ -28,13 +34,15 @@ export const SessionScreen: React.FunctionComponent = () => {
           <SessionDataView sessionId={session.id} />
         </Container>
       )}
-      <Box position="fixed" bottom="0" left="0" right="0">
-        <Container maxW="6xl" py={2}>
-          <Button colorScheme="pink" w="full">
-            Đóng phiên
-          </Button>
-        </Container>
-      </Box>
+      {session?.state === 'opened' && (
+        <Box position="fixed" bottom="0" left="0" right="0">
+          <Container maxW="6xl" py={2}>
+            <Button colorScheme="pink" w="full" onClick={closeSession}>
+              Đóng phiên
+            </Button>
+          </Container>
+        </Box>
+      )}
     </>
   );
 };

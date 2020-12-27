@@ -33,4 +33,13 @@ export const posSessionService = {
         return null;
       });
   },
+
+  closeSession(sessionId: number) {
+    return dataService.call(
+      'pos.session',
+      'action_pos_session_closing_control',
+      [[sessionId]],
+      {},
+    );
+  },
 };

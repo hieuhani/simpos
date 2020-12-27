@@ -28,10 +28,11 @@ export const SessionSummary: React.FunctionComponent<SessionSummaryProps> = ({
           />
         </Flex>
       </Flex>
-      <Grid templateColumns="1fr 1fr 1fr" gridGap={4}>
+      <Grid templateColumns="1fr 1fr 1fr 1fr" gridGap={4}>
         <BoxInfo title="Người phụ trách" value={session.userId[1]} />
         <BoxInfo title="Điểm bán hàng" value={session.configId[1]} />
         <BoxInfo title="Ngày tạo phiên" value={session.startAt} />
+        <BoxInfo title="Trạng thái" value={session.state} />
       </Grid>
     </>
   );

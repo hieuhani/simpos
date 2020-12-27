@@ -6,7 +6,8 @@ type SimApiCallMethod =
   | 'get_real_tax_amount'
   | 'create_from_ui'
   | 'open_session_cb'
-  | 'web_read_group';
+  | 'web_read_group'
+  | 'action_pos_session_closing_control';
 
 interface SearchReadParams {
   model: string;
