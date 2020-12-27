@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Box, Heading, Text, Button, Tag } from '@chakra-ui/react';
+import { Box, Heading, Text, Button } from '@chakra-ui/react';
 
 import { PosConfig } from '../../../../services/db';
 

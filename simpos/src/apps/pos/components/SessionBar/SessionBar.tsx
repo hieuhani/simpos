@@ -10,7 +10,11 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React from 'react';
-import { IconWifiSlash } from '../../../../components/icons';
+import {
+  IconChevronDown,
+  IconSync,
+  IconWifiSlash,
+} from '../../../../components/icons';
 
 import { IconBell } from '../../../../components/icons/output/IconBell';
 import { IconWifi } from '../../../../components/icons/output/IconWifi';
@@ -45,12 +49,13 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
         <IconWrapper>
           <IconBell size="24" />
         </IconWrapper>
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <Box>
+        <Stack as="button" direction="row" alignItems="center" spacing={2}>
+          <Box textAlign="left">
             <Text fontSize="sm">Thu ngân</Text>
             <Heading size="sm">Hieu Tran</Heading>
           </Box>
-          <Avatar size="sm" name="Hieu Tran" src="https://bit.ly/dan-abramov" />
+
+          <IconSync size="1.5rem" />
         </Stack>
       </Stack>
     </Flex>

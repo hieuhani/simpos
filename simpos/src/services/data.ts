@@ -5,12 +5,13 @@ type SimApiCallMethod =
   | 'read'
   | 'get_real_tax_amount'
   | 'create_from_ui'
-  | 'open_session_cb';
+  | 'open_session_cb'
+  | 'web_read_group';
 
 interface SearchReadParams {
   model: string;
   fields?: Array<string>;
-  domain?: Array<Array<any>>;
+  domain?: Array<Array<any> | string>;
   order?: string;
   limit?: number;
   offset?: number;

@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useMemo } from 'react';
 import {
   DrawerContent,
   DrawerCloseButton,
@@ -8,28 +7,77 @@ import {
   DrawerFooter,
   Button,
   Box,
-  Text,
-  Link,
   Heading,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthProvider';
 import { IconStore } from '../icons/output/IconStore';
 import { IconTruckMoving } from '../icons/output/IconTruckMoving';
 import { IconInventory } from '../icons/output/IconInventory';
+import { MenuItem, MenuItemProps } from './MenuItem';
+import { SubMenuItem, SubMenuItemProps } from './SubMenuItem';
 
-// const SubMenuLink = styled(Link)(({ theme }: any) => {
-//   return `
-//   padding: 0.4rem 0.8rem;
-//   display: flex;
-//   background-color: ${theme.colors.brand['500']};
-//   color: ${theme.colors.brand['100']};
-// `;
-// });
+interface MenuGroup {
+  menu: MenuItemProps;
+  subMenus: SubMenuItemProps[];
+}
+
+const menuGroups: Record<string, MenuGroup> = {
+  '/pos': {
+    menu: {
+      title: 'Bán hàng',
+      icon: <IconStore size="20px" color="white" />,
+      to: '/pos',
+    },
+    subMenus: [
+      {
+        title: 'Phiên bán hàng',
+        to: '/pos/session',
+      },
+      {
+        title: 'Báo cáo',
+        to: '/pos/report',
+      },
+    ],
+  },
+  '/purchase': {
+    menu: {
+      title: 'Mua hàng',
+      icon: <IconTruckMoving size="20px" color="white" />,
+      to: '/purchase',
+    },
+    subMenus: [
+      {
+        title: 'Báo cáo',
+        to: '/purchase/report',
+      },
+    ],
+  },
+  '/inventory': {
+    menu: {
+      title: 'Kho',
+      icon: <IconInventory size="20px" color="white" />,
+      to: '/inventory',
+    },
+    subMenus: [
+      {
+        title: 'Báo cáo',
+        to: '/purchase/report',
+      },
+    ],
+  },
+};
 
 export const DrawerNavigation: React.FunctionComponent = () => {
   const { signOut } = useAuth();
-
+  const location = useLocation();
+  const currentMenuGroupKey = useMemo(() => {
+    const segments = location.pathname.split('/');
+    if (!segments[1]) {
+      return undefined;
+    }
+    return `/${segments[1]}`;
+  }, [location.pathname]);
   return (
     <DrawerContent>
       <DrawerCloseButton />
@@ -37,73 +85,28 @@ export const DrawerNavigation: React.FunctionComponent = () => {
 
       <DrawerBody>
         <Box listStyleType="none" as="ul">
-          <Box as="li" mb={2} color="brand.200">
-            <Link to="/pos" as={RouterLink} d="flex" alignItems="center">
-              <Box backgroundColor="brand.200" borderRadius="md" p="6px">
-                <IconStore size="20px" color="white" />
-              </Box>
-              <Text ml={2} fontWeight="bold">
-                Bán hàng
-              </Text>
-            </Link>
-          </Box>
-          <Box as="li" mb={2} color="brand.200">
-            <Link to="/purchase" as={RouterLink} d="flex" alignItems="center">
-              <Box backgroundColor="brand.200" borderRadius="md" p="6px">
-                <IconTruckMoving size="20px" color="white" />
-              </Box>
-
-              <Text ml={2}>Mua hàng</Text>
-            </Link>
-          </Box>
-          <Box as="li" mb={2} color="brand.200">
-            <Link to="/inventory" as={RouterLink} d="flex" alignItems="center">
-              <Box backgroundColor="brand.200" borderRadius="md" p="6px">
-                <IconInventory size="20px" color="white" />
-              </Box>
-
-              <Text ml={2}>Kho</Text>
-            </Link>
-          </Box>
+          {Object.keys(menuGroups).map((menu) => (
+            <MenuItem
+              key={menu}
+              {...menuGroups[menu].menu}
+              active={location.pathname.startsWith(menuGroups[menu].menu.to)}
+            />
+          ))}
         </Box>
-        <Box listStyleType="none" as="ul" mt={6}>
-          <Heading color="brand.200" fontSize="lg">
-            Bán hàng
-          </Heading>
-          <Box as="li" mb={1}>
-            <Link
-              to="/pos/session"
-              as={RouterLink}
-              d="flex"
-              backgroundColor="brand.500"
-              color="brand.100"
-              fontWeight="bold"
-              px={3}
-              py={1}
-              borderRadius="md"
-              _hover={{
-                textTransform: 'none',
-              }}
-            >
-              Phiên bán hàng
-            </Link>
+        {currentMenuGroupKey && menuGroups[currentMenuGroupKey] && (
+          <Box listStyleType="none" as="ul" mt={6}>
+            <Heading color="brand.200" fontSize="lg" mb={4}>
+              {menuGroups[currentMenuGroupKey].menu.title}
+            </Heading>
+            {menuGroups[currentMenuGroupKey].subMenus.map((subMenu) => (
+              <SubMenuItem
+                key={subMenu.to}
+                {...subMenu}
+                active={subMenu.to === location.pathname}
+              />
+            ))}
           </Box>
-          <Box as="li" mb={1}>
-            <Link
-              to="/pos/report"
-              as={RouterLink}
-              d="flex"
-              px={3}
-              py={1}
-              _hover={{
-                textTransform: 'none',
-                color: 'brand.100',
-              }}
-            >
-              Báo cáo
-            </Link>
-          </Box>
-        </Box>
+        )}
       </DrawerBody>
       <DrawerFooter>
         <Button w="full" onClick={() => signOut()}>

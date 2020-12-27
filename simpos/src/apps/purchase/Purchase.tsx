@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
 import React from 'react';
+import { NavigationBarGeneral } from '../pos/components/NavigationBar';
 
-export const Purchase: React.FunctionComponent = () => <Box>Purchase</Box>;
+export const Purchase: React.FunctionComponent = () => <NavigationBarGeneral />;

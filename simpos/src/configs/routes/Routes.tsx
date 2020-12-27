@@ -12,10 +12,11 @@ import { OrderManager } from '../../contexts/OrderManager';
 const POS = lazy(() => import('../../apps/pos'));
 const CustomerScreen = lazy(() => import('../../apps/pos/CustomerScreen'));
 const SessionScreen = lazy(() => import('../../apps/pos/SessionScreen'));
+const PosReportScreen = lazy(() => import('../../apps/pos/ReportScreen'));
 
 const Login = lazy(() => import('../../apps/auth/Login'));
-
 const Purchase = lazy(() => import('../../apps/purchase'));
+const Inventory = lazy(() => import('../../apps/inventory'));
 
 export const Routes: React.FunctionComponent = () => (
   <Router>
@@ -29,9 +30,11 @@ export const Routes: React.FunctionComponent = () => (
               <Route path="/pos" exact component={POS} />
               <Route path="/pos/customer_screen" component={CustomerScreen} />
               <Route path="/pos/session" component={SessionScreen} />
+              <Route path="/pos/report" component={PosReportScreen} />
             </OrderManager>
           </DataProvider>
           <Route path="/purchase" component={Purchase} />
+          <Route path="/inventory" component={Inventory} />
         </RequireLogin>
       </Switch>
     </Suspense>

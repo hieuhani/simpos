@@ -1,4 +1,4 @@
-import { Container } from '@chakra-ui/react';
+import { Container, Box, Button } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useData } from '../../contexts/DataProvider';
 import { PosSession } from '../../services/db';
@@ -23,11 +23,18 @@ export const SessionScreen: React.FunctionComponent = () => {
       <NavigationBarGeneral />
 
       {session && (
-        <Container maxW="xl" pt={4}>
+        <Container maxW="6xl" pt={4}>
           <SessionSummary session={session} />
           <SessionDataView sessionId={session.id} />
         </Container>
       )}
+      <Box position="fixed" bottom="0" left="0" right="0">
+        <Container maxW="6xl" py={2}>
+          <Button colorScheme="pink" w="full">
+            Đóng phiên
+          </Button>
+        </Container>
+      </Box>
     </>
   );
 };
