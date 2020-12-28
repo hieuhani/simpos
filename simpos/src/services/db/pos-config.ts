@@ -17,6 +17,7 @@ export interface PosConfig {
   company: Company;
   ifaceTaxIncluded: 'subtotal' | 'total';
   posSessionUsername?: string;
+  modulePosHr?: boolean;
   posSessionState?:
     | 'new_session'
     | 'opening_control'

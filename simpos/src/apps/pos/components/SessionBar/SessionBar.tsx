@@ -18,6 +18,7 @@ import {
 
 import { IconBell } from '../../../../components/icons/output/IconBell';
 import { IconWifi } from '../../../../components/icons/output/IconWifi';
+import { useData } from '../../../../contexts/DataProvider';
 import { usePreference } from '../../../../contexts/PreferenceProvider';
 
 const IconWrapper = styled(Flex)`
@@ -33,6 +34,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
   ...boxProps
 }) => {
   const { isOnline } = usePreference();
+  const { cashier, posConfig } = useData();
   return (
     <Flex {...boxProps}>
       <Box width="40px">
@@ -49,13 +51,20 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
         <IconWrapper>
           <IconBell size="24" />
         </IconWrapper>
-        <Stack as="button" direction="row" alignItems="center" spacing={2}>
-          <Box textAlign="left">
-            <Text fontSize="sm">Thu ngân</Text>
-            <Heading size="sm">Hieu Tran</Heading>
-          </Box>
+        <Stack
+          as={posConfig.modulePosHr ? 'button' : 'div'}
+          direction="row"
+          alignItems="center"
+          spacing={2}
+        >
+          {cashier && (
+            <Box textAlign="left">
+              <Text fontSize="sm">Thu ngân</Text>
+              <Heading size="sm">{cashier.name}</Heading>
+            </Box>
+          )}
 
-          <IconSync size="1.5rem" />
+          {posConfig.modulePosHr && <IconSync size="1.5rem" />}
         </Stack>
       </Stack>
     </Flex>

@@ -22,10 +22,12 @@ import {
   uomRepository,
 } from '../../services/db';
 import { Company, companyRepository } from '../../services/db/company';
+import { Employee } from '../../services/db/employee';
 import {
   ProductPricelist,
   productPricelistRepository,
 } from '../../services/db/product-pricelist';
+import { userRepository } from '../../services/db/user';
 import { worker } from '../../workers';
 import { useAuth } from '../AuthProvider';
 import { getLoadModelsMap, getModelNames } from './dataLoader';
@@ -40,6 +42,7 @@ export interface DataContextState {
   company: Company;
   uoms: UOM[];
   paymentMethods: PaymentMethod[];
+  cashier?: Employee;
 }
 
 export type GlobalDataAction =
@@ -119,6 +122,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     if (!posConfig) {
       throw new Error('POS Config data error');
     }
+
     const pricelists = await productPricelistRepository.findByIds(
       posConfig.usePricelist
         ? posConfig.availablePricelistIds
@@ -143,6 +147,17 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     const uoms = await uomRepository.all();
     const paymentMethods = await paymentMethodRepository.all();
 
+    let cashier: Employee | undefined;
+    if (!posConfig.modulePosHr) {
+      const user = await userRepository.findById(auth.userMeta!.uid);
+      if (user) {
+        cashier = {
+          name: user.name,
+          user,
+        };
+      }
+    }
+
     dispatch({
       type: 'INITIAL_LOAD',
       payload: {
@@ -155,6 +170,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         uoms,
         company: company!,
         paymentMethods,
+        cashier,
       },
     });
   };
