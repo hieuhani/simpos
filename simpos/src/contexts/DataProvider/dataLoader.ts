@@ -239,6 +239,7 @@ export const loadModels: LoadModel[] = [
   },
   { model: 'account.fiscal.position', fields: [] },
   { model: 'account.fiscal.position.tax', fields: [] },
+  { model: 'hr.employee', fields: ['name', 'id', 'user_id'] },
 ].map((loadModel) => {
   return {
     ...loadModel,
