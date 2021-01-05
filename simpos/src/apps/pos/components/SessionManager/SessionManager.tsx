@@ -8,16 +8,12 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { getLoadModelsMap } from '../../../../contexts/DataProvider/dataLoader';
-import {
-  PosConfig,
-  posConfigRepository,
-  PosSession,
-  posSessionRepository,
-} from '../../../../services/db';
+import { PosConfig, PosSession } from '../../../../services/db';
 import { AuthUserMeta } from '../../../../services/db/root';
 import { posConfigService } from '../../../../services/pos-config';
 import { SessionConfig } from './SessionConfig';
 
+const loadModelsMap = getLoadModelsMap();
 export interface SessionManagerProps {
   authUserMeta: AuthUserMeta;
   onSessionSelected: (session: PosSession) => void;
@@ -40,8 +36,8 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
 
   useEffect(() => {
     const fetchSession = async () => {
-      const posConfigs = await posConfigRepository.all();
-      const posSessions = await posSessionRepository.all();
+      const posConfigs = await loadModelsMap['pos.config'].load();
+      const posSessions = await loadModelsMap['pos.session'].load();
       setConfigs(posConfigs);
       updateSession(posSessions);
     };
@@ -50,10 +46,8 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
 
   const openSession = async (configId: number) => {
     await posConfigService.createSession(configId);
-    const loadModelsMap = getLoadModelsMap();
-    const posSessions = await loadModelsMap['pos.session'].load({
-      nocache: true,
-    });
+
+    const posSessions = await loadModelsMap['pos.session'].load();
     updateSession(posSessions);
   };
 
