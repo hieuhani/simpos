@@ -42,6 +42,11 @@ export const loadModels: LoadModel[] = [
   {
     model: 'pos.config',
     fields: [],
+    async load() {
+      return fetchModelData(this.model, this.fields, [], (rows) => rows, {
+        nocache: true,
+      });
+    },
   },
   {
     model: 'pos.session',
@@ -57,7 +62,7 @@ export const loadModels: LoadModel[] = [
       'payment_method_ids',
       'login_number',
     ],
-    async load(options: LoadModelOption | undefined) {
+    async load() {
       return fetchModelData(
         this.model,
         this.fields,
@@ -72,7 +77,9 @@ export const loadModels: LoadModel[] = [
             responsibleUserId: row.userId ? row.userId[0] : null,
           }));
         },
-        options,
+        {
+          nocache: true,
+        },
       );
     },
     indexes: '++id, name',

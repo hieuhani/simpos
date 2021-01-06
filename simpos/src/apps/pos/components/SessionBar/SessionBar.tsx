@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Flex,
   Heading,
@@ -18,11 +17,7 @@ import {
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  IconChevronDown,
-  IconSync,
-  IconWifiSlash,
-} from '../../../../components/icons';
+import { IconSync, IconWifiSlash } from '../../../../components/icons';
 
 import { IconBell } from '../../../../components/icons/output/IconBell';
 import { IconWifi } from '../../../../components/icons/output/IconWifi';
