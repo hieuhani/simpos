@@ -48,6 +48,10 @@ const menuGroups: Record<string, MenuGroup> = {
     },
     subMenus: [
       {
+        title: 'Mua hàng',
+        to: '/purchase/new',
+      },
+      {
         title: 'Báo cáo',
         to: '/purchase/report',
       },

@@ -16,6 +16,7 @@ const PosReportScreen = lazy(() => import('../../apps/pos/ReportScreen'));
 
 const Login = lazy(() => import('../../apps/auth/Login'));
 const Purchase = lazy(() => import('../../apps/purchase'));
+const NewPurchase = lazy(() => import('../../apps/purchase/NewPurchase'));
 const Inventory = lazy(() => import('../../apps/inventory'));
 
 export const Routes: React.FunctionComponent = () => (
@@ -33,7 +34,8 @@ export const Routes: React.FunctionComponent = () => (
               <Route path="/pos/report" component={PosReportScreen} />
             </OrderManager>
           </DataProvider>
-          <Route path="/purchase" component={Purchase} />
+          <Route path="/purchase" exact component={Purchase} />
+          <Route path="/purchase/new" component={NewPurchase} />
           <Route path="/inventory" component={Inventory} />
         </RequireLogin>
       </Switch>

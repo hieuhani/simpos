@@ -13,3 +13,4 @@ export * from './order-line';
 export * from './account-tax';
 export * from './uom';
 export * from './payment-method';
+export * from './purchase-order';

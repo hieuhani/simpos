@@ -16,13 +16,7 @@ export const NavigationBarGeneral: React.FunctionComponent = () => {
   const btnRef: any = React.useRef();
   return (
     <>
-      <Flex
-        align="center"
-        px={4}
-        py={2}
-        borderBottom="1px solid"
-        borderBottomColor="gray.100"
-      >
+      <Flex align="center" px={4} py={2}>
         <Button ref={btnRef} onClick={onOpen}>
           <IconBars size="20" />
         </Button>
