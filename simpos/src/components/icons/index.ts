@@ -4,6 +4,8 @@ export * from './output/IconBars';
 export * from './output/IconBellOn';
 export * from './output/IconBell';
 export * from './output/IconBells';
+export * from './output/IconCalendarAlt';
+export * from './output/IconCartPlus';
 export * from './output/IconCheckCircle';
 export * from './output/IconChevronDown';
 export * from './output/IconChevronLeft';

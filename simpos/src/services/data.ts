@@ -3,11 +3,14 @@ import { simApi } from './clients';
 type SimApiCallMethod =
   | 'search_read'
   | 'read'
+  | 'create'
+  | 'button_confirm'
   | 'get_real_tax_amount'
   | 'create_from_ui'
   | 'open_session_cb'
   | 'web_read_group'
-  | 'action_pos_session_closing_control';
+  | 'action_pos_session_closing_control'
+  | 'default_get';
 
 interface SearchReadParams {
   model: string;
@@ -27,7 +30,12 @@ interface ReadParams {
 }
 
 export const dataService = {
-  call(model: string, method: SimApiCallMethod, args: Array<any>, kwargs: any) {
+  call(
+    model: string,
+    method: SimApiCallMethod,
+    args: Array<any>,
+    kwargs: any,
+  ): Promise<any> {
     return simApi.post(`/web/dataset/call_kw/${model}/${method}`, {
       jsonrpc: '2.0',
       method: 'call',
@@ -57,6 +65,7 @@ export const dataService = {
       ),
     );
   },
+
   read(params: ReadParams): Promise<any> {
     const { model, ids, kwargs, fields } = Object.assign(
       {},

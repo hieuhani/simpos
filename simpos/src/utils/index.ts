@@ -240,3 +240,7 @@ export function zeroPad(num: number, size: number) {
   }
   return s;
 }
+
+export function formatMoney(number: number = 0) {
+  return `${number.toLocaleString('vi')}đ`;
+}

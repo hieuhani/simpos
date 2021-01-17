@@ -2,6 +2,7 @@ import React from 'react';
 import { Global } from '@emotion/react';
 import { ChakraProvider, CSSReset, extendTheme } from '@chakra-ui/react';
 import { globalStyles } from './globalStyles';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export interface ThemeProviderProps {
   children?: React.ReactNode;
