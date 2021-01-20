@@ -1,0 +1,14 @@
+{
+  "name": "simpos",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "dev:web": "yarn workspace @simpos/web start"
+  }
+}
