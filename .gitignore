@@ -2,3 +2,4 @@ odoo
 venv
 .vscode
 .idea
+node_modules
