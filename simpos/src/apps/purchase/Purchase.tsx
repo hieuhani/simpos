@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Container, Flex, Link } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useQueryParams } from '../../hooks';
 import { PurchaseOrder } from '../../services/db';
 
@@ -8,27 +8,44 @@ import { NavigationBarGeneral } from '../pos/components/NavigationBar';
 import { purchaseOrderService } from '../../services/purchase-order';
 import { PurchaseOrders } from './components/PurchaseOrders';
 
+interface TabConfig {
+  route: LinkProps['to'];
+  title: string;
+  domain: Array<Array<any> | string>;
+}
+const tabs: Record<string, TabConfig> = {
+  all: {
+    route: { pathname: '/purchase' },
+    title: 'Tất cả',
+    domain: [],
+  },
+  waiting: {
+    route: { pathname: '/purchase', search: '?status=waiting' },
+    title: 'Chờ nhận hàng',
+    domain: [
+      ['state', 'in', ['purchase', 'done']],
+      ['invoice_status', 'in', ['to invoice', 'no']],
+    ],
+  },
+  received: {
+    route: { pathname: '/purchase', search: '?status=received' },
+    title: 'Đã nhận hàng',
+    domain: [
+      ['state', 'in', ['purchase', 'done']],
+      ['invoice_status', '=', 'invoiced'],
+    ],
+  },
+};
+
 export const Purchase: React.FunctionComponent = () => {
   const queryParams = useQueryParams();
   const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>([]);
   const getPurchaseOrders = async (status: string | null) => {
     setPurchaseOrders([]);
-    if (status === 'waiting') {
-      const poList = await purchaseOrderService.getPurchaseOrders([
-        ['state', 'in', ['purchase', 'done']],
-        ['invoice_status', '=', 'to invoice'],
-      ]);
-      setPurchaseOrders(poList);
-    } else if (status === 'received') {
-      const poList = await purchaseOrderService.getPurchaseOrders([
-        ['state', 'in', ['purchase', 'done']],
-        ['invoice_status', '=', 'invoiced'],
-      ]);
-      setPurchaseOrders(poList);
-    } else {
-      const poList = await purchaseOrderService.getPurchaseOrders();
-      setPurchaseOrders(poList);
-    }
+    const poList = await purchaseOrderService.getPurchaseOrders(
+      tabs[status || 'all'].domain,
+    );
+    setPurchaseOrders(poList);
   };
   useEffect(() => {
     getPurchaseOrders(queryParams.get('status'));
@@ -37,40 +54,37 @@ export const Purchase: React.FunctionComponent = () => {
   return (
     <>
       <NavigationBarGeneral />
-      <Container maxW="6xl" pt={4}>
-        <Flex>
-          <Link to="/purchase" as={RouterLink}>
-            <Box
-              backgroundColor="pink.100"
-              borderRadius="full"
-              py={2}
-              px={4}
-              color="pink.700"
-              fontWeight="600"
-            >
-              Mua hàng
-            </Box>
-          </Link>
-          <Link
-            to={{ pathname: '/purchase', search: '?status=waiting' }}
-            as={RouterLink}
-          >
-            <Box py={2} px={4} color="gray.600" fontWeight="600">
-              Chờ nhận hàng
-            </Box>
-          </Link>
-          <Link
-            to={{ pathname: '/purchase', search: '?status=received' }}
-            as={RouterLink}
-          >
-            <Box py={2} px={4} color="gray.600" fontWeight="600">
-              Đã nhận hàng
-            </Box>
-          </Link>
-        </Flex>
-        <PurchaseOrders purchaseOrders={purchaseOrders} />
-      </Container>
-      <Box position="fixed" bottom="0" left="0" right="0">
+      <Box height="calc(100vh - 112px)" overflowY="auto">
+        <Container maxW="6xl" pt={4}>
+          <Flex>
+            {Object.keys(tabs).map((tabKey) => (
+              <Link key={tabKey} to={tabs[tabKey].route} as={RouterLink}>
+                <Box
+                  borderRadius="full"
+                  py={2}
+                  px={4}
+                  fontWeight="600"
+                  {...(tabKey === (queryParams.get('status') || 'all')
+                    ? {
+                        color: 'pink.700',
+                        backgroundColor: 'pink.100',
+                      }
+                    : {
+                        color: 'gray.600',
+                      })}
+                >
+                  {tabs[tabKey].title}
+                </Box>
+              </Link>
+            ))}
+          </Flex>
+          <PurchaseOrders
+            view={queryParams.get('status') || undefined}
+            purchaseOrders={purchaseOrders}
+          />
+        </Container>
+      </Box>
+      <Box position="fixed" left="0" right="0" bottom="0">
         <Container maxW="6xl" py={2}>
           <Button
             as={RouterLink}

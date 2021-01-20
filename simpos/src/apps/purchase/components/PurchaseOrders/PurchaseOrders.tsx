@@ -1,9 +1,12 @@
-import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Button } from '@chakra-ui/react';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+
 import { PurchaseOrder } from '../../../../services/db';
 
 export interface PurchaseOrdersProps {
   purchaseOrders: PurchaseOrder[];
+  view?: string;
 }
 export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
   purchaseOrders,
@@ -18,6 +21,7 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
           <Th>Invoice status</Th>
           <Th>Người tạo</Th>
           <Th>Tổng</Th>
+          <Th />
         </Tr>
       </Thead>
       <Tbody>
@@ -30,6 +34,16 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
             <Td>{purchaseOrder.invoiceStatus}</Td>
             <Td>{purchaseOrder.userId && purchaseOrder.userId[1]}</Td>
             <Td>{purchaseOrder.amountTotal}</Td>
+            <Td>
+              <Button
+                as={RouterLink}
+                to={`/purchase/${purchaseOrder.id}`}
+                colorScheme="pink"
+                w="full"
+              >
+                Chi tiết
+              </Button>
+            </Td>
           </Tr>
         ))}
       </Tbody>

@@ -1,41 +1,132 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Flex, Stack, Image, Text, Button } from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Box,
+  Flex,
+  Stack,
+  Image,
+  Text,
+  Button,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+} from '@chakra-ui/react';
 import { PurchasePanel } from '../PurchasePanel';
-import { usePurchaseState } from '../../contexts/PurchaseContext';
+import {
+  usePurchaseDispatch,
+  usePurchaseState,
+} from '../../contexts/PurchaseContext';
 import { IconCalendarAlt } from '../../../../components/icons';
 import {
   DefaultPurchaseOrder,
   purchaseOrderService,
 } from '../../../../services/purchase-order';
+import { Machine } from 'xstate';
+import { useMachine } from '@xstate/react';
+import {
+  StockPickingType,
+  stockPickingTypeService,
+} from '../../../../services/stock-picking-type';
+
+const poStateMessageMap: Record<string, string> = {
+  creatingPo: 'Đang tạo đơn mua...',
+  createdPo: 'Đã tạo đơn mua thành công',
+  confirmingPo: 'Đang xác nhận đơn mua...',
+  confirmedPo: 'Xác nhận đơn mua thành công',
+  confirmPoFailed: 'Xác nhận đơn mua thất bại',
+  createPoFailed: 'Tạo đơn mua thất bại',
+};
+
+const createPoMachine = Machine({
+  id: 'create_po_machine',
+  initial: 'initial',
+  states: {
+    initial: {
+      on: { CREATE_PO: 'creatingPo' },
+    },
+    creatingPo: {
+      on: {
+        CREATED_PO: 'createdPo',
+        CREATE_PO_FAILED: 'createPoFailed',
+      },
+    },
+    createdPo: {
+      on: {
+        CONFIRM_PO: 'confirmingPo',
+      },
+    },
+    confirmingPo: {
+      on: {
+        CONFIRMED_PO: 'confirmedPo',
+        CONFIRM_PO_FAILED: 'confirmPoFailed',
+      },
+    },
+    createPoFailed: {},
+    confirmedPo: {},
+    confirmPoFailed: {},
+  },
+  on: {
+    RESET: 'initial',
+  },
+});
 
 export const PurchaseSidebar: React.FunctionComponent = () => {
   const state = usePurchaseState();
+  const [createPoState, poMachineSend] = useMachine(createPoMachine);
+  const dispatch = usePurchaseDispatch();
+  const cancelPoDialogRef = useRef(null);
+  const [stockPickingTypes, setStockPickingTypes] = useState<
+    StockPickingType[]
+  >([]);
   const [defaultPurchaseOrder, setDefaultPurchaseOrder] = useState<
     DefaultPurchaseOrder | undefined
   >();
 
   const makePurchase = async () => {
     const po = defaultPurchaseOrder!;
-    const purchaseOrderId = await purchaseOrderService.create({
-      currencyId: po.currencyId,
-      dateOrder: po.dateOrder,
-      companyId: po.companyId,
-      pickingTypeId: po.pickingTypeId,
-      userId: po.userId,
-      partnerId: 1, // chateraise id
-      lines: state.lines.map((line) => ({
-        productId: line.product.id,
-        name: line.product.name,
-        datePlanned: po.dateOrder,
-        productQty: line.quantity,
-        priceUnit: line.product.lstPrice,
-      })),
-    });
-    await purchaseOrderService.confirmPurchaseOrder(purchaseOrderId);
+    poMachineSend('CREATE_PO');
+    let purchaseOrderId;
+    try {
+      purchaseOrderId = await purchaseOrderService.create({
+        currencyId: po.currencyId,
+        dateOrder: po.dateOrder,
+        companyId: po.companyId,
+        pickingTypeId: po.pickingTypeId,
+        userId: po.userId,
+        partnerId: 1, // chateraise id
+        lines: state.lines.map((line) => ({
+          productId: line.product.id,
+          name: line.product.name,
+          datePlanned: po.dateOrder,
+          productQty: line.quantity,
+          priceUnit: line.product.lstPrice,
+        })),
+      });
+      dispatch({ type: 'RESET' });
+      poMachineSend('CREATED_PO');
+    } catch {
+      poMachineSend('CREATE_PO_FAILED');
+    }
+    poMachineSend('CONFIRM_PO');
+    try {
+      await purchaseOrderService.confirmPurchaseOrder(purchaseOrderId);
+      poMachineSend('CONFIRMED_PO');
+    } catch {
+      poMachineSend('CONFIRM_PO_FAILED');
+    }
+  };
+
+  const onPoDialogClose = () => {
+    poMachineSend('RESET');
   };
 
   const defaultGet = async () => {
     const defaultPo = await purchaseOrderService.defaultGet();
+    const serverStockPickingTypes = await stockPickingTypeService.getIncommingStockPickingTypes();
+    setStockPickingTypes(serverStockPickingTypes);
     setDefaultPurchaseOrder(defaultPo);
   };
 
@@ -131,6 +222,28 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
           Thanh toán
         </Button>
       </Box>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onPoDialogClose}
+        isOpen={createPoState.value !== 'initial'}
+        isCentered
+        leastDestructiveRef={cancelPoDialogRef}
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Trạng thái</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            {poStateMessageMap[createPoState.value.toString()]}
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelPoDialogRef} onClick={onPoDialogClose}>
+              Tiếp tục
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };

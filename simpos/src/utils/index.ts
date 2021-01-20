@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { sprintf } from 'sprintf-js';
 
 const databaseParameters: any = {
@@ -243,4 +244,8 @@ export function zeroPad(num: number, size: number) {
 
 export function formatMoney(number: number = 0) {
   return `${number.toLocaleString('vi')}đ`;
+}
+
+export function formatDate(date: dayjs.ConfigType, format = 'DD/MM/YYYY') {
+  return dayjs(date).format(format);
 }

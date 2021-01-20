@@ -10,7 +10,7 @@
   },
   "proxy": "http://localhost:8069",
   "dependencies": {
-    "@chakra-ui/react": "^1.0.4",
+    "@chakra-ui/react": "^1.1.5",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@reduxjs/toolkit": "^1.4.0",
@@ -21,6 +21,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@xstate/react": "^1.2.2",
     "axios": "^0.21.0",
     "camelcase-keys": "^6.2.2",
     "dayjs": "^1.9.6",
@@ -41,6 +42,7 @@
     "swiper": "^6.3.5",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
+    "xstate": "^4.16.0",
     "yup": "^0.30.0"
   },
   "devDependencies": {

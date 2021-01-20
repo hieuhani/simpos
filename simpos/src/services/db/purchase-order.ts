@@ -14,5 +14,6 @@ export interface PurchaseOrder {
   state: 'draft' | 'sent' | 'to approve' | 'purchase' | 'done' | 'cancel';
   userId: [number, string];
   partnerRef: string;
-  notes: string;
+  notes?: string;
+  pickingTypeId: [number, string];
 }

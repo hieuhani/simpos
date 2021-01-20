@@ -1,4 +1,5 @@
 import { dataService } from './data';
+import { PurchaseOrder } from './db';
 
 export interface DefaultPurchaseOrder {
   companyId: number;
@@ -122,24 +123,22 @@ export const purchaseOrderService = {
           partner_ref: false,
           origin: false,
           order_line: payload.lines.map((line, index) => [
-            [
-              0,
-              `virtual_${index}`,
-              {
-                display_type: false,
-                sequence: 10,
-                state: false,
-                product_id: line.productId,
-                name: line.name,
-                date_planned: line.datePlanned,
-                account_analytic_id: false,
-                product_qty: line.productQty,
-                qty_received_manual: 0,
-                product_uom: 1,
-                price_unit: line.priceUnit,
-                taxes_id: [[6, false, [1]]],
-              },
-            ],
+            0,
+            `virtual_${index}`,
+            {
+              display_type: false,
+              sequence: 10,
+              state: false,
+              product_id: line.productId,
+              name: line.name,
+              date_planned: line.datePlanned,
+              account_analytic_id: false,
+              product_qty: line.productQty,
+              qty_received_manual: 0,
+              product_uom: 1,
+              price_unit: line.priceUnit,
+              taxes_id: [[6, false, [1]]],
+            },
           ]),
           notes: false,
           date_planned: false,
@@ -152,5 +151,57 @@ export const purchaseOrderService = {
       ],
       {},
     );
+  },
+  getPurchaseOrder(purchaseOrderId: number): Promise<PurchaseOrder | null> {
+    return dataService
+      .call(
+        'purchase.order',
+        'read',
+        [
+          [purchaseOrderId],
+          [
+            'state',
+            'invoice_count',
+            'invoice_ids',
+            'picking_count',
+            'picking_ids',
+            'name',
+            'partner_id',
+            'partner_ref',
+            'currency_id',
+            'is_shipped',
+            'date_order',
+            'date_approve',
+            'origin',
+            'company_id',
+            'order_line',
+            'amount_untaxed',
+            'amount_tax',
+            'amount_total',
+            'notes',
+            'date_planned',
+            'picking_type_id',
+            'dest_address_id',
+            'default_location_dest_id_usage',
+            'incoterm_id',
+            'user_id',
+            'invoice_status',
+            'payment_term_id',
+            'fiscal_position_id',
+            'message_follower_ids',
+            'activity_ids',
+            'message_ids',
+            'message_attachment_count',
+            'display_name',
+          ],
+        ],
+        {},
+      )
+      .then((entities: any) => {
+        if (Array.isArray(entities) && entities.length > 0) {
+          return entities[0];
+        }
+        return null;
+      });
   },
 };

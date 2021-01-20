@@ -24,6 +24,9 @@ export type PurchaseDispatchAction =
   | {
       type: 'UPDATE_LINE';
       payload: Pick<PurchaseLine, 'virtualId' | 'quantity'>;
+    }
+  | {
+      type: 'RESET';
     };
 
 const initialState: PurchaseState = {
@@ -92,6 +95,9 @@ export function purchaseReducer(
           return line;
         }),
       };
+
+    case 'RESET':
+      return initialState;
     default:
       return state;
   }
