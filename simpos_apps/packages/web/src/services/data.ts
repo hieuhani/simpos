@@ -10,7 +10,11 @@ type SimApiCallMethod =
   | 'open_session_cb'
   | 'web_read_group'
   | 'action_pos_session_closing_control'
-  | 'default_get';
+  | 'default_get'
+  | 'write'
+  | 'button_validate'
+  | 'process_cancel_backorder'
+  | 'process';
 
 interface SearchReadParams {
   model: string;
@@ -76,5 +80,24 @@ export const dataService = {
       params,
     );
     return this.call(model, 'read', [ids, fields], kwargs);
+  },
+
+  callButton(
+    model: string,
+    method: string,
+    args: Array<any>,
+    kwargs?: any,
+  ): Promise<any> {
+    return simApi.post('/web/dataset/call_button', {
+      jsonrpc: '2.0',
+      method: 'call',
+      params: {
+        model,
+        method,
+        args,
+        kwargs,
+      },
+      id: Math.floor(Math.random() * 1000 * 1000 * 1000),
+    });
   },
 };

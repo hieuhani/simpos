@@ -108,6 +108,14 @@ export const purchaseOrderService = {
       {},
     );
   },
+  getPicking(purchaseOrderId: number) {
+    return dataService.callButton(
+      'purchase.order',
+      'action_view_picking',
+      [[purchaseOrderId]],
+      {},
+    );
+  },
   create(payload: PurchaseOrderPayload) {
     return dataService.call(
       'purchase.order',

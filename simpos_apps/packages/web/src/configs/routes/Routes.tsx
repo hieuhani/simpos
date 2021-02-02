@@ -20,6 +20,10 @@ const NewPurchase = lazy(() => import('../../apps/purchase/NewPurchase'));
 const PurchaseDetails = lazy(
   () => import('../../apps/purchase/PurchaseDetails'),
 );
+const StockPickingDetails = lazy(
+  () => import('../../apps/inventory/StockPickingDetails'),
+);
+
 const Inventory = lazy(() => import('../../apps/inventory'));
 
 export const Routes: React.FunctionComponent = () => (
@@ -39,13 +43,21 @@ export const Routes: React.FunctionComponent = () => (
           </DataProvider>
           <Route path="/purchase" exact component={Purchase} />
 
-          <Route path="/purchase/new" component={NewPurchase} />
-          <Route
-            path="/purchase/:purchaseOrderId"
-            exact
-            component={PurchaseDetails}
-          />
-          <Route path="/inventory" component={Inventory} />
+          <Switch>
+            <Route path="/purchase/new" component={NewPurchase} />
+            <Route
+              path="/purchase/:purchaseOrderId"
+              component={PurchaseDetails}
+            />
+          </Switch>
+          <Route path="/inventory" exact component={Inventory} />
+
+          <Switch>
+            <Route
+              path="/inventory/stock_picking/:stockPickingId"
+              component={StockPickingDetails}
+            />
+          </Switch>
         </RequireLogin>
       </Switch>
     </Suspense>

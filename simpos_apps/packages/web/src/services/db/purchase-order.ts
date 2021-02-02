@@ -16,4 +16,7 @@ export interface PurchaseOrder {
   partnerRef: string;
   notes?: string;
   pickingTypeId: [number, string];
+  orderLine: number[];
+  isShipped: boolean;
+  pickingCount: number;
 }
