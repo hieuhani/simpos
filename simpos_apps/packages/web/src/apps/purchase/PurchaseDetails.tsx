@@ -1,4 +1,12 @@
-import { Box, Button, Container, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+} from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
@@ -85,19 +93,19 @@ const PurchaseDetails: React.FunctionComponent = () => {
       });
     }
 
-    if (purchaseOrder.state === 'purchase') {
-      buttons.push({
-        children: 'Khoá',
-        colorScheme: 'pink',
-      });
-    }
+    // if (purchaseOrder.state === 'purchase') {
+    //   buttons.push({
+    //     children: 'Khoá',
+    //     colorScheme: 'pink',
+    //   });
+    // }
 
-    if (purchaseOrder.state === 'done') {
-      buttons.push({
-        children: 'Mở khoá',
-        colorScheme: 'pink',
-      });
-    }
+    // if (purchaseOrder.state === 'done') {
+    //   buttons.push({
+    //     children: 'Mở khoá',
+    //     colorScheme: 'pink',
+    //   });
+    // }
     if (
       !!~['draft', 'to', 'approve', 'sent', 'purchase'].indexOf(
         purchaseOrder.state,
@@ -105,7 +113,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
     ) {
       buttons.push({
         children: 'Huỷ',
-        colorScheme: 'pink',
+        colorScheme: 'red',
         to: '/purchase/new',
         as: RouterLink,
       });
@@ -118,7 +126,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
     ) {
       buttons.push({
         children: 'Nhận hàng',
-        colorScheme: 'pink',
+        colorScheme: 'green',
         onClick: handleViewPicking,
       });
     }
@@ -134,6 +142,17 @@ const PurchaseDetails: React.FunctionComponent = () => {
       <NavigationBarGeneral />
       <Box height="calc(100vh - 112px)" overflowY="auto">
         <Container maxW="6xl" pt={4}>
+          <Breadcrumb mb={4}>
+            <BreadcrumbItem>
+              <BreadcrumbLink as={RouterLink} to="/purchase">
+                Danh sách đơn mua
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">{purchaseOrder.name}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
           <PurchaseSummary purchaseOrder={purchaseOrder} />
           <PurchaseOrderLines purchaseOrderLines={purchaseOrderLines} />
         </Container>
@@ -142,7 +161,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
         <Container maxW="6xl" py={2}>
           <Stack direction="row">
             {actionButtons.map((actionButton, index) => (
-              <Button key={index} {...actionButton} />
+              <Button key={index} {...actionButton} flex={1} />
             ))}
           </Stack>
         </Container>

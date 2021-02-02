@@ -13,6 +13,7 @@ import {
   Container,
   Grid,
   Stack,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -25,67 +26,21 @@ import { ActionButtonProps } from '../../types';
 import { StockPickingSummary } from './components/StockPickingSummary/StockPickingSummary';
 import { StockMoves } from './components/StockPickingSummary/StockMoves';
 import { StockMove, stockMoveService } from '../../services/stock-move';
-import { Machine } from 'xstate';
 import { useMachine } from '@xstate/react';
 import { stockBackorderConfirmationService } from '../../services/stock-backorder-confirmation';
-
-const receiveProductsMachine = Machine({
-  id: 'receive_product_machine',
-  initial: 'initial',
-  states: {
-    initial: {
-      on: { UPDATE_MOVES: 'updatingMoves' },
-    },
-    updatingMoves: {
-      on: {
-        UPDATED_MOVES: 'updatedMoves',
-        UPDATE_MOVES_FAILED: 'updateMovesFailed',
-      },
-    },
-    updatedMoves: {
-      on: {
-        VALIDATE_MOVES: 'validatingMoves',
-      },
-    },
-    validatingMoves: {
-      on: {
-        VALIDATED_MOVES: 'validatedMoves',
-        VALIDATE_MOVES_FAILED: 'validateMovesFailed',
-        BACKORDER_CONFIRMATION: 'backorderConfirmation',
-      },
-    },
-    backorderConfirmation: {
-      on: {
-        CREATE_BACKORDER: 'creatingBackorder',
-        SKIP_BACKORDER: 'skippingBackorder',
-      },
-    },
-    creatingBackorder: {
-      on: {
-        CREATED_BACKORDER: 'createdBackorder',
-      },
-    },
-    skippingBackorder: {
-      on: {
-        SKIPPED_BACKORDER: 'skippedBackorder',
-      },
-    },
-    createdBackorder: {},
-    skippedBackorder: {},
-    updateMovesFailed: {},
-    validatedMoves: {},
-    validateMovesFailed: {},
-  },
-  on: {
-    RESET: 'initial',
-  },
-});
+import { purchaseOrderService } from '../../services/purchase-order';
+import {
+  receiveProductsMachine,
+  receiveProductsMachineStateMapping,
+} from './machines/receive-products-machine';
 
 interface PurchaseDetailsRoute {
   stockPickingId: string;
 }
 
 const StockPickingDetails: React.FunctionComponent = () => {
+  const toast = useToast();
+
   const params = useParams<PurchaseDetailsRoute>();
   const [stockPicking, setStockPicking] = useState<StockPicking | null>(null);
   const [stockMoves, setStockMoves] = useState<StockMove[]>([]);
@@ -113,16 +68,44 @@ const StockPickingDetails: React.FunctionComponent = () => {
     getStockPicking(parseInt(params.stockPickingId));
   }, [params.stockPickingId]);
 
+  const markPurcharOrderAsDone = async () => {
+    try {
+      if (!stockPicking?.origin) {
+        throw new Error('Stock picking origin is not found');
+      }
+      receiveProductsMachineSend('LOCK_PURCHASE_ORDER');
+      const po = await purchaseOrderService.findByName(stockPicking?.origin);
+      if (!po.id) {
+        throw new Error(
+          'Could not found purchase order by stock picking origin',
+        );
+      }
+      await purchaseOrderService.lockPurchaseOrder(po.id);
+      receiveProductsMachineSend('LOCKED_PURCHASE_ORDER');
+    } catch {
+      receiveProductsMachineSend('LOCK_PURCHASE_ORDER_FAILED');
+    }
+  };
+
   const createBackorder = async (id: number) => {
-    receiveProductsMachineSend('CREATE_BACKORDER');
-    await stockBackorderConfirmationService.processBackorder(id);
-    receiveProductsMachineSend('CREATED_BACKORDER');
+    toast({
+      title: 'Thông báo',
+      description: 'Chức năng tạo backorder chưa hoàn thiện',
+      status: 'warning',
+      duration: 9000,
+      isClosable: true,
+    });
+    // receiveProductsMachineSend('CREATE_BACKORDER');
+    // await stockBackorderConfirmationService.processBackorder(id);
+    // receiveProductsMachineSend('CREATED_BACKORDER');
   };
 
   const skipBackorder = async (id: number) => {
     receiveProductsMachineSend('SKIP_BACKORDER');
     await stockBackorderConfirmationService.cancelBackorder(id);
     receiveProductsMachineSend('SKIPPED_BACKORDER');
+
+    await markPurcharOrderAsDone();
   };
 
   const nextActionNode = useMemo<React.ReactNode>(() => {
@@ -145,7 +128,9 @@ const StockPickingDetails: React.FunctionComponent = () => {
         </Box>
       );
     }
-    return null;
+    return receiveProductsMachineStateMapping[
+      receiveProductsMachineState.value as string
+    ];
   }, [receiveProductsMachineState]);
   const handleOnReceive = async (quantityMap: Record<string, number>) => {
     if (!stockPicking) {
@@ -231,6 +216,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
           });
         } else {
           receiveProductsMachineSend('VALIDATED_MOVES');
+          await markPurcharOrderAsDone();
         }
       } catch {
         receiveProductsMachineSend('VALIDATE_MOVES_FAILED');
@@ -239,6 +225,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
   };
 
   const onDialogClose = () => {
+    getStockPicking(parseInt(params.stockPickingId));
     receiveProductsMachineSend('RESET');
   };
 

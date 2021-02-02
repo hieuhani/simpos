@@ -20,7 +20,10 @@ export const StockPickingSummary: React.FunctionComponent<StockPickingSummaryPro
 
         <Stack ml="auto" direction="row" spacing={4}>
           <DisplayCount title="Đối tác" value={stockPicking.companyId[1]} />
-          <DisplayCount title="Mã phiếu mua" value={stockPicking.origin} />
+          {stockPicking.origin && (
+            <DisplayCount title="Mã phiếu mua" value={stockPicking.origin} />
+          )}
+
           <DisplayCount
             title="Ngày tạo"
             value={formatDate(stockPicking.scheduledDate)}

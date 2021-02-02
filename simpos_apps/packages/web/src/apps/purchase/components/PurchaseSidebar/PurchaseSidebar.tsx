@@ -219,7 +219,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
           disabled={state.lines.length === 0}
           onClick={makePurchase}
         >
-          Thanh toán
+          Mua hàng
         </Button>
       </Box>
       <AlertDialog

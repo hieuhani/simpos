@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, Flex, Link } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Heading, Link } from '@chakra-ui/react';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useQueryParams } from '../../hooks';
 import { PurchaseOrder } from '../../services/db';
@@ -22,18 +22,17 @@ const tabs: Record<string, TabConfig> = {
   waiting: {
     route: { pathname: '/purchase', search: '?status=waiting' },
     title: 'Chờ nhận hàng',
-    domain: [
-      ['state', 'in', ['purchase', 'done']],
-      ['invoice_status', 'in', ['to invoice', 'no']],
-    ],
+    domain: [['state', 'in', ['purchase']]],
   },
   received: {
     route: { pathname: '/purchase', search: '?status=received' },
     title: 'Đã nhận hàng',
-    domain: [
-      ['state', 'in', ['purchase', 'done']],
-      ['invoice_status', '=', 'invoiced'],
-    ],
+    domain: [['state', '=', 'done']],
+  },
+  cancelled: {
+    route: { pathname: '/purchase', search: '?status=cancelled' },
+    title: 'Đã huỷ',
+    domain: [['state', '=', 'cancel']],
   },
 };
 
@@ -56,6 +55,7 @@ export const Purchase: React.FunctionComponent = () => {
       <NavigationBarGeneral />
       <Box height="calc(100vh - 112px)" overflowY="auto">
         <Container maxW="6xl" pt={4}>
+          <Heading mb={4}>Danh sách đơn mua</Heading>
           <Flex>
             {Object.keys(tabs).map((tabKey) => (
               <Link key={tabKey} to={tabs[tabKey].route} as={RouterLink}>

@@ -14,7 +14,8 @@ type SimApiCallMethod =
   | 'write'
   | 'button_validate'
   | 'process_cancel_backorder'
-  | 'process';
+  | 'process'
+  | 'button_done';
 
 interface SearchReadParams {
   model: string;

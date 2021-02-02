@@ -108,6 +108,45 @@ export const purchaseOrderService = {
       {},
     );
   },
+  findByName(name: string) {
+    return dataService
+      .searchRead({
+        model: 'purchase.order',
+        fields: [
+          'message_unread',
+          'partner_ref',
+          'name',
+          'date_order',
+          'date_approve',
+          'partner_id',
+          'company_id',
+          'date_planned',
+          'user_id',
+          'origin',
+          'amount_untaxed',
+          'amount_total',
+          'currency_id',
+          'state',
+          'invoice_status',
+        ],
+        domain: [['name', '=', name]],
+        limit: 1,
+      })
+      .then((entities: any) => {
+        if (Array.isArray(entities) && entities.length > 0) {
+          return entities[0];
+        }
+        return null;
+      });
+  },
+  lockPurchaseOrder(purchaseOrderId: number) {
+    return dataService.call(
+      'purchase.order',
+      'button_done',
+      [[purchaseOrderId]],
+      {},
+    );
+  },
   getPicking(purchaseOrderId: number) {
     return dataService.callButton(
       'purchase.order',

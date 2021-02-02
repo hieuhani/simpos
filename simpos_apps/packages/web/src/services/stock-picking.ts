@@ -9,7 +9,7 @@ export interface StockPicking {
   moveType: string;
   name: string;
   note?: string;
-  origin: string;
+  origin?: string;
   ownerId?: number;
   pickingTypeCode: 'incomming';
   pickingTypeId: [number, string];
