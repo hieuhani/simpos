@@ -3,7 +3,7 @@ import get from 'lodash.get';
 import camelcaseKeys from 'camelcase-keys';
 
 export const simApi = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://chateraise.procolla.com',
 });
 
 simApi.interceptors.response.use(

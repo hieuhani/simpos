@@ -14,9 +14,12 @@ import {
   Grid,
   Stack,
   useToast,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import { NavigationBarGeneral } from '../pos/components/NavigationBar';
 import {
   StockPicking,
@@ -245,6 +248,23 @@ const StockPickingDetails: React.FunctionComponent = () => {
       <NavigationBarGeneral />
       <Box height="calc(100vh - 112px)" overflowY="auto">
         <Container maxW="6xl" pt={4}>
+          <Breadcrumb mb={4}>
+            <BreadcrumbItem>
+              <BreadcrumbLink as={RouterLink} to="/purchase">
+                Danh sách đơn mua
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem>
+              <BreadcrumbLink>{stockPicking.origin}</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">
+                {stockPicking.displayName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
           <StockPickingSummary stockPicking={stockPicking} />
           <StockMoves
             readonly={stockPicking.isLocked && stockPicking.state === 'done'}

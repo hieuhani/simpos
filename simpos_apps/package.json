@@ -9,6 +9,7 @@
     ]
   },
   "scripts": {
-    "dev:web": "yarn workspace @simpos/web start"
+    "dev:web": "yarn workspace @simpos/web start",
+    "build:web": "yarn workspace @simpos/web build"
   }
 }
