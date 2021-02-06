@@ -6,6 +6,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -27,6 +28,7 @@ interface PurchaseDetailsRoute {
 const PurchaseDetails: React.FunctionComponent = () => {
   const params = useParams<PurchaseDetailsRoute>();
   const history = useHistory();
+  const toast = useToast();
   const [purchaseOrder, setPurchaseOrder] = useState<PurchaseOrder | null>(
     null,
   );
@@ -51,6 +53,29 @@ const PurchaseDetails: React.FunctionComponent = () => {
     getPurchaseOrder(params.purchaseOrderId);
   }, [params.purchaseOrderId]);
 
+  const handleCancelPurchaseOrder = async () => {
+    try {
+      await purchaseOrderService.cancelPurchaseOrder(
+        parseInt(params.purchaseOrderId, 10),
+      );
+      getPurchaseOrder(params.purchaseOrderId);
+      toast({
+        title: 'Thông báo',
+        description: 'Huỷ đơn mua thành công',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (e) {
+      toast({
+        title: 'Huỷ đơn mua không thành công',
+        description: e.message,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
   const handleViewPicking = async () => {
     const picking = await purchaseOrderService.getPicking(
       parseInt(params.purchaseOrderId, 10),
@@ -114,8 +139,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
       buttons.push({
         children: 'Huỷ',
         colorScheme: 'red',
-        to: '/purchase/new',
-        as: RouterLink,
+        onClick: handleCancelPurchaseOrder,
       });
     }
 

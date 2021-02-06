@@ -108,6 +108,14 @@ export const purchaseOrderService = {
       {},
     );
   },
+  cancelPurchaseOrder(purchaseOrderId: number) {
+    return dataService.call(
+      'purchase.order',
+      'button_cancel',
+      [[purchaseOrderId]],
+      {},
+    );
+  },
   findByName(name: string) {
     return dataService
       .searchRead({

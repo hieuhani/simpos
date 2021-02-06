@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { PurchaseOrderLine } from '../../../../services/purchase-order-line';
+import { formatMoney } from '../../../../utils';
 
 export interface PurchaseOrderLinesProps {
   purchaseOrderLines: PurchaseOrderLine[];
@@ -16,6 +17,8 @@ export const PurchaseOrderLines: React.FunctionComponent<PurchaseOrderLinesProps
             <Th>Sản phẩm</Th>
             <Th>Miêu tả</Th>
             <Th>Số lượng</Th>
+            <Th>Giá niêm yết</Th>
+            <Th>Giá trị</Th>
             <Th>Đã nhận</Th>
           </Tr>
         </Thead>
@@ -25,6 +28,9 @@ export const PurchaseOrderLines: React.FunctionComponent<PurchaseOrderLinesProps
               <Td>{line.name}</Td>
               <Td>{line.productId && line.productId[1]}</Td>
               <Td>{line.productQty}</Td>
+              <Td>{formatMoney(line.priceUnit)}</Td>
+              <Td>{formatMoney(line.priceSubtotal)}</Td>
+
               <Td>{line.qtyReceived}</Td>
             </Tr>
           ))}

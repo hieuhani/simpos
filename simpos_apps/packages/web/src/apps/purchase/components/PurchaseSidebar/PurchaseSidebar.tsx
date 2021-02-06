@@ -30,6 +30,7 @@ import {
   StockPickingType,
   stockPickingTypeService,
 } from '../../../../services/stock-picking-type';
+import { useHistory } from 'react-router-dom';
 
 const poStateMessageMap: Record<string, string> = {
   creatingPo: 'Đang tạo đơn mua...',
@@ -75,6 +76,7 @@ const createPoMachine = Machine({
 
 export const PurchaseSidebar: React.FunctionComponent = () => {
   const state = usePurchaseState();
+  const history = useHistory();
   const [createPoState, poMachineSend] = useMachine(createPoMachine);
   const dispatch = usePurchaseDispatch();
   const cancelPoDialogRef = useRef(null);
@@ -113,7 +115,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
     poMachineSend('CONFIRM_PO');
     try {
       await purchaseOrderService.confirmPurchaseOrder(purchaseOrderId);
-      poMachineSend('CONFIRMED_PO');
+      poMachineSend('CONFIRMED_PO', { purchaseOrderId });
     } catch {
       poMachineSend('CONFIRM_PO_FAILED');
     }
@@ -121,6 +123,12 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
 
   const onPoDialogClose = () => {
     poMachineSend('RESET');
+    if (
+      createPoState.event.type === 'CONFIRMED_PO' &&
+      createPoState.event.purchaseOrderId
+    ) {
+      history.push(`/purchase/${createPoState.event.purchaseOrderId}`);
+    }
   };
 
   const defaultGet = async () => {
