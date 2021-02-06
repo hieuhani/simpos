@@ -24,6 +24,8 @@ export const productService = {
         'type',
         'price',
         'qty_available',
+        'purchase_ok',
+        'pos_categ_id',
       ],
       domain,
       limit: 200,
