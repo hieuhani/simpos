@@ -20,6 +20,7 @@ interface PurchaseOrderLine {
   datePlanned: string;
   productQty: number;
   priceUnit: number;
+  productUom: number;
 }
 
 export interface PurchaseOrderPayload {
@@ -190,7 +191,7 @@ export const purchaseOrderService = {
               account_analytic_id: false,
               product_qty: line.productQty,
               qty_received_manual: 0,
-              product_uom: 1,
+              product_uom: line.productUom,
               price_unit: line.priceUnit,
               taxes_id: [[6, false, [1]]],
             },

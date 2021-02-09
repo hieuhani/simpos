@@ -7,6 +7,7 @@ export interface ProductProduct {
   name: string;
   lstPrice: number;
   qtyAvailable: number;
+  uomPoId: [number, string];
 }
 
 export const productService = {
@@ -26,6 +27,7 @@ export const productService = {
         'qty_available',
         'purchase_ok',
         'pos_categ_id',
+        'uom_po_id',
       ],
       domain,
       limit: 200,

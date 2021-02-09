@@ -17,6 +17,7 @@ export const PurchaseOrderLines: React.FunctionComponent<PurchaseOrderLinesProps
             <Th>Sản phẩm</Th>
             <Th>Miêu tả</Th>
             <Th>Số lượng</Th>
+            <Th>Đơn vị mua</Th>
             <Th>Giá niêm yết</Th>
             <Th>Giá trị</Th>
             <Th>Đã nhận</Th>
@@ -28,6 +29,7 @@ export const PurchaseOrderLines: React.FunctionComponent<PurchaseOrderLinesProps
               <Td>{line.name}</Td>
               <Td>{line.productId && line.productId[1]}</Td>
               <Td>{line.productQty}</Td>
+              <Td>{line.productUom[1]}</Td>
               <Td>{formatMoney(line.priceUnit)}</Td>
               <Td>{formatMoney(line.priceSubtotal)}</Td>
 

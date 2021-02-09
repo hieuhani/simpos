@@ -6,6 +6,7 @@ import { ProductProduct } from '../../../services/product';
 export interface PurchaseLine {
   product: ProductProduct;
   quantity: number;
+  productUom?: number;
   virtualId: string;
 }
 
@@ -23,7 +24,7 @@ export type PurchaseDispatchAction =
   | { type: 'REMOVE_LINE'; payload: string }
   | {
       type: 'UPDATE_LINE';
-      payload: Pick<PurchaseLine, 'virtualId' | 'quantity'>;
+      payload: Pick<PurchaseLine, 'virtualId' | 'quantity' | 'productUom'>;
     }
   | {
       type: 'RESET';
@@ -73,7 +74,8 @@ export function purchaseReducer(
           {
             virtualId: nanoid(),
             product: action.payload,
-            quantity: 1,
+            quantity: 1, // Default quantity
+            productUom: action.payload.uomPoId[0] || 1, // 1: Unit
           },
         ],
       };

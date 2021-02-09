@@ -6,6 +6,7 @@ export interface UOM {
   active: boolean;
   factor: number;
   name: string;
+  factorInv: number;
   measureType: 'unit' | 'weight' | 'working_time' | 'length' | 'volume';
   uomType: 'bigger' | 'reference' | 'smaller';
   rounding: number;

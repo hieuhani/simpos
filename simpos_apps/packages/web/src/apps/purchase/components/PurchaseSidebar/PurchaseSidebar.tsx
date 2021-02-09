@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { PurchasePanel } from '../PurchasePanel';
 import {
+  PurchaseLine,
   usePurchaseDispatch,
   usePurchaseState,
 } from '../../contexts/PurchaseContext';
@@ -31,6 +32,9 @@ import {
   stockPickingTypeService,
 } from '../../../../services/stock-picking-type';
 import { useHistory } from 'react-router-dom';
+import { UOM } from '../../../../services/db';
+import { useUom } from '../../../../services/uom';
+import { DEFAULT_UOM_ID } from '../../../../configs/consants';
 
 const poStateMessageMap: Record<string, string> = {
   creatingPo: 'Đang tạo đơn mua...',
@@ -77,20 +81,31 @@ const createPoMachine = Machine({
 export const PurchaseSidebar: React.FunctionComponent = () => {
   const state = usePurchaseState();
   const history = useHistory();
+  const { uomsDict } = useUom();
   const [createPoState, poMachineSend] = useMachine(createPoMachine);
   const dispatch = usePurchaseDispatch();
   const cancelPoDialogRef = useRef(null);
-  const [stockPickingTypes, setStockPickingTypes] = useState<
-    StockPickingType[]
-  >([]);
+  const [, setStockPickingTypes] = useState<StockPickingType[]>([]);
   const [defaultPurchaseOrder, setDefaultPurchaseOrder] = useState<
     DefaultPurchaseOrder | undefined
   >();
+
+  const getLinePriceUnit = (line: PurchaseLine) => {
+    if (
+      line.productUom === DEFAULT_UOM_ID ||
+      !line.productUom ||
+      !uomsDict[line.productUom]
+    ) {
+      return line.product.lstPrice;
+    }
+    return uomsDict[line.productUom].factorInv * line.product.lstPrice;
+  };
 
   const makePurchase = async () => {
     const po = defaultPurchaseOrder!;
     poMachineSend('CREATE_PO');
     let purchaseOrderId;
+
     try {
       purchaseOrderId = await purchaseOrderService.create({
         currencyId: po.currencyId,
@@ -100,11 +115,12 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
         userId: po.userId,
         partnerId: 1, // chateraise id
         lines: state.lines.map((line) => ({
+          productUom: line.productUom || DEFAULT_UOM_ID,
           productId: line.product.id,
           name: line.product.name,
           datePlanned: po.dateOrder,
           productQty: line.quantity,
-          priceUnit: line.product.lstPrice,
+          priceUnit: getLinePriceUnit(line),
         })),
       });
       dispatch({ type: 'RESET' });
@@ -170,7 +186,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
             </Box>
             <Box ml="2">
               <Text fontWeight="medium" mb="0">
-                Chateraise Viet Nam
+                Chateraise Việt Nam
               </Text>
               <Text fontSize="sm">02499383844</Text>
             </Box>
@@ -207,7 +223,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
             minHeight="62px"
             alignItems="center"
           >
-            <Text fontWeight="medium">Baumkuchen Tran Nhan Tong</Text>
+            <Text fontWeight="medium">Baumkuchen 25 Trần Nhân Tông</Text>
           </Flex>
         </Box>
       </Stack>
