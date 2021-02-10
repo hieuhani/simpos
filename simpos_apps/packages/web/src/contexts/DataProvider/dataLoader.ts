@@ -278,10 +278,29 @@ export const getDexieSchema = (): Record<string, string> =>
     },
     {
       'auth.user.metas': '++id,name,dbName,username',
-      'pos.order': 'id, posSessionId',
+      'pos.order': 'id',
       'pos.order.line': '++id,orderId',
+      'pos.order.snapshot': 'id',
+      preference: 'id',
     },
   );
 
 export const getSchemaIndexes = (schemaName: string) =>
   getDexieSchema()[schemaName];
+
+export const syncData = async (userMeta: AuthUserMeta) => {
+  const loadModelsMap = getLoadModelsMap();
+  const requiredKeys = getModelNames();
+  await Promise.all(
+    requiredKeys
+      .map((key) => {
+        if (!loadModelsMap[key]) {
+          return null;
+        }
+        return loadModelsMap[key].load({
+          userMeta,
+        });
+      })
+      .filter(Boolean),
+  );
+};

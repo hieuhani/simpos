@@ -50,7 +50,7 @@ export const StockMoves: React.FunctionComponent<StockMovesProps> = ({
           <Tr>
             <Th>Sản phẩm</Th>
             <Th>Số lượng yêu cầu</Th>
-            <Th>Đã nhận</Th>
+            <Th>Nhận</Th>
           </Tr>
         </Thead>
         <Tbody>

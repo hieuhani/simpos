@@ -30,7 +30,7 @@ import {
 import { userRepository } from '../../services/db/user';
 import { worker } from '../../workers';
 import { useAuth } from '../AuthProvider';
-import { getLoadModelsMap, getModelNames } from './dataLoader';
+import { syncData } from './dataLoader';
 
 export interface DataContextState {
   posConfig: PosConfig;
@@ -88,23 +88,9 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
 
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
-    const loadModelsMap = getLoadModelsMap();
-    const requiredKeys = getModelNames();
-    await Promise.all(
-      requiredKeys
-        .map((key) => {
-          if (!loadModelsMap[key]) {
-            return null;
-          }
-          return loadModelsMap[key].load({
-            userMeta,
-          });
-        })
-        .filter(Boolean),
-    );
-
+    await syncData(userMeta);
+    worker.postMessage({ type: 'DATA_INITIALIZED' });
     setInitializing(false);
-    // worker.postMessage({ type: 'DATA_INITIALIZED' });
   };
 
   useEffect(() => {

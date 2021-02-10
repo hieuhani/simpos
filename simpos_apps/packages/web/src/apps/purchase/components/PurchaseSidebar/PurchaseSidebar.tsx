@@ -32,7 +32,6 @@ import {
   stockPickingTypeService,
 } from '../../../../services/stock-picking-type';
 import { useHistory } from 'react-router-dom';
-import { UOM } from '../../../../services/db';
 import { useUom } from '../../../../services/uom';
 import { DEFAULT_UOM_ID } from '../../../../configs/consants';
 

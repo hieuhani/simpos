@@ -13,6 +13,11 @@ import { Order, orderRepository } from '../../services/db/order';
 import { orderService } from '../../services/order';
 import { useData, useGlobalDataDispatch } from '../DataProvider';
 import { worker } from '../../workers';
+import {
+  OrderPayload,
+  orderSnapshotRepository,
+} from '../../services/db/order-snapshot';
+import { useAuth } from '../AuthProvider';
 
 export interface ActiveOrder {
   order: Order;
@@ -195,7 +200,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(orderManagerReducer, initialState);
   const globalDataDispatch = useGlobalDataDispatch();
   const data = useData();
-
+  const { userMeta } = useAuth();
   // TODO: Here we only use the default pricelist
   const addNewOrder = async (): Promise<Order> => {
     const newOrder = await orderRepository.addNewOrder({
@@ -337,12 +342,26 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     dispatch({ type: 'DELETE_ORDER_LINE', payload: id });
   };
 
-  const createOrder = async (orderId: string, orderPayload: unknown) => {
+  const syncFailedOrders = async () => {
+    const orders = await orderSnapshotRepository.all();
+    if (orders.length > 0) {
+      await orderService.createOrders([orders]);
+      await orderSnapshotRepository.db
+        .where('id')
+        .anyOf(orders.map(({ id }) => id))
+        .delete();
+    }
+  };
+
+  const createOrder = async (orderPayload: OrderPayload) => {
     try {
+      await orderRepository.delete(orderPayload.id);
       await orderService.createOrders([[orderPayload]]);
-      await orderRepository.delete(orderId);
     } catch (e) {
       console.error(e);
+      await orderSnapshotRepository.create(orderPayload);
+    } finally {
+      syncFailedOrders();
     }
   };
 
@@ -352,15 +371,6 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
       throw new Error('Empty order');
     }
     const { order, orderLines } = activeOrder;
-    await orderRepository.update(order.id, {
-      paid: true,
-      paymentLines: [
-        {
-          amount,
-          paymentMethodId,
-        },
-      ],
-    });
 
     const activeOrderExt = new ActiveOrderExtension(activeOrder, data);
     const time = dayjs().format('YYYY-MM-DD HH:mm:ss');
@@ -413,11 +423,11 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
             },
           ],
         ],
-        pos_session_id: order.posSessionId,
+        pos_session_id: data.posSession.id,
         pricelist_id: order.pricelistId,
         partner_id: order.partnerId || false,
-        user_id: 2,
-        employee_id: 3,
+        user_id: userMeta?.uid,
+        employee_id: data.cashier?.id,
         uid: order.id,
         sequence_number: order.sequenceNumber,
         creation_date: time,
@@ -427,7 +437,8 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
       },
       to_invoice: false,
     };
-    createOrder(order.id, orderPayload);
+
+    createOrder(orderPayload);
 
     const deletingLastOrder = state.orders.length === 1;
     dispatch({ type: 'DELETE_ORDER', payload: order });

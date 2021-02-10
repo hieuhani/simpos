@@ -19,7 +19,7 @@ simApi.interceptors.response.use(
     });
   },
   function (error) {
-    if (error.response?.data.includes('odoo.http.SessionExpiredException')) {
+    if (error.response?.data?.includes('odoo.http.SessionExpiredException')) {
       throw new Error('Unauthorized error');
     }
     throw new Error('Uncaught error');

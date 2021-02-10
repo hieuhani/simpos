@@ -8,6 +8,7 @@ import {
   ProductPricelist,
   productPricelistRepository,
 } from './product-pricelist';
+import { orderLineRepository } from './order-line';
 
 export interface PaymentLine {
   amount: number;
@@ -16,7 +17,6 @@ export interface PaymentLine {
 export interface Order {
   id: string;
   name: string;
-  posSessionId: number;
   pricelistId: number;
   sequenceNumber: number;
   creationDate: Date;
@@ -45,23 +45,35 @@ export const orderRepository = {
   async addNewOrder({
     posSession,
     defaultPriceList,
-  }: Pick<DataContextState, 'posSession' | 'defaultPriceList'>): Promise<
-    Order
-  > {
-    const sequenceNumber = posSession.sequenceNumber + 1;
+  }: Pick<
+    DataContextState,
+    'posSession' | 'defaultPriceList'
+  >): Promise<Order> {
+    let sequenceNumber = posSession.sequenceNumber + 1;
     // Generates a public identification number for the order.
     // The generated number must be unique and sequential. They are made 12 digit long
     // to fit into EAN-13 barcodes, should it be needed
-    const orderId = [
-      zeroPad(posSession.id, 5),
-      zeroPad(posSession.loginNumber, 3),
-      zeroPad(sequenceNumber, 4),
-    ].join('-');
+    const buildOrderIdFromSequenceNumber = (sequence: number) =>
+      [
+        zeroPad(posSession.id, 5),
+        zeroPad(posSession.loginNumber, 3),
+        zeroPad(sequence, 4),
+      ].join('-');
+
+    let orderId = buildOrderIdFromSequenceNumber(sequenceNumber);
+    while (true) {
+      const checkOrder = await orderRepository.findById(orderId);
+      if (!checkOrder) {
+        break;
+      }
+      sequenceNumber += 1;
+      orderId = buildOrderIdFromSequenceNumber(sequenceNumber);
+    }
+
     const order: Order = {
       id: orderId,
       name: `Order ${orderId}`,
       sequenceNumber,
-      posSessionId: posSession.id,
       pricelistId: defaultPriceList.id,
       creationDate: new Date(),
     };
@@ -78,7 +90,10 @@ export const orderRepository = {
     };
   },
   delete(id: string): Promise<void> {
-    return this.db.delete(id);
+    return db.transaction('rw', this.db, orderLineRepository.db, async () => {
+      await this.db.delete(id);
+      await orderLineRepository.db.where('orderId').equals(id).delete();
+    });
   },
   update(id: string, order: Partial<Order>): Promise<number> {
     return this.db.update(id, order);
