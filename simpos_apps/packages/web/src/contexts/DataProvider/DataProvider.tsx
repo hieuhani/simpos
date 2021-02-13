@@ -28,7 +28,6 @@ import {
   productPricelistRepository,
 } from '../../services/db/product-pricelist';
 import { userRepository } from '../../services/db/user';
-import { worker } from '../../workers';
 import { useAuth } from '../AuthProvider';
 import { syncData } from './dataLoader';
 
@@ -89,7 +88,7 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
     await syncData(userMeta);
-    worker.postMessage({ type: 'DATA_INITIALIZED' });
+    // worker.postMessage({ type: 'DATA_INITIALIZED' });
     setInitializing(false);
   };
 

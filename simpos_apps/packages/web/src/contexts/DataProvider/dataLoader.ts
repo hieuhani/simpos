@@ -1,3 +1,5 @@
+import { authService } from '../../services/auth';
+import { updateSimApiToken } from '../../services/clients';
 import { dataService } from '../../services/data';
 import { AuthUserMeta, rootDb } from '../../services/db/root';
 
@@ -5,12 +7,15 @@ export interface LoadModelOption {
   userMeta?: AuthUserMeta;
   nocache?: boolean;
 }
+
 export interface LoadModel {
   model: string;
   fields: string[];
   load: (option?: LoadModelOption) => Promise<any>;
   indexes: string;
 }
+
+let syncWorker: Worker | undefined;
 
 const fetchModelData = async (
   model: string,
@@ -20,19 +25,53 @@ const fetchModelData = async (
   options?: LoadModelOption,
 ): Promise<any> => {
   let currentModelData;
+
+  const fetchRemoteData = () => {
+    return dataService
+      .searchRead({
+        model,
+        fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
+        domain,
+      })
+      .then(transform);
+  };
+
+  const revalidate = async () => {
+    const remoteData = await fetchRemoteData();
+    const localData = await rootDb.getByTableName(model);
+
+    const localDataWriteDateDict = localData.reduce(
+      (prev: object, curr: any) => {
+        return {
+          ...prev,
+          [curr.id]: curr.writeDate,
+        };
+      },
+      {},
+    );
+    const remoteDataToUpdate = remoteData.filter((row: any) => {
+      return localDataWriteDateDict[row.id] !== row.writeDate;
+    });
+    if (remoteDataToUpdate.length > 0) {
+      if (model === 'product.template' && syncWorker) {
+        syncWorker.postMessage({
+          type: 'PRODUCT_TEMPLATE_CHANGED',
+          payload: remoteDataToUpdate,
+        });
+      }
+      await rootDb.bulkUpdateTable(model, remoteData);
+    }
+  };
+
   if (!options?.nocache) {
     currentModelData = await rootDb.getByTableName(model);
   }
   if (currentModelData && currentModelData.length > 0) {
+    revalidate();
     return currentModelData;
   }
-  const remoteData = await dataService
-    .searchRead({
-      model,
-      fields: fields.length > 0 ? [...fields, 'write_date'] : fields,
-      domain,
-    })
-    .then(transform);
+  const remoteData = await fetchRemoteData();
+  // store all remote data to the database
   await rootDb.bulkUpdateTable(model, remoteData);
 
   return remoteData;
@@ -196,6 +235,7 @@ export const loadModels: LoadModel[] = [
       'barcode',
       'default_code',
       'pos_categ_id',
+      'image_128',
     ],
     indexes: '++id, posCategoryId',
     async load() {
@@ -231,13 +271,21 @@ export const loadModels: LoadModel[] = [
       'product_tmpl_id',
       'tracking',
       'sequence',
+      'image_128',
     ],
+    indexes: '++id, productTemplateId',
     async load() {
-      return fetchModelData(this.model, this.fields, [
-        '&',
-        ['sale_ok', '=', true],
-        ['available_in_pos', '=', true],
-      ]);
+      return fetchModelData(
+        this.model,
+        this.fields,
+        ['&', ['sale_ok', '=', true], ['available_in_pos', '=', true]],
+        (rows) => {
+          return rows.map((row: any) => ({
+            ...row,
+            productTemplateId: row.productTmplId ? row.productTmplId[0] : null,
+          }));
+        },
+      );
     },
   },
   {
@@ -288,7 +336,17 @@ export const getDexieSchema = (): Record<string, string> =>
 export const getSchemaIndexes = (schemaName: string) =>
   getDexieSchema()[schemaName];
 
-export const syncData = async (userMeta: AuthUserMeta) => {
+export const syncData = async (userMeta?: AuthUserMeta, worker?: Worker) => {
+  if (worker) {
+    syncWorker = worker;
+  }
+  if (!userMeta) {
+    userMeta = await authService.getAuthMeta();
+    if (userMeta) {
+      updateSimApiToken(userMeta.accessToken);
+    }
+  }
+
   const loadModelsMap = getLoadModelsMap();
   const requiredKeys = getModelNames();
   await Promise.all(

@@ -22,6 +22,7 @@ export * from './output/IconPlus';
 export * from './output/IconSearch';
 export * from './output/IconShapes';
 export * from './output/IconShoppingBasket';
+export * from './output/IconShoppingCart';
 export * from './output/IconSmilePlus';
 export * from './output/IconSmile';
 export * from './output/IconStore';

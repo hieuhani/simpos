@@ -13,6 +13,7 @@ export const OrderPanel: React.FunctionComponent<OrderPanelProps> = ({
   const orderLines = useMemo(() => {
     return activeOrder?.orderLines || [];
   }, [activeOrder?.orderLines]);
+
   return (
     <Box px="4">
       <Stack spacing={4}>

@@ -1,5 +1,6 @@
-import { Stack, Box } from '@chakra-ui/react';
+import { Stack, Box, Flex, Heading } from '@chakra-ui/react';
 import React from 'react';
+import { IconShoppingCart } from '../../../../components/icons';
 import { ActiveOrder } from '../../../../contexts/OrderManager';
 import { useActiveOrderExtensions, useMoneyFormatter } from '../../../../hooks';
 import {
@@ -33,10 +34,25 @@ export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
         <VibrationCardAction />
         <TableNoAction />
       </Stack>
+      {activeOrder.orderLines.length === 0 ? (
+        <Flex
+          flex={1}
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+          color="brand.400"
+        >
+          <IconShoppingCart size="5rem" />
+          <Heading mt={2} fontSize="1.2rem" fontWeight="medium">
+            Chưa có sản phẩm nào trong giỏ hàng
+          </Heading>
+        </Flex>
+      ) : (
+        <Box flex={1} overflowY="auto">
+          <OrderPanel activeOrder={activeOrder} />
+        </Box>
+      )}
 
-      <Box flex={1} overflowY="auto">
-        <OrderPanel activeOrder={activeOrder} />
-      </Box>
       <OrderSummary
         px={4}
         py={2}

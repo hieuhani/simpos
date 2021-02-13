@@ -11,6 +11,7 @@ export interface ProductVariant {
   uomId: [number, string];
   tracking: 'lot' | 'none' | 'serial';
   images?: SizedImages;
+  image128?: string;
 }
 
 export const productVariantRepository = {
@@ -23,5 +24,8 @@ export const productVariantRepository = {
   },
   update(id: number, order: Partial<ProductVariant>): Promise<number> {
     return this.db.update(id, order);
+  },
+  findByTemplateIds(templateIds: number[]): Promise<ProductVariant[]> {
+    return this.db.where('productTemplateId').anyOf(templateIds).toArray();
   },
 };

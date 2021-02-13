@@ -20,6 +20,8 @@ const NewPurchase = lazy(() => import('../../apps/purchase/NewPurchase'));
 const PurchaseDetails = lazy(
   () => import('../../apps/purchase/PurchaseDetails'),
 );
+
+const PurchaseReport = lazy(() => import('../../apps/purchase/PurchaseReport'));
 const StockPickingDetails = lazy(
   () => import('../../apps/inventory/StockPickingDetails'),
 );
@@ -45,6 +47,7 @@ export const Routes: React.FunctionComponent = () => (
 
           <Switch>
             <Route path="/purchase/new" component={NewPurchase} />
+            <Route path="/purchase/report" component={PurchaseReport} />
             <Route
               path="/purchase/:purchaseOrderId"
               component={PurchaseDetails}

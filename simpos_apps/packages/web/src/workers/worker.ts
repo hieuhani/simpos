@@ -89,15 +89,19 @@ onmessage = async function (e) {
 
       break;
     }
+    case 'PRODUCT_TEMPLATE_CHANGED': {
+      if (Array.isArray(e.data.payload) && e.data.payload.length > 0) {
+        const templateIds = e.data.payload.map(({ id }: any) => id);
+        const productVariants = await productVariantRepository.findByTemplateIds(
+          templateIds,
+        );
+        if (productVariants.length > 0) {
+          downloadProductImages(productVariants);
+        }
+      }
+      break;
+    }
     default:
       break;
   }
-  // const result = e.data[0] * e.data[1];
-  // if (isNaN(result)) {
-  //   postMessage('Please write two numbers');
-  // } else {
-  //   const workerResult = 'Result: ' + result;
-  //   console.log('Worker: Posting message back to main script');
-  //   postMessage(workerResult);
-  // }
 };

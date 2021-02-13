@@ -12,11 +12,10 @@ export const ProductImageThumb: React.FunctionComponent<ProductImageThumbProps> 
   variant,
 }) => {
   const productImage = useMemo(() => {
-    if (!variant?.images || (variant.images && !variant.images[128])) {
+    if (!variant?.image128) {
       return noImage;
     }
-
-    return URL.createObjectURL(variant.images[128]);
+    return `data:image/png;base64,${variant.image128}`;
   }, [variant]);
 
   return <Image borderRadius="md" src={productImage} alt={variant?.name} />;

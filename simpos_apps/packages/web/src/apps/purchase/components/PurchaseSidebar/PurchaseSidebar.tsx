@@ -13,6 +13,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  Heading,
 } from '@chakra-ui/react';
 import { PurchasePanel } from '../PurchasePanel';
 import {
@@ -20,7 +21,10 @@ import {
   usePurchaseDispatch,
   usePurchaseState,
 } from '../../contexts/PurchaseContext';
-import { IconCalendarAlt } from '../../../../components/icons';
+import {
+  IconCalendarAlt,
+  IconShoppingCart,
+} from '../../../../components/icons';
 import {
   DefaultPurchaseOrder,
   purchaseOrderService,
@@ -84,7 +88,9 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
   const [createPoState, poMachineSend] = useMachine(createPoMachine);
   const dispatch = usePurchaseDispatch();
   const cancelPoDialogRef = useRef(null);
-  const [, setStockPickingTypes] = useState<StockPickingType[]>([]);
+  const [stockPickingTypes, setStockPickingTypes] = useState<
+    StockPickingType[]
+  >([]);
   const [defaultPurchaseOrder, setDefaultPurchaseOrder] = useState<
     DefaultPurchaseOrder | undefined
   >();
@@ -231,9 +237,25 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
           Giỏ sản phẩm
         </Text>
       </Box>
-      <Box flex={1} overflowY="auto">
-        <PurchasePanel lines={state.lines} />
-      </Box>
+      {state.lines.length === 0 ? (
+        <Flex
+          flex={1}
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+          color="brand.400"
+        >
+          <IconShoppingCart size="5rem" />
+          <Heading mt={2} fontSize="1.2rem" fontWeight="medium">
+            Chưa có sản phẩm nào trong giỏ hàng
+          </Heading>
+        </Flex>
+      ) : (
+        <Box flex={1} overflowY="auto">
+          <PurchasePanel lines={state.lines} />
+        </Box>
+      )}
+
       <Box px={4} py={2}>
         <Button
           width="full"
