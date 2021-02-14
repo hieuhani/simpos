@@ -7,7 +7,10 @@ export interface RemotePosOrder {
   dateOrder: string;
   name: string;
   partnerId?: [number, string];
+  employeeId?: [number, string];
   posReference: string;
+  lines: number[];
+  paymentIds: number[];
   state: 'draft' | 'cancel' | 'paid' | 'done' | 'invoiced';
 }
 
@@ -78,5 +81,47 @@ export const orderService = {
       ],
       limit: 200,
     });
+  },
+  getOrder(orderId: number): Promise<RemotePosOrder | null> {
+    return dataService
+      .call(
+        'pos.order',
+        'read',
+        [
+          [orderId],
+          [
+            'state',
+            'name',
+            'date_order',
+            'session_id',
+            'employee_id',
+            'user_id',
+            'partner_id',
+            'fiscal_position_id',
+            'invoice_group',
+            'table_id',
+            'customer_count',
+            'lines',
+            'amount_tax',
+            'amount_total',
+            'payment_ids',
+            'location_id',
+            'picking_id',
+            'session_move_id',
+            'pos_reference',
+            'company_id',
+            'pricelist_id',
+            'note',
+            'display_name',
+          ],
+        ],
+        {},
+      )
+      .then((entities: any) => {
+        if (Array.isArray(entities) && entities.length > 0) {
+          return entities[0];
+        }
+        return null;
+      });
   },
 };

@@ -29,7 +29,13 @@ export const MakePayment: React.FunctionComponent<MakePaymentProps> = ({
   const onSubmitPayment = async (amount: number) => {
     try {
       const order = await payOrder(amount, selectedPaymentMethod!);
-      onPaid(order);
+      onPaid({
+        ...order,
+        context: {
+          amount,
+          selectedPaymentMethod: selectedPaymentMethod!,
+        },
+      });
     } catch (e) {
       console.error(e);
       toast({

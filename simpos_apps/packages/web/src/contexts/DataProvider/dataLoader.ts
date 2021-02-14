@@ -133,6 +133,8 @@ export const loadModels: LoadModel[] = [
       'vat',
       'name',
       'phone',
+      'street',
+      'logo',
       'partner_id',
       'country_id',
       'state_id',

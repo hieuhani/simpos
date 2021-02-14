@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import { SessionManager } from '../../apps/pos/components/SessionManager';
+import { authService } from '../../services/auth';
 import {
   AccountTax,
   accountTaxRepository,
@@ -108,6 +109,10 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
       throw new Error('POS Config data error');
     }
 
+    const { loginNumber } = await authService.refreshMetadata({
+      config_id: posConfig.id,
+    });
+
     const pricelists = await productPricelistRepository.findByIds(
       posConfig.usePricelist
         ? posConfig.availablePricelistIds
@@ -147,7 +152,10 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
       type: 'INITIAL_LOAD',
       payload: {
         posConfig,
-        posSession: selectedSession,
+        posSession: {
+          ...selectedSession,
+          loginNumber,
+        },
         pricelists,
         defaultPriceList,
         decimalPrecisions,

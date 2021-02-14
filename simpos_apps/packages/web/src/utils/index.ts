@@ -242,8 +242,8 @@ export function zeroPad(num: number, size: number) {
   return s;
 }
 
-export function formatMoney(number: number = 0) {
-  return `${number.toLocaleString('vi')}đ`;
+export function formatMoney(number: number = 0, withUnit = true) {
+  return `${number.toLocaleString('vi')}${withUnit ? 'đ' : ''}`;
 }
 
 export function formatDate(date: dayjs.ConfigType, format = 'DD/MM/YYYY') {

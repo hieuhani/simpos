@@ -7,7 +7,7 @@ export const simApi = axios.create({
 });
 
 simApi.interceptors.response.use(
-  function (response) {
+  async function (response) {
     if (response.data.error) {
       throw new Error(
         get(response, 'data.error.data.message', 'Request error'),

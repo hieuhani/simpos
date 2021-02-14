@@ -4,6 +4,7 @@ export interface AuthUserContext {
   tz: string;
 }
 export interface AuthUserMeta {
+  id: number;
   uid: number;
   accessToken: string;
   name: string;
@@ -23,5 +24,13 @@ export const authUserMeta = {
   },
   async clear(): Promise<void> {
     return this.db.clear();
+  },
+
+  async update(metadata: Partial<AuthUserMeta>) {
+    const meta = await this.first();
+    if (!meta) {
+      throw new Error('No metadata found');
+    }
+    return this.db.update(meta.id, metadata);
   },
 };

@@ -13,6 +13,7 @@ const POS = lazy(() => import('../../apps/pos'));
 const CustomerScreen = lazy(() => import('../../apps/pos/CustomerScreen'));
 const SessionScreen = lazy(() => import('../../apps/pos/SessionScreen'));
 const PosReportScreen = lazy(() => import('../../apps/pos/ReportScreen'));
+const PosOrderScreen = lazy(() => import('../../apps/pos/OrderScreen'));
 
 const Login = lazy(() => import('../../apps/auth/Login'));
 const Purchase = lazy(() => import('../../apps/purchase'));
@@ -41,6 +42,7 @@ export const Routes: React.FunctionComponent = () => (
               <Route path="/pos/customer_screen" component={CustomerScreen} />
               <Route path="/pos/session" component={SessionScreen} />
               <Route path="/pos/report" component={PosReportScreen} />
+              <Route path="/pos/orders/:orderId" component={PosOrderScreen} />
             </OrderManager>
           </DataProvider>
           <Route path="/purchase" exact component={Purchase} />
@@ -48,6 +50,7 @@ export const Routes: React.FunctionComponent = () => (
           <Switch>
             <Route path="/purchase/new" component={NewPurchase} />
             <Route path="/purchase/report" component={PurchaseReport} />
+
             <Route
               path="/purchase/:purchaseOrderId"
               component={PurchaseDetails}

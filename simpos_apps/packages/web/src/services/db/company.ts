@@ -9,6 +9,8 @@ export interface Company {
   phone: string;
   taxCalculationRoundingMethod: 'round_per_line' | 'round_globally';
   currency: Currency;
+  street: string;
+  logo: string;
 }
 
 export const companyRepository = {

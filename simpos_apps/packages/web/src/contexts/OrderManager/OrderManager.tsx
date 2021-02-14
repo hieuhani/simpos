@@ -19,9 +19,14 @@ import {
 } from '../../services/db/order-snapshot';
 import { useAuth } from '../AuthProvider';
 
+export interface PaidContext {
+  amount: number;
+  selectedPaymentMethod: number;
+}
 export interface ActiveOrder {
   order: Order;
   orderLines: OrderLine[];
+  context?: PaidContext;
 }
 export interface OrderManagerState {
   activeOrderId: string;

@@ -28,12 +28,15 @@ export const SessionScreen: React.FunctionComponent = () => {
     <>
       <NavigationBarGeneral />
 
-      {session && (
-        <Container maxW="6xl" pt={4}>
-          <SessionSummary session={session} />
-          <SessionDataView sessionId={session.id} />
-        </Container>
-      )}
+      <Box height="calc(100vh - 112px)" overflowY="auto">
+        {session && (
+          <Container maxW="6xl" pt={4}>
+            <SessionSummary session={session} />
+            <SessionDataView sessionId={session.id} />
+          </Container>
+        )}
+      </Box>
+
       {session?.state === 'opened' && (
         <Box position="fixed" bottom="0" left="0" right="0">
           <Container maxW="6xl" py={2}>

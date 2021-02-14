@@ -6,7 +6,10 @@ import {
   Th,
   Td,
   TableCaption,
+  Button,
 } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
+
 import React, { useEffect, useState } from 'react';
 import { useMoneyFormatter } from '../../../../hooks';
 import { orderService, RemotePosOrder } from '../../../../services/order';
@@ -50,6 +53,16 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
             <Td>{order.partnerId && order.partnerId[1]}</Td>
             <Td>{order.cashier}</Td>
             <Td>{formatCurrency(order.amountTotal)}</Td>
+            <Td>
+              <Button
+                as={RouterLink}
+                to={`/pos/orders/${order.id}`}
+                colorScheme="pink"
+                w="full"
+              >
+                Chi tiết
+              </Button>
+            </Td>
           </Tr>
         ))}
       </Tbody>
