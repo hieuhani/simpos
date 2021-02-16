@@ -7,6 +7,7 @@ import {
   FormLabel,
   Input,
   useToast,
+  Heading,
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -29,9 +30,24 @@ export const Login: React.FunctionComponent = () => {
     }
   }, [auth.isLoggedIn, history]);
   return (
-    <Box w="375px" margin="0 auto">
+    <Box
+      w="375px"
+      margin="2rem auto 0 auto"
+      backgroundColor="gray.50"
+      p={4}
+      rounded="md"
+    >
+      <Heading
+        textAlign="center"
+        mt={2}
+        mb={6}
+        fontSize="2xl"
+        fontWeight="medium"
+      >
+        HỆ THỐNG CHAPOS
+      </Heading>
       <Formik
-        initialValues={{ login: '', password: '' }}
+        initialValues={{ tenant: '', login: '', password: '' }}
         validationSchema={SignInSchema}
         onSubmit={async (values, { setSubmitting }) => {
           try {
@@ -61,6 +77,19 @@ export const Login: React.FunctionComponent = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
+              <FormControl id="tenant">
+                <FormLabel>Mã cửa hàng</FormLabel>
+                <Input
+                  name="tenant"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.tenant}
+                  isInvalid={
+                    !!(errors.tenant && touched.tenant && errors.tenant)
+                  }
+                  backgroundColor="white"
+                />
+              </FormControl>
               <FormControl id="login">
                 <FormLabel>Email</FormLabel>
                 <Input
@@ -69,6 +98,7 @@ export const Login: React.FunctionComponent = () => {
                   onBlur={handleBlur}
                   value={values.login}
                   isInvalid={!!(errors.login && touched.login && errors.login)}
+                  backgroundColor="white"
                 />
               </FormControl>
               <FormControl id="password">
@@ -82,6 +112,7 @@ export const Login: React.FunctionComponent = () => {
                   isInvalid={
                     !!(errors.password && touched.password && errors.password)
                   }
+                  backgroundColor="white"
                 />
               </FormControl>
               <Button
