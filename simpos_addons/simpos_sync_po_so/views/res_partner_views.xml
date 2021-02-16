@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_simpos_sync_po_so_res_partner" model="ir.ui.view">
+            <field name="name">res.partner.geolocation.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Database Connection" name="database_connection">
+                        <group>
+                            <group name="database">
+                                <field name="url" />
+                                <field name="db" />
+                                <field name="username" />
+                                <field name="password" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>

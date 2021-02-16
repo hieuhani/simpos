@@ -3,3 +3,7 @@ venv
 .vscode
 .idea
 node_modules
+
+# Local Netlify folder
+.netlify
+odoo.conf
