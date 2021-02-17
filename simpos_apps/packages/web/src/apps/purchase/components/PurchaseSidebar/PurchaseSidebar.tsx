@@ -89,9 +89,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
   const [createPoState, poMachineSend] = useMachine(createPoMachine);
   const dispatch = usePurchaseDispatch();
   const cancelPoDialogRef = useRef(null);
-  const [stockPickingTypes, setStockPickingTypes] = useState<
-    StockPickingType[]
-  >([]);
+  const [, setStockPickingTypes] = useState<StockPickingType[]>([]);
   const [chateraisePartner, setChateraisePartner] = useState<
     RemotePartner | undefined
   >();
