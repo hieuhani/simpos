@@ -1,9 +1,26 @@
 import axios from 'axios';
 import get from 'lodash.get';
 import camelcaseKeys from 'camelcase-keys';
+import { AuthUserMeta } from '../db';
+
+const defaultProtocol = 'https';
+const defaultUrl = 'localhost';
+
+export const getBaseApiUrl = (): string => {
+  let baseUrl = process.env.REACT_APP_BASE_API_URL || defaultUrl;
+  if (baseUrl.startsWith('http')) {
+    return baseUrl;
+  }
+  return `${defaultProtocol}://${baseUrl}`;
+};
+
+export const buildTenantBaseApiUrl = (tenant: string) => {
+  const url = new URL(getBaseApiUrl());
+  return `${url.protocol}//${tenant}.${url.host}${url.pathname}`;
+};
 
 export const simApi = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: getBaseApiUrl(),
 });
 
 simApi.interceptors.response.use(
@@ -26,9 +43,12 @@ simApi.interceptors.response.use(
   },
 );
 
-export const updateSimApiToken = (token: string) => {
-  if (!token) {
+export const updateSimApiToken = (meta: AuthUserMeta) => {
+  if (!meta.accessToken) {
     console.warn('token is blank or undefined');
   }
-  simApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  simApi.defaults.baseURL = buildTenantBaseApiUrl(meta.dbName);
+  simApi.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${meta.accessToken}`;
 };

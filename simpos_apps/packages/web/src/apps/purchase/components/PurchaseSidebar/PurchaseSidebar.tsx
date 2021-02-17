@@ -38,6 +38,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useUom } from '../../../../services/uom';
 import { DEFAULT_UOM_ID } from '../../../../configs/consants';
+import { partnerService, RemotePartner } from '../../../../services/partner';
 
 const poStateMessageMap: Record<string, string> = {
   creatingPo: 'Đang tạo đơn mua...',
@@ -91,6 +92,9 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
   const [stockPickingTypes, setStockPickingTypes] = useState<
     StockPickingType[]
   >([]);
+  const [chateraisePartner, setChateraisePartner] = useState<
+    RemotePartner | undefined
+  >();
   const [defaultPurchaseOrder, setDefaultPurchaseOrder] = useState<
     DefaultPurchaseOrder | undefined
   >();
@@ -118,7 +122,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
         companyId: po.companyId,
         pickingTypeId: po.pickingTypeId,
         userId: po.userId,
-        partnerId: 1, // chateraise id
+        partnerId: chateraisePartner?.id || 1,
         lines: state.lines.map((line) => ({
           productUom: line.productUom || DEFAULT_UOM_ID,
           productId: line.product.id,
@@ -155,8 +159,10 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
   const defaultGet = async () => {
     const defaultPo = await purchaseOrderService.defaultGet();
     const serverStockPickingTypes = await stockPickingTypeService.getIncommingStockPickingTypes();
+    const chateraise = await partnerService.getChateraise();
     setStockPickingTypes(serverStockPickingTypes);
     setDefaultPurchaseOrder(defaultPo);
+    setChateraisePartner(chateraise);
   };
 
   useEffect(() => {
@@ -183,18 +189,23 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
             borderRadius="md"
             minHeight="62px"
           >
-            <Box w="40px">
-              <Image
-                borderRadius="md"
-                src="https://scontent.fhan5-7.fna.fbcdn.net/v/t1.0-9/16602989_213352972404188_8062965415553834_n.png?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=YPYGE_-HWN4AX9h6pmg&_nc_ht=scontent.fhan5-7.fna&oh=04d6fc4de63a6452bad1b569d35a352d&oe=602780CA"
-              />
-            </Box>
-            <Box ml="2">
-              <Text fontWeight="medium" mb="0">
-                Chateraise Việt Nam
-              </Text>
-              <Text fontSize="sm">02499383844</Text>
-            </Box>
+            {chateraisePartner?.image128 && (
+              <Box w="40px">
+                <Image
+                  borderRadius="md"
+                  src={`data:image/png;base64,${chateraisePartner.image128}`}
+                />
+              </Box>
+            )}
+
+            {chateraisePartner && (
+              <Box ml="2">
+                <Text fontWeight="medium" mb="0">
+                  {chateraisePartner.name}
+                </Text>
+                <Text fontSize="sm">{chateraisePartner.phone}</Text>
+              </Box>
+            )}
           </Flex>
         </Box>
         <Box flex="1">

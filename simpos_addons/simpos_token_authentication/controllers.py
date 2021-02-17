@@ -14,7 +14,7 @@ def make_error(message):
     return dict(success=False, error=message)
 
 class AuthTokenController(http.Controller):
-    @http.route('/exchange_token', type='json', auth='none', cors='*')
+    @http.route('/exchange_token', type='json', auth='none')
     def get_token(self, **args):
         ensure_db()
         request.env['res.users'].sudo()
@@ -48,7 +48,7 @@ class AuthTokenController(http.Controller):
 
         return make_error('Incorrect login name or password')
 
-    @http.route('/pos_metadata', type='json', auth='none', cors='*')
+    @http.route('/pos_metadata', type='json', auth='none')
     def pos_metadata(self, **args):
         ensure_db()
         token = request.httprequest.headers.get('Authorization')
@@ -56,7 +56,7 @@ class AuthTokenController(http.Controller):
             token = token.replace('Bearer ', '')
             payload = jwt.decode(token, request.env['ir.config_parameter'].sudo().get_param('database.secret'), algorithms=["HS256"])
             request.uid = payload.get('uid')
-            config_id = args.get('login')
+            config_id = args.get('config_id')
 
             domain = [
                 ('state', '=', 'opened'),

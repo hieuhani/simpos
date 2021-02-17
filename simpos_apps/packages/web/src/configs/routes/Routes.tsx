@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
   Redirect,
+  useLocation,
 } from 'react-router-dom';
 import { RequireLogin } from '../../components/PrivateRoute';
 import { DataProvider } from '../../contexts/DataProvider';
@@ -29,43 +30,62 @@ const StockPickingDetails = lazy(
 
 const Inventory = lazy(() => import('../../apps/inventory'));
 
-export const Routes: React.FunctionComponent = () => (
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Switch>
-        <Redirect exact from="/" to="purchase" />
-        <Route path="/login" component={Login} />
-        <RequireLogin>
-          <DataProvider>
-            <OrderManager>
-              <Route path="/pos" exact component={POS} />
-              <Route path="/pos/customer_screen" component={CustomerScreen} />
-              <Route path="/pos/session" component={SessionScreen} />
-              <Route path="/pos/report" component={PosReportScreen} />
-              <Route path="/pos/orders/:orderId" component={PosOrderScreen} />
-            </OrderManager>
-          </DataProvider>
-          <Route path="/purchase" exact component={Purchase} />
+const InPosRoute: React.FunctionComponent = ({ children }) => {
+  const location = useLocation();
+  const inPosRoute = location.pathname.startsWith('/pos');
+  if (!inPosRoute) {
+    return null;
+  }
+  return <>{children}</>;
+};
+export const Routes: React.FunctionComponent = () => {
+  return (
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Redirect exact from="/" to="purchase" />
+          <Route path="/login" component={Login} />
+          <RequireLogin>
+            <InPosRoute>
+              <DataProvider>
+                <OrderManager>
+                  <Route path="/pos" exact component={POS} />
+                  <Route
+                    path="/pos/customer_screen"
+                    component={CustomerScreen}
+                  />
+                  <Route path="/pos/session" component={SessionScreen} />
+                  <Route path="/pos/report" component={PosReportScreen} />
+                  <Route
+                    path="/pos/orders/:orderId"
+                    component={PosOrderScreen}
+                  />
+                </OrderManager>
+              </DataProvider>
+            </InPosRoute>
 
-          <Switch>
-            <Route path="/purchase/new" component={NewPurchase} />
-            <Route path="/purchase/report" component={PurchaseReport} />
+            <Route path="/purchase" exact component={Purchase} />
 
-            <Route
-              path="/purchase/:purchaseOrderId"
-              component={PurchaseDetails}
-            />
-          </Switch>
-          <Route path="/inventory" exact component={Inventory} />
+            <Switch>
+              <Route path="/purchase/new" component={NewPurchase} />
+              <Route path="/purchase/report" component={PurchaseReport} />
 
-          <Switch>
-            <Route
-              path="/inventory/stock_picking/:stockPickingId"
-              component={StockPickingDetails}
-            />
-          </Switch>
-        </RequireLogin>
-      </Switch>
-    </Suspense>
-  </Router>
-);
+              <Route
+                path="/purchase/:purchaseOrderId"
+                component={PurchaseDetails}
+              />
+            </Switch>
+            <Route path="/inventory" exact component={Inventory} />
+
+            <Switch>
+              <Route
+                path="/inventory/stock_picking/:stockPickingId"
+                component={StockPickingDetails}
+              />
+            </Switch>
+          </RequireLogin>
+        </Switch>
+      </Suspense>
+    </Router>
+  );
+};

@@ -345,7 +345,7 @@ export const syncData = async (userMeta?: AuthUserMeta, worker?: Worker) => {
   if (!userMeta) {
     userMeta = await authService.getAuthMeta();
     if (userMeta) {
-      updateSimApiToken(userMeta.accessToken);
+      updateSimApiToken(userMeta);
     }
   }
 

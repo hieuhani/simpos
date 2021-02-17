@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_BASE_API_URL=http://localhost:8069 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "generate-icons": "node scripts/generate-icon-components.js"
   },
-  "proxy": "http://localhost:8069",
   "dependencies": {
     "@chakra-ui/react": "^1.1.5",
     "@emotion/react": "^11.0.0",

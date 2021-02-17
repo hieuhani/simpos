@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models
 import xmlrpc.client
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
@@ -18,6 +19,9 @@ class PurchaseOrder(models.Model):
 
   def trigger_create_partner_sales_order(self):
     partner = self.partner_id if not self.partner_id.parent_id else self.partner_id.parent_id
+    if not partner.url:
+      return
+
     currency = partner.property_purchase_currency_id or self.env.company.currency_id
 
     order = {
@@ -65,7 +69,6 @@ class PurchaseOrder(models.Model):
           'rate': currency.rate,
         } if currency else null,
       })
-
     common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(partner.url))
     uid = common.authenticate(partner.db, partner.username, partner.password, {})
     models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(partner.url))

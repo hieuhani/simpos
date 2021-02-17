@@ -5,7 +5,6 @@ import React, {
   useReducer,
   useState,
 } from 'react';
-
 import { SessionManager } from '../../apps/pos/components/SessionManager';
 import { authService } from '../../services/auth';
 import {
@@ -85,7 +84,6 @@ const initialState: DataContextState | undefined = undefined;
 export const DataProvider: React.FunctionComponent = ({ children }) => {
   const auth = useAuth();
   const [state, dispatch] = useReducer(globalDataReducer, initialState);
-
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
     await syncData(userMeta);

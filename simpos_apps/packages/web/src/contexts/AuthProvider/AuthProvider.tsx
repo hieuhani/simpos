@@ -41,7 +41,7 @@ export const AuthProvider: React.FunctionComponent = ({ children }) => {
     if (authMeta) {
       const meta = authMeta as AuthUserMeta;
       setUserMeta(meta);
-      updateSimApiToken(meta.accessToken);
+      updateSimApiToken(meta);
     }
     setAuthChecking(false);
   };

@@ -1,7 +1,8 @@
-import { simApi } from './clients';
+import { buildTenantBaseApiUrl, simApi } from './clients';
 import { AuthUserContext, authUserMeta, AuthUserMeta } from './db/authUserMeta';
 
 export interface LoginParams {
+  tenant: string;
   login: string;
   password: string;
 }
@@ -19,9 +20,16 @@ export interface ServerMetadata {
 
 export const authService = {
   login: (params: LoginParams) => {
-    return simApi.post('/exchange_token', {
-      params,
-    });
+    const baseURL = buildTenantBaseApiUrl(params.tenant);
+    return simApi.post(
+      '/exchange_token',
+      {
+        params,
+      },
+      {
+        baseURL,
+      },
+    );
   },
   saveAuthMeta: async (authMeta: AuthUserMeta) => {
     await authUserMeta.create(authMeta);

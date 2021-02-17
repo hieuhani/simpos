@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Stack,
@@ -8,6 +8,7 @@ import {
   Input,
   useToast,
   Heading,
+  Select,
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -16,6 +17,7 @@ import { authService } from '../../services/auth';
 import { useAuth } from '../../contexts/AuthProvider';
 
 const SignInSchema = Yup.object().shape({
+  tenant: Yup.string().required('Required'),
   login: Yup.string().required('Required'),
   password: Yup.string().required('Required'),
 });
@@ -24,6 +26,10 @@ export const Login: React.FunctionComponent = () => {
   const toast = useToast();
   const auth = useAuth();
   const history = useHistory();
+  const [debug, setDebug] = useState(false);
+  const toggleDebug = () => {
+    setDebug(!debug);
+  };
   useEffect(() => {
     if (auth.isLoggedIn) {
       history.push('/');
@@ -78,17 +84,35 @@ export const Login: React.FunctionComponent = () => {
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
               <FormControl id="tenant">
-                <FormLabel>Mã cửa hàng</FormLabel>
-                <Input
-                  name="tenant"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.tenant}
-                  isInvalid={
-                    !!(errors.tenant && touched.tenant && errors.tenant)
-                  }
-                  backgroundColor="white"
-                />
+                <FormLabel>Cửa hàng</FormLabel>
+                {debug ? (
+                  <Input
+                    placeholder="Điền mã cửa hàng"
+                    name="tenant"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.tenant}
+                    isInvalid={
+                      !!(errors.tenant && touched.tenant && errors.tenant)
+                    }
+                    backgroundColor="white"
+                  />
+                ) : (
+                  <Select
+                    placeholder="Chọn cửa hàng"
+                    name="tenant"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.tenant}
+                    isInvalid={
+                      !!(errors.tenant && touched.tenant && errors.tenant)
+                    }
+                    backgroundColor="white"
+                  >
+                    <option value="chateraise">Chateraise</option>
+                    <option value="baumkuchen">Baumkuchen</option>
+                  </Select>
+                )}
               </FormControl>
               <FormControl id="login">
                 <FormLabel>Email</FormLabel>
@@ -126,6 +150,7 @@ export const Login: React.FunctionComponent = () => {
           </form>
         )}
       </Formik>
+      <Button position="fixed" right="2" bottom="2" onClick={toggleDebug} />
     </Box>
   );
 };

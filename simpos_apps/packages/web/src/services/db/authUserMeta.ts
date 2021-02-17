@@ -4,7 +4,7 @@ export interface AuthUserContext {
   tz: string;
 }
 export interface AuthUserMeta {
-  id: number;
+  id?: number;
   uid: number;
   accessToken: string;
   name: string;
