@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useCallback, useContext, useEffect, useReducer } from 'react';
 import dayjs from 'dayjs';
 import { ActiveOrderExtension } from '../../hooks/extensions/order-extension';
 import { OrderLineExtension } from '../../hooks/extensions/order-line-extension';
@@ -207,7 +207,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
   const data = useData();
   const { userMeta } = useAuth();
   // TODO: Here we only use the default pricelist
-  const addNewOrder = async (): Promise<Order> => {
+  const addNewOrder = useCallback(async (): Promise<Order> => {
     const newOrder = await orderRepository.addNewOrder({
       posSession: data.posSession,
       defaultPriceList: data.defaultPriceList,
@@ -223,7 +223,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
       },
     });
     return newOrder;
-  };
+  }, [data, globalDataDispatch]);
 
   const selectOrder = async (order: Order): Promise<Order> => {
     dispatch({ type: 'SELECT_ORDER', payload: order });
@@ -455,23 +455,23 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     return activeOrder;
   };
 
-  const initilizeOrderManager = async () => {
-    const currentOrders = await orderRepository.all();
-    if (currentOrders.length > 0) {
-      dispatch({
-        type: 'INITIAL_LOAD',
-        payload: {
-          activeOrderId: currentOrders[0].id,
-          orders: currentOrders,
-        },
-      });
-    } else {
-      await addNewOrder();
-    }
-  };
   useEffect(() => {
+    const initilizeOrderManager = async () => {
+      const currentOrders = await orderRepository.all();
+      if (currentOrders.length > 0) {
+        dispatch({
+          type: 'INITIAL_LOAD',
+          payload: {
+            activeOrderId: currentOrders[0].id,
+            orders: currentOrders,
+          },
+        });
+      } else {
+        await addNewOrder();
+      }
+    };
     initilizeOrderManager();
-  }, []);
+  }, [addNewOrder]);
 
   const fetchOrder = async (orderId: string) => {
     if (orderId) {

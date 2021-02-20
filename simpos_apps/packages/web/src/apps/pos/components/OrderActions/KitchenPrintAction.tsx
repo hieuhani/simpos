@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 export const KitchenPrintAction: React.FunctionComponent = () => {
   const { activeOrder } = useOrderManagerState();
-  const { printersDict, categoryPrinterIds } = useData();
+  const { categoryPrinterIds } = useData();
   const ref = useRef(null);
   const kitchenOrderLines = useMemo(() => {
     if (!activeOrder || (activeOrder && activeOrder.orderLines.length === 0)) {

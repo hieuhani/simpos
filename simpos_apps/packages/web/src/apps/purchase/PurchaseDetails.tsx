@@ -8,7 +8,7 @@ import {
   BreadcrumbLink,
   useToast,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import { PurchaseOrder } from '../../services/db';
@@ -53,7 +53,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
     getPurchaseOrder(params.purchaseOrderId);
   }, [params.purchaseOrderId]);
 
-  const handleCancelPurchaseOrder = async () => {
+  const handleCancelPurchaseOrder = useCallback(async () => {
     try {
       await purchaseOrderService.cancelPurchaseOrder(
         parseInt(params.purchaseOrderId, 10),
@@ -75,13 +75,13 @@ const PurchaseDetails: React.FunctionComponent = () => {
         isClosable: true,
       });
     }
-  };
-  const handleViewPicking = async () => {
+  }, [params, toast]);
+  const handleViewPicking = useCallback(async () => {
     const picking = await purchaseOrderService.getPicking(
       parseInt(params.purchaseOrderId, 10),
     );
     history.push(`/inventory/stock_picking/${picking?.resId}`);
-  };
+  }, [params, history]);
   const actionButtons = useMemo<ActionButtonProps[]>(() => {
     if (!purchaseOrder) {
       return [];
@@ -156,7 +156,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
     }
 
     return buttons;
-  }, [purchaseOrder]);
+  }, [purchaseOrder, handleCancelPurchaseOrder, handleViewPicking]);
 
   if (!purchaseOrder) {
     return null;

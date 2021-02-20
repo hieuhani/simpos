@@ -18,7 +18,13 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { NavigationBarGeneral } from '../pos/components/NavigationBar';
 import {
@@ -71,7 +77,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
     getStockPicking(parseInt(params.stockPickingId));
   }, [params.stockPickingId]);
 
-  const markPurcharOrderAsDone = async () => {
+  const markPurcharOrderAsDone = useCallback(async () => {
     try {
       if (!stockPicking?.origin) {
         throw new Error('Stock picking origin is not found');
@@ -88,30 +94,29 @@ const StockPickingDetails: React.FunctionComponent = () => {
     } catch {
       receiveProductsMachineSend('LOCK_PURCHASE_ORDER_FAILED');
     }
-  };
-
-  const createBackorder = async (id: number) => {
-    toast({
-      title: 'Thông báo',
-      description: 'Chức năng tạo backorder chưa hoàn thiện',
-      status: 'warning',
-      duration: 9000,
-      isClosable: true,
-    });
-    // receiveProductsMachineSend('CREATE_BACKORDER');
-    // await stockBackorderConfirmationService.processBackorder(id);
-    // receiveProductsMachineSend('CREATED_BACKORDER');
-  };
-
-  const skipBackorder = async (id: number) => {
-    receiveProductsMachineSend('SKIP_BACKORDER');
-    await stockBackorderConfirmationService.cancelBackorder(id);
-    receiveProductsMachineSend('SKIPPED_BACKORDER');
-
-    await markPurcharOrderAsDone();
-  };
+  }, [stockPicking, receiveProductsMachineSend]);
 
   const nextActionNode = useMemo<React.ReactNode>(() => {
+    const createBackorder = async (id: number) => {
+      toast({
+        title: 'Thông báo',
+        description: 'Chức năng tạo backorder chưa hoàn thiện',
+        status: 'warning',
+        duration: 9000,
+        isClosable: true,
+      });
+      // receiveProductsMachineSend('CREATE_BACKORDER');
+      // await stockBackorderConfirmationService.processBackorder(id);
+      // receiveProductsMachineSend('CREATED_BACKORDER');
+    };
+
+    const skipBackorder = async (id: number) => {
+      receiveProductsMachineSend('SKIP_BACKORDER');
+      await stockBackorderConfirmationService.cancelBackorder(id);
+      receiveProductsMachineSend('SKIPPED_BACKORDER');
+
+      await markPurcharOrderAsDone();
+    };
     if (receiveProductsMachineState.value === 'backorderConfirmation') {
       const resId = receiveProductsMachineState.event.resId;
       return (
@@ -134,7 +139,12 @@ const StockPickingDetails: React.FunctionComponent = () => {
     return receiveProductsMachineStateMapping[
       receiveProductsMachineState.value as string
     ];
-  }, [receiveProductsMachineState]);
+  }, [
+    receiveProductsMachineState,
+    markPurcharOrderAsDone,
+    receiveProductsMachineSend,
+    toast,
+  ]);
   const handleOnReceive = async (quantityMap: Record<string, number>) => {
     if (!stockPicking) {
       return;

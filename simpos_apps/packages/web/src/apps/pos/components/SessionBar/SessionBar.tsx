@@ -59,7 +59,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
     if (!cashier && !showChangeCashiser) {
       setShowChangeCashiser(true);
     }
-  }, [cashier]);
+  }, [cashier, setShowChangeCashiser, showChangeCashiser]);
 
   useEffect(() => {
     const getEmployees = async () => {

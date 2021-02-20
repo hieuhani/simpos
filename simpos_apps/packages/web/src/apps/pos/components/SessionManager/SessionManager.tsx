@@ -6,7 +6,7 @@ import {
   ModalBody,
   Box,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getLoadModelsMap } from '../../../../contexts/DataProvider/dataLoader';
 import { PosConfig, PosSession } from '../../../../services/db';
 import { AuthUserMeta } from '../../../../services/db/root';
@@ -24,24 +24,28 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
 }) => {
   const [configs, setConfigs] = useState<PosConfig[]>([]);
 
-  const updateSession = (posSessions: PosSession[]) => {
-    const assignedSession = posSessions.find(
-      (session) => session.responsibleUserId === authUserMeta.uid,
-    );
+  const updateSession = useCallback(
+    (posSessions: PosSession[]) => {
+      const assignedSession = posSessions.find(
+        (session) => session.responsibleUserId === authUserMeta.uid,
+      );
 
-    if (assignedSession) {
-      onSessionSelected(assignedSession);
-    }
-  };
-  const fetchSession = async () => {
-    const posConfigs = await loadModelsMap['pos.config'].load();
-    const posSessions = await loadModelsMap['pos.session'].load();
-    setConfigs(posConfigs);
-    updateSession(posSessions);
-  };
+      if (assignedSession) {
+        onSessionSelected(assignedSession);
+      }
+    },
+    [authUserMeta, onSessionSelected],
+  );
+
   useEffect(() => {
+    const fetchSession = async () => {
+      const posConfigs = await loadModelsMap['pos.config'].load();
+      const posSessions = await loadModelsMap['pos.session'].load();
+      setConfigs(posConfigs);
+      updateSession(posSessions);
+    };
     fetchSession();
-  }, [authUserMeta, onSessionSelected]);
+  }, [authUserMeta, onSessionSelected, updateSession]);
 
   const openSession = async (configId: number) => {
     await posConfigService.createSession(configId);
