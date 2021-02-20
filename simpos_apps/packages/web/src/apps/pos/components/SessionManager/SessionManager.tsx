@@ -33,14 +33,13 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
       onSessionSelected(assignedSession);
     }
   };
-
+  const fetchSession = async () => {
+    const posConfigs = await loadModelsMap['pos.config'].load();
+    const posSessions = await loadModelsMap['pos.session'].load();
+    setConfigs(posConfigs);
+    updateSession(posSessions);
+  };
   useEffect(() => {
-    const fetchSession = async () => {
-      const posConfigs = await loadModelsMap['pos.config'].load();
-      const posSessions = await loadModelsMap['pos.session'].load();
-      setConfigs(posConfigs);
-      updateSession(posSessions);
-    };
     fetchSession();
   }, [authUserMeta, onSessionSelected]);
 

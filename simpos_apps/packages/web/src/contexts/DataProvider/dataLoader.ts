@@ -146,6 +146,16 @@ export const loadModels: LoadModel[] = [
     fields: ['name', 'digits'],
   },
   {
+    model: 'restaurant.printer',
+    fields: [
+      'name',
+      'proxy_ip',
+      'product_categories_ids',
+      'printer_type',
+      'network_printer_ip',
+    ],
+  },
+  {
     model: 'res.partner',
     fields: [
       'name',

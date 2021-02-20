@@ -18,6 +18,7 @@ export interface PosConfig {
   ifaceTaxIncluded: 'subtotal' | 'total';
   posSessionUsername?: string;
   modulePosHr?: boolean;
+  printerIds: number[];
   posSessionState?:
     | 'new_session'
     | 'opening_control'

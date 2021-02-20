@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "REACT_APP_BASE_API_URL=http://localhost:8069 react-scripts start",
+    "start": "REACT_APP_BASE_API_URL=http://localhost.com:8069 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "generate-icons": "node scripts/generate-icon-components.js"

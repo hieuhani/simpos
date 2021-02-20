@@ -104,8 +104,14 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
 
     if (ref.current) {
       html2canvas(ref.current!).then((canvas) => {
-        const image = canvas.toDataURL('image/jpeg');
-        console.log(image);
+        const image = canvas
+          .toDataURL('image/jpeg')
+          .replace('data:image/jpeg;base64,', '');
+        // @ts-ignore
+        if (typeof simpos !== 'undefined') {
+          // @ts-ignore
+          simpos.printReceipt(image);
+        }
       });
     }
   };

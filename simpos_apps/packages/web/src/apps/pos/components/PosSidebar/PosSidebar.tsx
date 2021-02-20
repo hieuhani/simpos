@@ -8,6 +8,7 @@ import {
   VibrationCardAction,
   TableNoAction,
 } from '../OrderActions';
+import { KitchenPrintAction } from '../OrderActions/KitchenPrintAction';
 import { PaymentAction } from '../OrderActions/PaymentAction';
 import { OrderPanel } from '../OrderPanel';
 import { OrderSummary } from '../OrderSummary/OrderSummary';
@@ -31,6 +32,7 @@ export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
       <SessionBar px={4} py={2} />
       <Stack px={4} direction="row" spacing={2} mb={2}>
         <CustomerSelectAction />
+        <KitchenPrintAction />
         <VibrationCardAction />
         <TableNoAction />
       </Stack>

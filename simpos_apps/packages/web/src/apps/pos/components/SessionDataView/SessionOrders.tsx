@@ -1,13 +1,4 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  Button,
-} from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import React, { useEffect, useState } from 'react';
@@ -32,8 +23,6 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
   }, [sessionId]);
   return (
     <Table variant="striped" colorScheme="pink">
-      <TableCaption>Dữ liệu được đồng bộ</TableCaption>
-
       <Thead>
         <Tr>
           <Th>Mã đơn hàng</Th>

@@ -11,6 +11,7 @@ export * from './output/IconChevronDown';
 export * from './output/IconChevronLeft';
 export * from './output/IconChevronRight';
 export * from './output/IconChevronUp';
+export * from './output/IconConciergeBell';
 export * from './output/IconCreditCard';
 export * from './output/IconEdit';
 export * from './output/IconFlag';

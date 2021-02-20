@@ -44,7 +44,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
   const { isOnline } = usePreference();
   const [showChangeCashiser, setShowChangeCashiser] = useState(false);
   const [selectEmployee, setSelectEmployee] = useState<Employee>();
-  const { cashier, posConfig } = useData();
+  const { cashier, posConfig, company } = useData();
   const [employees, setEmployees] = useState<Employee[]>([]);
   const globalDataDispatch = useGlobalDataDispatch();
   const changeCashier = useCallback(() => {
@@ -80,11 +80,25 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
     });
     setShowChangeCashiser(false);
   };
+
   return (
     <>
       <Flex {...boxProps}>
-        <Box width="40px">
-          <Image borderRadius="md" src="/logo.svg" />
+        <Box>
+          {company.logo ? (
+            <Image
+              height="40px"
+              borderRadius="md"
+              src={`data:image/jpeg;base64,${company.logo}`}
+            />
+          ) : (
+            <Image
+              width="40px"
+              height="40px"
+              borderRadius="md"
+              src="/logo.svg"
+            />
+          )}
         </Box>
         <Stack direction="row" spacing={2} alignItems="center" ml="auto">
           <IconWrapper>

@@ -1,5 +1,5 @@
 import { db } from './db';
-import { posCategoryRepository } from './posCategory';
+import { posCategoryRepository } from './pos-category';
 import { ProductVariant, productVariantRepository } from './product-variant';
 
 export interface Product {

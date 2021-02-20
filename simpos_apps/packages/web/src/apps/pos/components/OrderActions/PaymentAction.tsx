@@ -47,7 +47,7 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
       >
         Thanh toán
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onComplete}>
         <ModalOverlay />
         {paidOrder ? (
           <ModalContent>

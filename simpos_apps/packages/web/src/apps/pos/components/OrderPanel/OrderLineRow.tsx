@@ -101,7 +101,9 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
               {orderLine.productVariant?.name}
             </Heading>
             <Stack direction="row">
-              <Badge>{orderLine.productVariant.defaultCode}</Badge>
+              {orderLine.productVariant.defaultCode && (
+                <Badge>{orderLine.productVariant.defaultCode}</Badge>
+              )}
               <Badge>
                 {formatCurrency(getUnitDisplayPrice(), 'Product Price')}
               </Badge>

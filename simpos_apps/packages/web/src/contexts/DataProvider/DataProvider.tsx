@@ -1,3 +1,4 @@
+import keyBy from 'lodash.keyby';
 import React, {
   createContext,
   useContext,
@@ -27,6 +28,10 @@ import {
   ProductPricelist,
   productPricelistRepository,
 } from '../../services/db/product-pricelist';
+import {
+  RestaurantPrinter,
+  restaurantPrinterRepository,
+} from '../../services/db/restaurant-printer';
 import { userRepository } from '../../services/db/user';
 import { useAuth } from '../AuthProvider';
 import { syncData } from './dataLoader';
@@ -42,6 +47,8 @@ export interface DataContextState {
   uoms: UOM[];
   paymentMethods: PaymentMethod[];
   cashier?: Employee;
+  printersDict: Record<string, RestaurantPrinter>;
+  categoryPrinterIds: Record<string, number[]>;
 }
 
 export type GlobalDataAction =
@@ -87,7 +94,6 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
   const [initializing, setInitializing] = useState(true);
   const initializeData = async (userMeta: AuthUserMeta) => {
     await syncData(userMeta);
-    // worker.postMessage({ type: 'DATA_INITIALIZED' });
     setInitializing(false);
   };
 
@@ -134,6 +140,33 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
     const company = await companyRepository.first();
     const uoms = await uomRepository.all();
     const paymentMethods = await paymentMethodRepository.all();
+    const printers = await restaurantPrinterRepository.all();
+
+    const activePrinters = printers.filter(
+      (printer) => ~posConfig.printerIds.indexOf(printer.id),
+    );
+    const printersDict = keyBy(activePrinters, 'id');
+    const categoryPrinterIdsMap: Record<string, Record<string, boolean>> = {};
+    activePrinters.forEach((printer) => {
+      printer.productCategoriesIds.forEach((categoryId) => {
+        if (!categoryPrinterIdsMap[categoryId]) {
+          categoryPrinterIdsMap[categoryId] = {};
+        }
+        categoryPrinterIdsMap[categoryId][printer.id] = true;
+      });
+    });
+
+    const categoryPrinterIds = Object.keys(categoryPrinterIdsMap).reduce(
+      (prev, current) => {
+        return {
+          ...prev,
+          [current]: Object.keys(categoryPrinterIdsMap[current]).map((id) =>
+            parseInt(id, 10),
+          ),
+        };
+      },
+      {},
+    );
 
     let cashier: Employee | undefined;
     if (!posConfig.modulePosHr) {
@@ -162,6 +195,8 @@ export const DataProvider: React.FunctionComponent = ({ children }) => {
         company: company!,
         paymentMethods,
         cashier,
+        printersDict,
+        categoryPrinterIds,
       },
     });
   };

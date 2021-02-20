@@ -12,6 +12,7 @@ export interface ProductVariant {
   tracking: 'lot' | 'none' | 'serial';
   images?: SizedImages;
   image128?: string;
+  posCategId?: [number, string];
 }
 
 export const productVariantRepository = {
