@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { IconSearch } from '../../../../components/icons/output/IconSearch';
+import { usePreference } from '../../../../contexts/PreferenceProvider';
 import {
   useSearchProductDispatch,
   useSearchProductState,
@@ -16,12 +17,20 @@ import {
 export const SearchPanel: React.FunctionComponent = () => {
   const state = useSearchProductState();
   const dispatch = useSearchProductDispatch();
+  const { isMobile } = usePreference();
   return (
     <Flex align="center" px={4} py={2} background="gray.50">
-      <Box mr="auto">
-        <Heading size="md">Danh sách sản phẩm</Heading>
-      </Box>
-      <InputGroup size="md" width="250px" background="white">
+      {!isMobile && (
+        <Box mr="auto">
+          <Heading size="md">Danh sách sản phẩm</Heading>
+        </Box>
+      )}
+
+      <InputGroup
+        size="md"
+        width={isMobile ? 'full' : '250px'}
+        background="white"
+      >
         <Input
           pr="3rem"
           placeholder="Tìm kiếm"

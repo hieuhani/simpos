@@ -9,13 +9,15 @@ import {
 import { RequireLogin } from '../../components/PrivateRoute';
 import { DataProvider } from '../../contexts/DataProvider';
 import { OrderManager } from '../../contexts/OrderManager';
+import { usePreference } from '../../contexts/PreferenceProvider';
 
 const POS = lazy(() => import('../../apps/pos'));
+const MobilePOS = lazy(() => import('../../apps/pos/mobile/Pos'));
 const CustomerScreen = lazy(() => import('../../apps/pos/CustomerScreen'));
 const SessionScreen = lazy(() => import('../../apps/pos/SessionScreen'));
 const PosReportScreen = lazy(() => import('../../apps/pos/ReportScreen'));
 const PosOrderScreen = lazy(() => import('../../apps/pos/OrderScreen'));
-
+const CartScreen = lazy(() => import('../../apps/pos/Cart'));
 const Login = lazy(() => import('../../apps/auth/Login'));
 const Purchase = lazy(() => import('../../apps/purchase'));
 const NewPurchase = lazy(() => import('../../apps/purchase/NewPurchase'));
@@ -38,7 +40,9 @@ const InPosRoute: React.FunctionComponent = ({ children }) => {
   }
   return <>{children}</>;
 };
+
 export const Routes: React.FunctionComponent = () => {
+  const { isMobile } = usePreference();
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
@@ -49,7 +53,13 @@ export const Routes: React.FunctionComponent = () => {
             <InPosRoute>
               <DataProvider>
                 <OrderManager>
-                  <Route path="/pos" exact component={POS} />
+                  <Route
+                    path="/pos"
+                    exact
+                    component={isMobile ? MobilePOS : POS}
+                  />
+
+                  <Route path="/pos/cart" component={CartScreen} />
                   <Route
                     path="/pos/customer_screen"
                     component={CustomerScreen}

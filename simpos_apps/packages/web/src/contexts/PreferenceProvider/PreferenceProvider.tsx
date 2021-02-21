@@ -1,7 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useWindowSize } from '../../hooks/use-window-size';
 
 export interface PreferenceContextState {
   isOnline: boolean;
+  isMobile: boolean;
 }
 
 const PreferenceContext = createContext<PreferenceContextState | undefined>(
@@ -10,7 +18,8 @@ const PreferenceContext = createContext<PreferenceContextState | undefined>(
 
 export const PreferenceProvider: React.FunctionComponent = ({ children }) => {
   const [isOnline, setIsOnline] = useState(true);
-
+  const { width } = useWindowSize();
+  const isMobile = useMemo(() => width <= 768, [width]);
   useEffect(() => {
     function changeStatus() {
       setIsOnline(navigator.onLine);
@@ -24,7 +33,7 @@ export const PreferenceProvider: React.FunctionComponent = ({ children }) => {
   }, []);
 
   return (
-    <PreferenceContext.Provider value={{ isOnline }}>
+    <PreferenceContext.Provider value={{ isOnline, isMobile }}>
       {children}
     </PreferenceContext.Provider>
   );

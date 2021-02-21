@@ -15,6 +15,7 @@ export * from './output/IconConciergeBell';
 export * from './output/IconCreditCard';
 export * from './output/IconEdit';
 export * from './output/IconFlag';
+export * from './output/IconHome';
 export * from './output/IconInventory';
 export * from './output/IconMinus';
 export * from './output/IconMoneyBillAlt';

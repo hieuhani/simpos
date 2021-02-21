@@ -57,14 +57,15 @@ export const SearchProductProvider: React.FunctionComponent = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(searchProductReducer, initialState);
-  const findProducts = async (categoryId?: number, keyword = '') => {
-    const foundProducts = await productRepository.findProducts(
-      categoryId,
-      keyword,
-    );
-    dispatch({ type: 'PRODUCTS_FOUND', payload: foundProducts });
-  };
+
   useEffect(() => {
+    const findProducts = async (categoryId?: number, keyword = '') => {
+      const foundProducts = await productRepository.findProducts(
+        categoryId,
+        keyword,
+      );
+      dispatch({ type: 'PRODUCTS_FOUND', payload: foundProducts });
+    };
     findProducts(state.categoryId, state.keyword);
   }, [state.categoryId, state.keyword]);
 
