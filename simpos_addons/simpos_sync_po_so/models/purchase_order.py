@@ -5,7 +5,6 @@ from odoo import api, fields, models
 import xmlrpc.client
 from odoo.exceptions import ValidationError
 
-
 class PurchaseOrder(models.Model):
   _inherit = "purchase.order"
 
@@ -71,6 +70,8 @@ class PurchaseOrder(models.Model):
       })
     common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(partner.url))
     uid = common.authenticate(partner.db, partner.username, partner.password, {})
+    if not uid:
+      raise ValidationError(_('User or password is invalid'))
     models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(partner.url))
     so_id = models.execute_kw(partner.db, uid, partner.password, 'sale.order', 'create_from_po', [order])
     print(so_id)
