@@ -132,14 +132,14 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
       });
       dispatch({ type: 'RESET' });
       poMachineSend('CREATED_PO');
-    } catch {
+    } catch (e) {
       poMachineSend('CREATE_PO_FAILED');
     }
     poMachineSend('CONFIRM_PO');
     try {
       await purchaseOrderService.confirmPurchaseOrder(purchaseOrderId);
       poMachineSend('CONFIRMED_PO', { purchaseOrderId });
-    } catch {
+    } catch (e) {
       poMachineSend('CONFIRM_PO_FAILED');
     }
   };

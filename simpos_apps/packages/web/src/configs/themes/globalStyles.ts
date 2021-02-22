@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 
 export const globalStyles = css`
-  body {
+  body,
+  html {
     overflow: hidden;
     color: #2d3748;
   }

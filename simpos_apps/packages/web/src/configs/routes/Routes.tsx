@@ -47,7 +47,7 @@ export const Routes: React.FunctionComponent = () => {
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
-          <Redirect exact from="/" to="purchase" />
+          <Redirect exact from="/" to="pos" />
           <Route path="/login" component={Login} />
           <RequireLogin>
             <InPosRoute>

@@ -1,8 +1,6 @@
 import { Stack, Box, Flex, Heading, Button } from '@chakra-ui/react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
-import { IconShoppingCart } from '../../components/icons';
 import { IconHome } from '../../components/icons/output/IconHome';
 import { ActiveOrder, useOrderManagerState } from '../../contexts/OrderManager';
 import { useActiveOrderExtensions, useMoneyFormatter } from '../../hooks';

@@ -91,7 +91,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
       }
       await purchaseOrderService.lockPurchaseOrder(po.id);
       receiveProductsMachineSend('LOCKED_PURCHASE_ORDER');
-    } catch {
+    } catch (e) {
       receiveProductsMachineSend('LOCK_PURCHASE_ORDER_FAILED');
     }
   }, [stockPicking, receiveProductsMachineSend]);
@@ -212,7 +212,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
         }),
       );
       receiveProductsMachineSend('UPDATED_MOVES');
-    } catch {
+    } catch (e) {
       writeLinesError = true;
       receiveProductsMachineSend('UPDATE_MOVES_FAILED');
     }
@@ -231,7 +231,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
           receiveProductsMachineSend('VALIDATED_MOVES');
           await markPurcharOrderAsDone();
         }
-      } catch {
+      } catch (e) {
         receiveProductsMachineSend('VALIDATE_MOVES_FAILED');
       }
     }

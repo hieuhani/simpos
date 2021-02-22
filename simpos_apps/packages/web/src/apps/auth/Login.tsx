@@ -59,7 +59,7 @@ export const Login: React.FunctionComponent = () => {
           try {
             const { data } = await authService.login(values);
             auth.signIn(data);
-          } catch {
+          } catch (e) {
             toast({
               title: 'Đăng nhập không thành công',
               description: 'Thông tin tài khoản hoặc mật khẩu không chính xác',
@@ -104,6 +104,8 @@ export const Login: React.FunctionComponent = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.tenant}
+                    autoCapitalize="off"
+                    autoComplete="off"
                     isInvalid={
                       !!(errors.tenant && touched.tenant && errors.tenant)
                     }

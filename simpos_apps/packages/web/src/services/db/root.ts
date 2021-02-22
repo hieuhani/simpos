@@ -24,7 +24,7 @@ export const rootDb = {
     try {
       const table = db.table(tableName);
       return table.toArray();
-    } catch {
+    } catch (e) {
       return null;
     }
   },

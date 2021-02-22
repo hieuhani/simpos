@@ -30,6 +30,7 @@ export const SearchPanel: React.FunctionComponent = () => {
         size="md"
         width={isMobile ? 'full' : '250px'}
         background="white"
+        borderRadius="md"
       >
         <Input
           pr="3rem"

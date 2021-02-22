@@ -3,8 +3,9 @@ import React from 'react';
 
 import { IconCheckCircle } from '../../../../components/icons';
 import { ActiveOrder } from '../../../../contexts/OrderManager';
+import { usePreference } from '../../../../contexts/PreferenceProvider';
 import { OrderReceipt } from '../OrderReceipt';
-
+import { OrderReceiptMobile } from '../OrderReceipt/OrderReceiptMobile';
 export interface OrderCompleteProps {
   activeOrder: ActiveOrder;
   onComplete: () => void;
@@ -14,6 +15,7 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
   activeOrder,
   onComplete,
 }) => {
+  const { isMobile } = usePreference();
   return (
     <Flex
       py={4}
@@ -38,7 +40,11 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
         <Divider mb={4} />
       </Box>
 
-      <OrderReceipt activeOrder={activeOrder} />
+      {isMobile ? (
+        <OrderReceiptMobile activeOrder={activeOrder} />
+      ) : (
+        <OrderReceipt activeOrder={activeOrder} />
+      )}
 
       <Button colorScheme="green" onClick={onComplete}>
         Tiếp tục bán hàng
