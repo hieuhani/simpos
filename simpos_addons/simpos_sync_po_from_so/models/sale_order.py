@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
           print('log this product to process manually')
 
       sale_orders.append({
-            'partner_id': 16,
+            'partner_id': 18,
             'client_order_ref': order['name'],
             'validity_date': order['date_planned'],
             'date_order': order['date'],
