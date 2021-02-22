@@ -4,8 +4,10 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  Box,
+  Button,
 } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import { getLoadModelsMap } from '../../../../contexts/DataProvider/dataLoader';
 import { PosConfig, PosSession } from '../../../../services/db';
@@ -23,7 +25,6 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
   onSessionSelected,
 }) => {
   const [configs, setConfigs] = useState<PosConfig[]>([]);
-
   const updateSession = useCallback(
     (posSessions: PosSession[]) => {
       const assignedSession = posSessions.find(
@@ -71,7 +72,16 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
               openSession={openSession}
             />
           ))}
-          <Box h={3} />
+
+          <Button
+            my={2}
+            as={RouterLink}
+            to="/purchase"
+            variant="link"
+            colorScheme="blue"
+          >
+            Mua hàng
+          </Button>
         </ModalBody>
       </ModalContent>
     </Modal>

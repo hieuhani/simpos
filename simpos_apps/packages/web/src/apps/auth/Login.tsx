@@ -111,7 +111,7 @@ export const Login: React.FunctionComponent = () => {
                     }
                     backgroundColor="white"
                   >
-                    <option value="chateraise">Chateraise</option>
+                    {/* <option value="chateraise">Chateraise</option> */}
                     <option value="baumkuchen">Baumkuchen</option>
                   </Select>
                 )}
