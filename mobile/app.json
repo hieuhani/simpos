@@ -1,0 +1,12 @@
+{
+  "name": "simpos-mobile",
+  "displayName": "simpos-mobile",
+  "expo": {
+    "name": "simpos-mobile",
+    "slug": "simpos-mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
