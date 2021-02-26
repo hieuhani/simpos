@@ -7,8 +7,6 @@ import {
   StatusBar,
   ToastAndroid,
 } from "react-native";
-import Constants from "expo-constants";
-
 import { useAuth } from "../shared/contexts/AuthContext";
 import { LoginForm, LogInPayload } from "./components/LoginForm";
 import { authService } from "../services/auth";

@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^5.14.3",
     "axios": "^0.21.1",
     "camelcase-keys": "^6.2.2",
+    "dayjs": "^1.10.4",
     "expo": "~40.0.0",
     "expo-splash-screen": "~0.8.0",
     "expo-updates": "~0.4.0",
@@ -29,6 +30,7 @@
     "react-native-screens": "~2.15.0",
     "react-native-unimodules": "~0.12.0",
     "react-native-web": "~0.13.12",
+    "styled-components": "^5.2.1",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -37,6 +39,8 @@
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/styled-components": "^5.1.7",
+    "@types/styled-components-react-native": "^5.1.1",
     "babel-preset-expo": "~8.3.0",
     "jest-expo": "~40.0.0",
     "typescript": "~4.0.0"
