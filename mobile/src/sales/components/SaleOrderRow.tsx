@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, GestureResponderEvent } from "react-native";
 import styled from "styled-components/native";
 import { SaleOrder, saleOrderStateMap } from "../../services/sale-order";
 import { formatDate, formatMoney } from "../../utils";
 
 export interface SaleOrderRowProps {
   saleOrder: SaleOrder;
+  onPress: (event: GestureResponderEvent) => void;
 }
 
 const TouchableContainer = styled.TouchableOpacity`
@@ -40,8 +40,9 @@ const State = styled.Text``;
 
 export const SaleOrderRow: React.FunctionComponent<SaleOrderRowProps> = ({
   saleOrder,
+  onPress,
 }: SaleOrderRowProps) => (
-  <TouchableContainer>
+  <TouchableContainer onPress={onPress}>
     <Wrapper>
       <View>
         <Name>{saleOrder.name}</Name>

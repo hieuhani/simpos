@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
 export const SalesScreen: React.FunctionComponent = () => {
   const navigation = useNavigation<SalesNavigationProp>();
   const [saleOrders, setSaleOrders] = useState<SaleOrder[]>([]);
+  const goToSaleOrder = (saleOrder: SaleOrder) => {
+    navigation.push("Sale Order", {
+      id: saleOrder.id,
+      name: saleOrder.name,
+    });
+  };
   const onNewSalePressed = () => {
     navigation.push("New Sale");
   };
@@ -39,7 +45,9 @@ export const SalesScreen: React.FunctionComponent = () => {
       <FlatList
         style={styles.list}
         data={saleOrders}
-        renderItem={({ item }) => <SaleOrderRow saleOrder={item} />}
+        renderItem={({ item }) => (
+          <SaleOrderRow saleOrder={item} onPress={() => goToSaleOrder(item)} />
+        )}
         keyExtractor={({ id }) => id.toString()}
       />
       <View style={styles.footer}>
