@@ -285,7 +285,7 @@ export const loadModels: LoadModel[] = [
       'sequence',
       'image_128',
     ],
-    indexes: '++id, productTemplateId',
+    indexes: '++id, productTemplateId,barcode',
     async load() {
       return fetchModelData(
         this.model,

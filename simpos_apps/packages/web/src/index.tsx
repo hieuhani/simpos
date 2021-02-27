@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// @ts-ignore
+import onScan from 'onscan.js';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-
 import { AuthProvider } from './contexts/AuthProvider';
 import { Routes } from './configs/routes';
 import { ThemeProvider } from './configs/themes';
 import reportWebVitals from './reportWebVitals';
 import { PreferenceProvider } from './contexts/PreferenceProvider';
+
+onScan.attachTo(document);
 
 ReactDOM.render(
   <React.StrictMode>

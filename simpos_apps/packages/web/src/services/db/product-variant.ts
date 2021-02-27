@@ -5,6 +5,7 @@ export interface ProductVariant {
   id: number;
   defaultCode: string;
   displayName: string;
+  barcode: string;
   name: string;
   lstPrice: number;
   taxesId: number[];
@@ -28,5 +29,8 @@ export const productVariantRepository = {
   },
   findByTemplateIds(templateIds: number[]): Promise<ProductVariant[]> {
     return this.db.where('productTemplateId').anyOf(templateIds).toArray();
+  },
+  findByBarcode(barcode: string): Promise<ProductVariant | undefined> {
+    return this.db.where('barcode').equalsIgnoreCase(barcode).first();
   },
 };
