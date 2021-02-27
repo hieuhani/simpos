@@ -27,12 +27,33 @@ export interface OrderReceiptProps {
 const Th = styled(CTh)`
   padding-left: 0;
   padding-right: 0;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
 `;
 
 const py = {
-  pt: '0.5rem',
-  pb: '0.5rem',
+  pt: '0.2rem',
+  pb: '0.2rem',
 };
+
+const Container = styled(Box)`
+  @media print {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 1;
+    overflow-x: hidden;
+    height: auto !important;
+    width: 100% !imporant;
+
+    th {
+      border-bottom: 1px solid;
+      border-color: #000;
+    }
+  }
+`;
 
 export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
   activeOrder,
@@ -100,26 +121,32 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
   }, [activeOrder, cashier]);
 
   const printReceipt = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // @ts-ignore
+    if (typeof simpos !== 'undefined') {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    if (ref.current) {
-      html2canvas(ref.current!).then((canvas) => {
-        const image = canvas
-          .toDataURL('image/jpeg')
-          .replace('data:image/jpeg;base64,', '');
-        // @ts-ignore
-        if (typeof simpos !== 'undefined') {
+      if (ref.current) {
+        html2canvas(ref.current!).then((canvas) => {
+          const image = canvas
+            .toDataURL('image/jpeg')
+            .replace('data:image/jpeg;base64,', '');
           // @ts-ignore
           simpos.printReceipt(image);
-        }
-      });
+        });
+      }
+    } else {
+      try {
+        window.print();
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
   useEffect(() => {
     printReceipt();
   }, []);
   return (
-    <Box w="full" ref={ref}>
+    <Container w="full" ref={ref}>
       <OrderReceiptHeader company={company} />
       <OrderReceiptSummary fields={headerFields} />
       <Table variant="simple">
@@ -179,6 +206,6 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
         </Tfoot>
       </Table>
       <OrderReceiptFooter company={company} />
-    </Box>
+    </Container>
   );
 };

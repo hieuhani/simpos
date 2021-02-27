@@ -20,7 +20,7 @@ export const OrderReceiptHeader: React.FunctionComponent<OrderReceiptHeaderProps
       textTransform="uppercase"
       fontWeight="medium"
       textAlign="center"
-      fontSize="3xl"
+      fontSize="2xl"
       mb={2}
     >
       Phiếu thanh toán

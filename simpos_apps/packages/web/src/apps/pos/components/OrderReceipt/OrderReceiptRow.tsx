@@ -12,6 +12,7 @@ export interface OrderReceiptRowProps {
 const Td = styled(CTd)`
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: 0.2rem;
 `;
 export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
   orderLine,
@@ -23,7 +24,7 @@ export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
   return (
     <React.Fragment key={orderLine.id}>
       <Tr>
-        <Td paddingBottom="0" borderBottom="0" paddingTop="0.5rem" colSpan={5}>
+        <Td paddingBottom="0" borderBottom="0" paddingTop="0.2rem" colSpan={5}>
           {orderLine.productVariant?.name}
         </Td>
       </Tr>
