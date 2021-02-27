@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 import xmlrpc.client
 from odoo.exceptions import ValidationError
 
@@ -19,7 +19,7 @@ class PurchaseOrder(models.Model):
   def trigger_create_partner_sales_order(self):
     partner = self.partner_id if not self.partner_id.parent_id else self.partner_id.parent_id
     if not partner.url:
-      return
+      raise ValidationError(_('Partner database is not configured properly'))
 
     currency = partner.property_purchase_currency_id or self.env.company.currency_id
 
