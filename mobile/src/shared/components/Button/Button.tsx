@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   StyleProp,
@@ -6,12 +6,11 @@ import {
   TextStyle,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { IconProps } from 'react-native-vector-icons/Icon';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-import { useTheme, Theme } from '../../contexts';
-import { ThemeVariant } from '../../../types';
+import { useTheme, Theme } from "../../contexts";
+import { ThemeVariant } from "../../../types";
 
 export interface ButtonProps {
   children?: React.ReactNode | string;
@@ -20,23 +19,23 @@ export interface ButtonProps {
   variant?: ThemeVariant;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
-  direction?: 'column' | 'row' | 'column-reverse' | 'row-reverse';
+  direction?: "column" | "row" | "column-reverse" | "row-reverse";
   outline?: boolean;
   link?: boolean;
-  icon?: IconProps;
+  icon?: any;
 }
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 8,
     borderWidth: 1,
   },
 
   textWhite: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
   icon: {
     marginRight: 8,
@@ -46,11 +45,11 @@ const styles = StyleSheet.create({
 const getButtonStyles = (
   {
     outline = false,
-    variant = 'primary',
+    variant = "primary",
     block = false,
     link = false,
   }: Partial<ButtonProps>,
-  theme: Theme,
+  theme: Theme
 ): StyleProp<ViewStyle> => {
   const buttonStyles: StyleProp<ViewStyle> = {
     borderColor: theme.brand[variant],
@@ -62,20 +61,20 @@ const getButtonStyles = (
     buttonStyles.backgroundColor = theme.brand[variant];
   }
   if (!block) {
-    buttonStyles.alignSelf = 'flex-start';
+    buttonStyles.alignSelf = "flex-start";
   }
   return buttonStyles;
 };
 
 const getTextStyles = (
-  { outline = false, variant = 'primary', link = false }: Partial<ButtonProps>,
-  theme: Theme,
+  { outline = false, variant = "primary", link = false }: Partial<ButtonProps>,
+  theme: Theme
 ): StyleProp<ViewStyle> => {
   const textStyles: StyleProp<TextStyle> = {};
   if (outline || link) {
     textStyles.color = theme.brand[variant];
   } else {
-    if (variant === 'primary') {
+    if (variant === "primary") {
       textStyles.color = theme.colors.white;
     }
   }
@@ -92,11 +91,11 @@ export const Button = React.forwardRef<any, ButtonProps>(
       variant,
       style,
       outline = false,
-      direction = 'row',
+      direction = "row",
       link = false,
       icon,
     }: ButtonProps,
-    ref,
+    ref
   ) => {
     const theme = useTheme();
     const buttonStyles: Array<StyleProp<ViewStyle>> = [
@@ -109,12 +108,12 @@ export const Button = React.forwardRef<any, ButtonProps>(
     const textStyles: Array<StyleProp<TextStyle>> = [];
 
     buttonStyles.push(
-      getButtonStyles({ outline, variant, block, link }, theme),
+      getButtonStyles({ outline, variant, block, link }, theme)
     );
     textStyles.push(getTextStyles({ outline, variant, block, link }, theme));
 
     let node;
-    if (typeof children === 'string') {
+    if (typeof children === "string") {
       node = <Text style={textStyles}>{children}</Text>;
     } else {
       node = children;
@@ -128,14 +127,15 @@ export const Button = React.forwardRef<any, ButtonProps>(
         ref={ref}
         onPress={onPress}
         style={buttonStyles}
-        disabled={disabled || !onPress}>
-        {icon && <Icon style={[styles.icon, textStyles]} {...icon} />}
+        disabled={disabled || !onPress}
+      >
+        {icon && <Ionicons style={[styles.icon, textStyles]} {...icon} />}
         {node}
       </TouchableOpacity>
     );
-  },
+  }
 );
 
 Button.defaultProps = {
-  variant: 'primary',
+  variant: "primary",
 };

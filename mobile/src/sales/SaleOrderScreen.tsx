@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
+import ViewShot from "react-native-view-shot";
 import styled from "styled-components/native";
 import { SaleOrderNavigationProps } from "../navigation/Sales";
 import {
@@ -12,7 +13,9 @@ import {
   saleOrderLineService,
 } from "../services/sale-order-item";
 import { Button, ButtonProps } from "../shared/components/Button";
+import { SunmiModule } from "../shared/libs/sunmi";
 import { formatDate, formatMoney } from "../utils";
+import { SaleOrderReceipt } from "./components/SaleOrderReceipt";
 
 const Container = styled.ScrollView`
   background-color: #fff;
@@ -124,6 +127,7 @@ export interface SaleOrderScreenProps extends SaleOrderNavigationProps {}
 export const SaleOrderScreen: React.FunctionComponent<SaleOrderScreenProps> = ({
   route,
 }) => {
+  const ref: any = useRef(null);
   const [saleOrder, setSaleOrder] = useState<SaleOrderDetails | null>(null);
   const [saleOrderLines, setSaleOrderLines] = useState<SaleOrderLine[]>([]);
   useEffect(() => {
@@ -145,7 +149,12 @@ export const SaleOrderScreen: React.FunctionComponent<SaleOrderScreenProps> = ({
   const handleActionConfirm = () => {};
   const handleActionCancel = () => {};
   const handleActionSetQuotation = () => {};
-  const handlePrint = () => {};
+  const handlePrint = async () => {
+    if (ref && ref.current) {
+      const base64 = await ref.current.capture();
+      SunmiModule.printBitmapFromBase64(base64);
+    }
+  };
 
   const actionButtons = useMemo(() => {
     if (!saleOrder) {
@@ -246,6 +255,26 @@ export const SaleOrderScreen: React.FunctionComponent<SaleOrderScreenProps> = ({
           </React.Fragment>
         ))}
       </Footer>
+      <View
+        style={{
+          position: "absolute",
+          top: 0,
+          width: 207,
+        }}
+      >
+        <ViewShot
+          ref={ref}
+          options={{
+            result: "base64",
+          }}
+          style={{ backgroundColor: "#FFF" }}
+        >
+          <SaleOrderReceipt
+            saleOrder={saleOrder}
+            saleOrderLines={saleOrderLines}
+          />
+        </ViewShot>
+      </View>
     </>
   );
 };
