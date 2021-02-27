@@ -260,6 +260,7 @@ export const SaleOrderScreen: React.FunctionComponent<SaleOrderScreenProps> = ({
           position: "absolute",
           top: 0,
           width: 207,
+          zIndex: -1,
         }}
       >
         <ViewShot
