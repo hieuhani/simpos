@@ -16,17 +16,17 @@ export const OrderReceiptSummary: React.FunctionComponent<OrderReceiptSummaryPro
 }) => {
   const chunkHeaderFields = chunk(fields, 2);
   return (
-    <Table>
+    <Table fontSize="0.75rem" mb="0.2rem">
       <Thead>
         {chunkHeaderFields.map((cols, index) => (
           <Tr key={index}>
             {cols.map((col) => {
               return (
                 <React.Fragment key={col.name}>
-                  <Td py={1} px="0" borderBottom="0" fontWeight="medium">
+                  <Td py="0.1rem" px="0" borderBottom="0" fontWeight="medium">
                     {col.name}
                   </Td>
-                  <Td py={1} px="0" borderBottom="0">
+                  <Td py="0.1rem" px="0" borderBottom="0">
                     {col.value}
                   </Td>
                 </React.Fragment>

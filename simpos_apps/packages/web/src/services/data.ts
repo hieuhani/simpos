@@ -42,6 +42,13 @@ export const dataService = {
     args: Array<any>,
     kwargs: any,
   ): Promise<any> {
+    if (kwargs) {
+      kwargs.context = {
+        ...kwargs.context,
+        lang: 'vi_VN',
+        tz: 'Asia/Ho_Chi_Minh',
+      };
+    }
     return simApi.post(`/web/dataset/call_kw/${model}/${method}`, {
       jsonrpc: '2.0',
       method: 'call',

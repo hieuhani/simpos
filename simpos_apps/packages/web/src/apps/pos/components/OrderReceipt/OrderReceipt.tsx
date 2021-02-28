@@ -1,5 +1,6 @@
 import {
   Box,
+  Flex,
   Table,
   Tbody,
   Td,
@@ -8,6 +9,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
+import JsBarcode from 'jsbarcode';
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
@@ -27,13 +29,14 @@ export interface OrderReceiptProps {
 const Th = styled(CTh)`
   padding-left: 0;
   padding-right: 0;
-  padding-top: 0.2rem;
+  padding-top: 0.1rem;
   padding-bottom: 0.2rem;
+  text-transform: inherit;
 `;
 
 const py = {
-  pt: '0.2rem',
-  pb: '0.2rem',
+  pt: '0.1rem',
+  pb: '0.1rem',
 };
 
 const Container = styled(Box)`
@@ -48,9 +51,13 @@ const Container = styled(Box)`
     height: auto !important;
     width: 100% !imporant;
 
-    th {
-      border-bottom: 1px solid;
+    th,
+    td {
       border-color: #000;
+    }
+
+    tr.semi-border td {
+      border-color: #888;
     }
   }
 `;
@@ -59,6 +66,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
   activeOrder,
 }) => {
   const ref = useRef(null);
+  const barcodeRef = useRef(null);
   const { company, paymentMethods, cashier } = useData();
 
   const { formatCurrencyNoSymbol } = useMoneyFormatter();
@@ -117,14 +125,14 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
         value: activeOrder.order.tableNo,
       });
     }
+    fields.push({ name: 'Số HĐ', value: activeOrder.order.id });
     return fields;
   }, [activeOrder, cashier]);
 
   const printReceipt = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     // @ts-ignore
     if (typeof simpos !== 'undefined') {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
       if (ref.current) {
         html2canvas(ref.current!).then((canvas) => {
           const image = canvas
@@ -143,25 +151,26 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
     }
   };
   useEffect(() => {
+    if (barcodeRef.current && activeOrder) {
+      JsBarcode(barcodeRef.current, activeOrder.order.id, {
+        width: 1,
+        height: 40,
+        displayValue: false,
+      });
+    }
     printReceipt();
-  }, []);
+  }, [activeOrder]);
   return (
-    <Container w="full" ref={ref}>
+    <Container w="266px" ref={ref} fontSize="0.8rem">
       <OrderReceiptHeader company={company} />
       <OrderReceiptSummary fields={headerFields} />
       <Table variant="simple">
         <Thead>
           <Tr>
             <Th>Sản phẩm</Th>
-            <Th {...py} isNumeric>
-              Đơn giá
-            </Th>
-            <Th {...py} isNumeric>
-              SL
-            </Th>
-            <Th {...py} isNumeric>
-              T.Tiền
-            </Th>
+            <Th isNumeric>Đơn giá</Th>
+            <Th isNumeric>SL</Th>
+            <Th isNumeric>T.Tiền</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -171,10 +180,10 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
         </Tbody>
         <Tfoot>
           <Tr textTransform="uppercase" fontWeight="medium">
-            <Td {...py} pl="0" pr="0" colSpan={2}>
+            <Td {...py} pl="0" pr="0" colSpan={2} borderBottom="0">
               Tổng tiền
             </Td>
-            <Td {...py} pl="0" pr="0" colSpan={2} isNumeric>
+            <Td {...py} pl="0" pr="0" colSpan={2} isNumeric borderBottom="0">
               {formatCurrencyNoSymbol(getTotalWithTax())}
             </Td>
           </Tr>
@@ -186,26 +195,43 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
           {Object.keys(payments).map((method) => {
             return (
               <Tr key={method}>
-                <Td colSpan={2} pt={0} pb="0.5rem" paddingLeft="0.75rem">
+                <Td
+                  colSpan={2}
+                  pt={0}
+                  pb="0.1rem"
+                  paddingLeft="0.75rem"
+                  borderBottom="0"
+                >
                   {method}
                 </Td>
-                <Td colSpan={2} isNumeric pt={0} pb="0.5rem" pl={0} pr={0}>
+                <Td
+                  colSpan={2}
+                  isNumeric
+                  pt={0}
+                  pb="0.1rem"
+                  pl={0}
+                  pr={0}
+                  borderBottom="0"
+                >
                   {formatCurrencyNoSymbol(payments[method])}
                 </Td>
               </Tr>
             );
           })}
           <Tr textTransform="uppercase" fontWeight="medium">
-            <Td {...py} colSpan={2} pl="0" pr="0">
+            <Td {...py} colSpan={2} pl="0" pr="0" borderBottom="0">
               Tiền trả lại
             </Td>
-            <Td {...py} colSpan={2} isNumeric pr={0}>
+            <Td {...py} colSpan={2} isNumeric pr={0} borderBottom="0">
               {formatCurrencyNoSymbol(change)}
             </Td>
           </Tr>
         </Tfoot>
       </Table>
       <OrderReceiptFooter company={company} />
+      <Flex justifyContent="center">
+        <svg ref={barcodeRef} />
+      </Flex>
     </Container>
   );
 };

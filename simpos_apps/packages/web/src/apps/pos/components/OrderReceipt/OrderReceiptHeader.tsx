@@ -14,13 +14,13 @@ export const OrderReceiptHeader: React.FunctionComponent<OrderReceiptHeaderProps
     </Box>
 
     <Box textAlign="center" mb={2}>
-      <Text>{company.street}</Text>
+      <Text fontSize="0.75rem">{company.street}</Text>
     </Box>
     <Heading
       textTransform="uppercase"
       fontWeight="medium"
       textAlign="center"
-      fontSize="2xl"
+      fontSize="xl"
       mb={2}
     >
       Phiếu thanh toán

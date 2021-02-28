@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React, { Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
@@ -7,6 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { RequireLogin } from '../../components/PrivateRoute';
+import { useAuth } from '../../contexts/AuthProvider';
 import { DataProvider } from '../../contexts/DataProvider';
 import { OrderManager } from '../../contexts/OrderManager';
 import { usePreference } from '../../contexts/PreferenceProvider';
@@ -43,59 +45,77 @@ const InPosRoute: React.FunctionComponent = ({ children }) => {
 
 export const Routes: React.FunctionComponent = () => {
   const { isMobile } = usePreference();
+  const { userMeta } = useAuth();
+
   return (
-    <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Redirect exact from="/" to="purchase" />
-          <Route path="/login" component={Login} />
-          <RequireLogin>
-            <InPosRoute>
-              <DataProvider>
-                <OrderManager>
-                  <Route
-                    path="/pos"
-                    exact
-                    component={isMobile ? MobilePOS : POS}
-                  />
+    <>
+      {userMeta?.dbName.includes('staging') && (
+        <Box
+          backgroundColor="yellow.300"
+          textAlign="center"
+          py={1}
+          fontWeight="medium"
+          color="gray.600"
+          fontSize="sm"
+          userSelect="none"
+        >
+          Đang ở môi trường Staging
+        </Box>
+      )}
 
-                  <Route path="/pos/cart" component={CartScreen} />
-                  <Route
-                    path="/pos/customer_screen"
-                    component={CustomerScreen}
-                  />
-                  <Route path="/pos/session" component={SessionScreen} />
-                  <Route path="/pos/report" component={PosReportScreen} />
-                  <Route
-                    path="/pos/orders/:orderId"
-                    component={PosOrderScreen}
-                  />
-                </OrderManager>
-              </DataProvider>
-            </InPosRoute>
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Redirect exact from="/" to="purchase" />
+            <Route path="/login" component={Login} />
+            <RequireLogin>
+              <InPosRoute>
+                <DataProvider>
+                  <OrderManager>
+                    <Route
+                      path="/pos"
+                      exact
+                      component={isMobile ? MobilePOS : POS}
+                    />
 
-            <Route path="/purchase" exact component={Purchase} />
+                    <Route path="/pos/cart" component={CartScreen} />
+                    <Route
+                      path="/pos/customer_screen"
+                      component={CustomerScreen}
+                    />
+                    <Route path="/pos/session" component={SessionScreen} />
+                    <Route path="/pos/report" component={PosReportScreen} />
+                    <Route
+                      path="/pos/orders/:orderId"
+                      component={PosOrderScreen}
+                    />
+                  </OrderManager>
+                </DataProvider>
+              </InPosRoute>
 
-            <Switch>
-              <Route path="/purchase/new" component={NewPurchase} />
-              <Route path="/purchase/report" component={PurchaseReport} />
+              <Route path="/purchase" exact component={Purchase} />
 
-              <Route
-                path="/purchase/:purchaseOrderId"
-                component={PurchaseDetails}
-              />
-            </Switch>
-            <Route path="/inventory" exact component={Inventory} />
+              <Switch>
+                <Route path="/purchase/new" component={NewPurchase} />
+                <Route path="/purchase/report" component={PurchaseReport} />
 
-            <Switch>
-              <Route
-                path="/inventory/stock_picking/:stockPickingId"
-                component={StockPickingDetails}
-              />
-            </Switch>
-          </RequireLogin>
-        </Switch>
-      </Suspense>
-    </Router>
+                <Route
+                  path="/purchase/:purchaseOrderId"
+                  component={PurchaseDetails}
+                />
+              </Switch>
+              <Route path="/inventory" exact component={Inventory} />
+
+              <Switch>
+                <Route
+                  path="/inventory/stock_picking/:stockPickingId"
+                  component={StockPickingDetails}
+                />
+              </Switch>
+            </RequireLogin>
+          </Switch>
+        </Suspense>
+      </Router>
+    </>
   );
 };

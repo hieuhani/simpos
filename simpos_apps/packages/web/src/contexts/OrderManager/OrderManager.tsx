@@ -435,7 +435,7 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
         employee_id: data.cashier?.id,
         uid: order.id,
         sequence_number: order.sequenceNumber,
-        creation_date: time,
+        creation_date: new Date().toISOString(),
         fiscal_position_id: false,
         server_id: false,
         to_invoice: false,

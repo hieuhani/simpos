@@ -50,7 +50,7 @@ export const Login: React.FunctionComponent = () => {
         fontSize="2xl"
         fontWeight="medium"
       >
-        HỆ THỐNG CHAPOS
+        Hệ thống Chapos
       </Heading>
       <Formik
         initialValues={{ tenant: '', login: '', password: '' }}
@@ -111,7 +111,7 @@ export const Login: React.FunctionComponent = () => {
                     }
                     backgroundColor="white"
                   >
-                    {/* <option value="chateraise">Chateraise</option> */}
+                    <option value="chateraise">Chateraise</option>
                     <option value="baumkuchen">Baumkuchen</option>
                   </Select>
                 )}
