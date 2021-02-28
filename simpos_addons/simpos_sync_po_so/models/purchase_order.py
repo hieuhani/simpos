@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
       raise ValidationError(_('Partner database is not configured properly'))
 
     currency = partner.property_purchase_currency_id or self.env.company.currency_id
-
+    context = (self._context or {})
     order = {
       'order_lines': [],
       'date': self.date_order and self.date_order.date(),
@@ -73,5 +73,6 @@ class PurchaseOrder(models.Model):
     if not uid:
       raise ValidationError(_('User or password is invalid'))
     models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(partner.url))
-    so_id = models.execute_kw(partner.db, uid, partner.password, 'sale.order', 'create_from_po', [order])
+    clean_context = { key: context[key] for key in ['tz', 'lang'] }
+    so_id = models.execute_kw(partner.db, uid, partner.password, 'sale.order', 'create_from_po', [order], { 'context': clean_context })
     print(so_id)
