@@ -49,7 +49,7 @@ const Container = styled(Box)`
     z-index: 1;
     overflow-x: hidden;
     height: auto !important;
-    width: 100% !imporant;
+    width: 100% !important;
 
     th,
     td {

@@ -13,6 +13,7 @@ import {
 import React, { useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
+import html2canvas from 'html2canvas';
 import { useData } from '../../../../contexts/DataProvider';
 import { RemotePosOrder, RemotePosPayment } from '../../../../services/order';
 import { RemotePosOrderLine } from '../../../../services/order-line';
@@ -29,6 +30,29 @@ export interface OrderDetailsProps {
   orderLines: RemotePosOrderLine[];
   payments: RemotePosPayment[];
 }
+
+const Container = styled(Box)`
+  @media print {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 1;
+    overflow-x: hidden;
+    height: auto !important;
+    width: 100% !important;
+
+    th,
+    td {
+      border-color: #000;
+    }
+
+    tr.semi-border td {
+      border-color: #888;
+    }
+  }
+`;
 
 const Th = styled(CTh)`
   padding-left: 0;
@@ -47,7 +71,27 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
 }) => {
   const ref = useRef(null);
   const { company } = useData();
-
+  const printReceipt = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // @ts-ignore
+    if (typeof simpos !== 'undefined') {
+      if (ref.current) {
+        html2canvas(ref.current!).then((canvas) => {
+          const image = canvas
+            .toDataURL('image/jpeg')
+            .replace('data:image/jpeg;base64,', '');
+          // @ts-ignore
+          simpos.printReceipt(image);
+        });
+      }
+    } else {
+      try {
+        window.print();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
   const headerFields = useMemo<HeaderField[]>(() => {
     const fields = [
       {
@@ -82,7 +126,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
   return (
     <>
       <Box w="400px" border="1px solid" borderColor="gray.400" p={2} mb={4}>
-        <Box ref={ref}>
+        <Container ref={ref}>
           <OrderReceiptHeader company={company} />
           <Text textAlign="center" fontSize="lg" fontWeight="bold">
             In lại
@@ -174,9 +218,9 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
             </Tfoot>
           </Table>
           <OrderReceiptFooter company={company} />
-        </Box>
+        </Container>
       </Box>
-      <Button w="400px" colorScheme="yellow">
+      <Button w="400px" colorScheme="yellow" onClick={printReceipt}>
         In lại phiếu
       </Button>
     </>

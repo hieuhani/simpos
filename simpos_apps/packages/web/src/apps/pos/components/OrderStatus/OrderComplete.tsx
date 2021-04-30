@@ -1,5 +1,5 @@
-import { Button, Divider, Flex, Heading, Box } from '@chakra-ui/react';
-import React from 'react';
+import { Button, Divider, Flex, Heading, Box, Stack } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
 import { IconCheckCircle } from '../../../../components/icons';
 import { ActiveOrder } from '../../../../contexts/OrderManager';
@@ -15,7 +15,11 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
   activeOrder,
   onComplete,
 }) => {
+  const [printKey, setPrintKey] = useState(Math.random())
   const { isMobile } = usePreference();
+  const reprint = () => {
+    setPrintKey(Math.random())
+  }
   return (
     <Flex
       py={4}
@@ -41,14 +45,18 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
       </Box>
 
       {isMobile ? (
-        <OrderReceiptMobile activeOrder={activeOrder} />
+        <OrderReceiptMobile key={printKey} activeOrder={activeOrder} />
       ) : (
-        <OrderReceipt activeOrder={activeOrder} />
+        <OrderReceipt key={printKey} activeOrder={activeOrder} />
       )}
-
-      <Button colorScheme="green" onClick={onComplete}>
-        Tiếp tục bán hàng
-      </Button>
+       <Stack direction="row">
+        <Button colorScheme="yellow" onClick={reprint}>
+            In hóa đơn
+          </Button>
+          <Button colorScheme="green" onClick={onComplete}>
+            Tiếp tục bán hàng
+          </Button>
+       </Stack>
     </Flex>
   );
 };
