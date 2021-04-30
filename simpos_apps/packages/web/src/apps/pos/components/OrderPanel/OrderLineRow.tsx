@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Heading,
@@ -15,6 +15,10 @@ import {
   Portal,
   Button,
   PopoverFooter,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
 } from '@chakra-ui/react';
 import { IconTrashAlt } from '../../../../components/icons/output/IconTrashAlt';
 import { Stepper } from '../../../../components/Stepper';
@@ -23,6 +27,7 @@ import { useMoneyFormatter, useOrderLineExtensions } from '../../../../hooks';
 import { EditOrderLine } from './EditOrderLine';
 import { useOrderManagerAction } from '../../../../contexts/OrderManager';
 import { ProductImageThumb } from '../ProductCard/ProductImageThumb';
+import { useDebounce } from '../../../../hooks/use-debounce';
 
 export interface OrderLineRowProps {
   onClick?: () => void;
@@ -34,9 +39,16 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
   orderLine,
 }) => {
   const { formatCurrency } = useMoneyFormatter();
+  const [localValue, setLocalValue] = useState(orderLine.discount);
+  const debouncedValue = useDebounce(localValue, 500);
   const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
     orderLine,
   );
+  useEffect(() => {
+    updateOrderLine(orderLine.id!, {
+      discount: debouncedValue,
+    });
+  }, [debouncedValue]);
   const { updateOrderLine, deleteOrderLine } = useOrderManagerAction();
   if (!orderLine.productVariant) {
     return null;
@@ -52,6 +64,10 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
         });
       }
     }
+  };
+
+  const onDiscountChange = (value: number) => {
+    setLocalValue(value);
   };
 
   const onDeleteOrderLine = () => {
@@ -127,6 +143,25 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
               unitPrice={formatCurrency(getUnitDisplayPrice(), 'Product Price')}
             />
           </PopoverBody>
+          <PopoverFooter>
+            <Flex paddingX={2}>
+              <Slider
+                flex="1"
+                focusThumbOnChange={false}
+                value={localValue}
+                onChange={onDiscountChange}
+              >
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb
+                  fontSize="sm"
+                  boxSize="32px"
+                  children={localValue}
+                />
+              </Slider>
+            </Flex>
+          </PopoverFooter>
           <PopoverFooter>
             <Flex>
               <Stepper value={orderLine.qty} onChange={onChange} />

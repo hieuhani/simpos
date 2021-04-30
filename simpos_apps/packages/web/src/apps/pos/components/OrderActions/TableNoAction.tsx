@@ -34,7 +34,7 @@ export const TableNoAction: React.FunctionComponent = () => {
     <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
       <PopoverTrigger>
         <Box
-          width="100px"
+          width="120px"
           height="66px"
           as={Button}
           backgroundColor="brand.500"

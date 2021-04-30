@@ -15,6 +15,7 @@ import {
   useOrderManagerState,
 } from '../../../../contexts/OrderManager';
 import { DrawerNavigation } from '../../../../components/DrawerNavigation';
+import { useAuth } from '../../../../contexts/AuthProvider';
 
 const StyledSwiper = styled(Swiper)`
   margin-left: 0;
@@ -26,10 +27,14 @@ export const NavigationBar: React.FunctionComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef: any = React.useRef();
   const { addNewOrder, selectOrder, deleteOrder } = useOrderManagerAction();
+  const { userMeta } = useAuth();
+
+  const isStaging = userMeta?.dbName.includes('staging')
+
   return (
     <>
       <Flex align="center" px={4} py={2}>
-        <Button ref={btnRef} onClick={onOpen}>
+        <Button ref={btnRef} onClick={onOpen} colorScheme={isStaging ? "yellow" : ""}>
           <IconBars size="20" />
         </Button>
         <Flex flex="1" overflow="hidden" px={2} justifyContent="flex-start">

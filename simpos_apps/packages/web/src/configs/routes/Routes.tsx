@@ -8,7 +8,6 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { RequireLogin } from '../../components/PrivateRoute';
-import { useAuth } from '../../contexts/AuthProvider';
 import { DataProvider } from '../../contexts/DataProvider';
 import { OrderManager } from '../../contexts/OrderManager';
 import { usePreference } from '../../contexts/PreferenceProvider';
@@ -45,24 +44,9 @@ const InPosRoute: React.FunctionComponent = ({ children }) => {
 
 export const Routes: React.FunctionComponent = () => {
   const { isMobile } = usePreference();
-  const { userMeta } = useAuth();
 
   return (
     <>
-      {userMeta?.dbName.includes('staging') && (
-        <Box
-          backgroundColor="yellow.300"
-          textAlign="center"
-          py={1}
-          fontWeight="medium"
-          color="gray.600"
-          fontSize="sm"
-          userSelect="none"
-        >
-          Đang ở môi trường Staging
-        </Box>
-      )}
-
       <Router>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
@@ -71,6 +55,10 @@ export const Routes: React.FunctionComponent = () => {
             <RequireLogin>
               <InPosRoute>
                 <DataProvider>
+                  <Route
+                    path="/pos/customer_screen"
+                    component={CustomerScreen}
+                  />
                   <OrderManager>
                     <Route
                       path="/pos"
@@ -79,10 +67,7 @@ export const Routes: React.FunctionComponent = () => {
                     />
 
                     <Route path="/pos/cart" component={CartScreen} />
-                    <Route
-                      path="/pos/customer_screen"
-                      component={CustomerScreen}
-                    />
+
                     <Route path="/pos/session" component={SessionScreen} />
                     <Route path="/pos/report" component={PosReportScreen} />
                     <Route
