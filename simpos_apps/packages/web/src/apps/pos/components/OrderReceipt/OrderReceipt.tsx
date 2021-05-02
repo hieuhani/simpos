@@ -41,6 +41,18 @@ const py = {
 };
 
 const Container = styled(Box)`
+  font-size: 16px;
+  th,
+  td {
+    border-bottom-width: 2px;
+    border-color: #555;
+  }
+
+  tr.semi-border td {
+    border-bottom-width: 2px;
+    border-color: #555;
+  }
+
   @media print {
     position: fixed;
     top: 0;
@@ -162,7 +174,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
     printReceipt();
   }, [activeOrder]);
   return (
-    <Container w="480px" ref={ref} fontSize="1rem">
+    <Container w="460px" ref={ref}>
       <OrderReceiptHeader company={company} />
       <OrderReceiptSummary fields={headerFields} />
       <Table variant="simple">
