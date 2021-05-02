@@ -19,6 +19,11 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
 } from '@chakra-ui/react';
 import { IconTrashAlt } from '../../../../components/icons/output/IconTrashAlt';
 import { Stepper } from '../../../../components/Stepper';
@@ -143,8 +148,24 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
               unitPrice={formatCurrency(getUnitDisplayPrice(), 'Product Price')}
             />
           </PopoverBody>
-          <PopoverFooter>
-            <Flex paddingX={2}>
+          <PopoverFooter bgColor="yellow.50">
+            <Heading mb={2} size="sm" fontWeight="500">
+              Giảm giá sản phẩm %
+            </Heading>
+            <Flex>
+              <NumberInput
+                maxW="80px"
+                bgColor="white"
+                mr="2rem"
+                value={localValue}
+                onChange={(_, value) => onDiscountChange(value)}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
               <Slider
                 flex="1"
                 focusThumbOnChange={false}
