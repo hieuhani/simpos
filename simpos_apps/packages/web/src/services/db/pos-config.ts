@@ -19,6 +19,7 @@ export interface PosConfig {
   posSessionUsername?: string;
   modulePosHr?: boolean;
   printerIds: number[];
+  receiptFooter?: string;
   posSessionState?:
     | 'new_session'
     | 'opening_control'

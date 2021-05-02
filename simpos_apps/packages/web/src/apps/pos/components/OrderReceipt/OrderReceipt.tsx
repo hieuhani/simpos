@@ -68,7 +68,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
 }) => {
   const ref = useRef(null);
   const barcodeRef = useRef(null);
-  const { company, paymentMethods, cashier } = useData();
+  const { company, paymentMethods, cashier, posConfig } = useData();
 
   const { formatCurrencyNoSymbol } = useMoneyFormatter();
   const { getTotalWithTax } = useActiveOrderExtensions(activeOrder);
@@ -229,7 +229,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
           </Tr>
         </Tfoot>
       </Table>
-      <OrderReceiptFooter company={company} />
+      <OrderReceiptFooter company={company} posConfig={posConfig} />
       <Flex justifyContent="center">
         <svg ref={barcodeRef} />
       </Flex>
