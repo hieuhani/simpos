@@ -14,7 +14,7 @@ export const OrderReceiptHeader: React.FunctionComponent<OrderReceiptHeaderProps
     </Box>
 
     <Box textAlign="center" mb={2}>
-      <Text fontSize="0.75rem">{company.street}</Text>
+      <Text fontSize="1rem">{company.street}</Text>
     </Box>
     <Heading
       textTransform="uppercase"

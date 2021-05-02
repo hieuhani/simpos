@@ -61,8 +61,8 @@ export const OrderLineRowSimple: React.FunctionComponent<OrderLineRowSimpleProps
         <ProductImageThumb variant={orderLine.productVariant} />
         <Badge
           position="absolute"
-          top="-0.5rem"
-          right="-0.5rem"
+          top="-0.75rem"
+          right="-0.75rem"
           backgroundColor="green.500"
           color="white"
           borderRadius="full"

@@ -161,7 +161,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
     printReceipt();
   }, [activeOrder]);
   return (
-    <Container w="266px" ref={ref} fontSize="0.8rem">
+    <Container w="480px" ref={ref} fontSize="0.8rem">
       <OrderReceiptHeader company={company} />
       <OrderReceiptSummary fields={headerFields} />
       <Table variant="simple">
@@ -199,7 +199,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
                   colSpan={2}
                   pt={0}
                   pb="0.1rem"
-                  paddingLeft="0.75rem"
+                  paddingLeft="1rem"
                   borderBottom="0"
                 >
                   {method}

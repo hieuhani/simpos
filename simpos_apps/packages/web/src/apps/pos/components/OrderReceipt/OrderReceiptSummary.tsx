@@ -16,7 +16,7 @@ export const OrderReceiptSummary: React.FunctionComponent<OrderReceiptSummaryPro
 }) => {
   const chunkHeaderFields = chunk(fields, 2);
   return (
-    <Table fontSize="0.75rem" mb="0.2rem">
+    <Table fontSize="1rem" mb="0.2rem">
       <Thead>
         {chunkHeaderFields.map((cols, index) => (
           <Tr key={index}>

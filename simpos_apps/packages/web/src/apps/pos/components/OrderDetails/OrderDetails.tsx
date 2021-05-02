@@ -60,8 +60,8 @@ const Th = styled(CTh)`
 `;
 
 const py = {
-  pt: '0.5rem',
-  pb: '0.5rem',
+  pt: '0.75rem',
+  pb: '0.75rem',
 };
 
 export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
@@ -155,7 +155,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
                       px={0}
                       paddingBottom="0"
                       borderBottom="0"
-                      paddingTop="0.5rem"
+                      paddingTop="0.75rem"
                       colSpan={5}
                     >
                       {orderLine.productId[1]}
@@ -193,10 +193,10 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
 
               {creditPayments.map((payment) => (
                 <Tr key={payment.id}>
-                  <Td colSpan={2} pt={0} pb="0.5rem" paddingLeft="0.75rem">
+                  <Td colSpan={2} pt={0} pb="0.75rem" paddingLeft="1rem">
                     {payment.paymentMethodId[1]}
                   </Td>
-                  <Td colSpan={2} isNumeric pt={0} pb="0.5rem" pl={0} pr={0}>
+                  <Td colSpan={2} isNumeric pt={0} pb="0.75rem" pl={0} pr={0}>
                     {formatMoney(payment.amount, false)}
                   </Td>
                 </Tr>

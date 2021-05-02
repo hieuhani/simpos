@@ -15,11 +15,11 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
   activeOrder,
   onComplete,
 }) => {
-  const [printKey, setPrintKey] = useState(Math.random())
+  const [printKey, setPrintKey] = useState(Math.random());
   const { isMobile } = usePreference();
   const reprint = () => {
-    setPrintKey(Math.random())
-  }
+    setPrintKey(Math.random());
+  };
   return (
     <Flex
       py={4}
@@ -30,7 +30,7 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
     >
       <Box
         position="absolute"
-        top="0.5rem"
+        top="0.75rem"
         left="0"
         right="0"
         backgroundColor="white"
@@ -49,14 +49,14 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
       ) : (
         <OrderReceipt key={printKey} activeOrder={activeOrder} />
       )}
-       <Stack direction="row">
+      <Stack direction="row">
         <Button colorScheme="yellow" onClick={reprint}>
-            In hóa đơn
-          </Button>
-          <Button colorScheme="green" onClick={onComplete}>
-            Tiếp tục bán hàng
-          </Button>
-       </Stack>
+          In hóa đơn
+        </Button>
+        <Button colorScheme="green" onClick={onComplete}>
+          Tiếp tục bán hàng
+        </Button>
+      </Stack>
     </Flex>
   );
 };
