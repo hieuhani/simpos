@@ -119,7 +119,7 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
           </Box>
           <Box ml={4} textAlign="left">
             <Heading size="sm" fontWeight="medium" mb={1}>
-              {orderLine.productVariant?.name}
+              {orderLine.productVariant?.displayName}
             </Heading>
             <Stack direction="row">
               {orderLine.productVariant.defaultCode && (

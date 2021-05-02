@@ -125,7 +125,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
   );
   return (
     <>
-      <Box w="400px" border="1px solid" borderColor="gray.400" p={2} mb={4}>
+      <Box w="480px" border="1px solid" borderColor="gray.400" p={2} mb={4}>
         <Container ref={ref}>
           <OrderReceiptHeader company={company} />
           <Text textAlign="center" fontSize="lg" fontWeight="bold">

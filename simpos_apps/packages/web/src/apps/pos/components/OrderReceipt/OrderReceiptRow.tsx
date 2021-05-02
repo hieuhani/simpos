@@ -25,7 +25,7 @@ export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
     <React.Fragment key={orderLine.id}>
       <Tr>
         <Td paddingBottom="0" borderBottom="0" paddingTop="0.1rem" colSpan={5}>
-          {orderLine.productVariant?.name}
+          {orderLine.productVariant?.displayName}
         </Td>
       </Tr>
       <Tr className="semi-border">

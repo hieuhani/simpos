@@ -32,6 +32,7 @@ const Th = styled(CTh)`
   padding-top: 0.1rem;
   padding-bottom: 0.2rem;
   text-transform: inherit;
+  font-size: 1rem;
 `;
 
 const py = {
@@ -161,7 +162,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
     printReceipt();
   }, [activeOrder]);
   return (
-    <Container w="480px" ref={ref} fontSize="0.8rem">
+    <Container w="480px" ref={ref} fontSize="1rem">
       <OrderReceiptHeader company={company} />
       <OrderReceiptSummary fields={headerFields} />
       <Table variant="simple">
