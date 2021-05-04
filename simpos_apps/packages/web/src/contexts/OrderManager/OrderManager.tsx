@@ -454,24 +454,23 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
     }
     return activeOrder;
   };
-
+  const initilizeOrderManager = async () => {
+    const currentOrders = await orderRepository.all();
+    if (currentOrders.length > 0) {
+      dispatch({
+        type: 'INITIAL_LOAD',
+        payload: {
+          activeOrderId: currentOrders[0].id,
+          orders: currentOrders,
+        },
+      });
+    } else {
+      await addNewOrder();
+    }
+  };
   useEffect(() => {
-    const initilizeOrderManager = async () => {
-      const currentOrders = await orderRepository.all();
-      if (currentOrders.length > 0) {
-        dispatch({
-          type: 'INITIAL_LOAD',
-          payload: {
-            activeOrderId: currentOrders[0].id,
-            orders: currentOrders,
-          },
-        });
-      } else {
-        await addNewOrder();
-      }
-    };
     initilizeOrderManager();
-  }, [addNewOrder]);
+  }, []);
 
   const fetchOrder = async (orderId: string) => {
     if (orderId) {

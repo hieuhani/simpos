@@ -29,12 +29,16 @@ export const NavigationBar: React.FunctionComponent = () => {
   const { addNewOrder, selectOrder, deleteOrder } = useOrderManagerAction();
   const { userMeta } = useAuth();
 
-  const isStaging = userMeta?.dbName.includes('staging')
+  const isStaging = userMeta?.dbName.includes('staging');
 
   return (
     <>
       <Flex align="center" px={4} py={2}>
-        <Button ref={btnRef} onClick={onOpen} colorScheme={isStaging ? "yellow" : ""}>
+        <Button
+          ref={btnRef}
+          onClick={onOpen}
+          colorScheme={isStaging ? 'yellow' : ''}
+        >
           <IconBars size="20" />
         </Button>
         <Flex flex="1" overflow="hidden" px={2} justifyContent="flex-start">
