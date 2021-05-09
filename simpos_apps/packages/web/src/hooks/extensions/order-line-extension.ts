@@ -322,7 +322,7 @@ export class OrderLineExtension {
       this.globalData.posConfig.currency.rounding,
     );
 
-    allTaxesBeforeDiscount.taxes.forEach((tax) => {
+    allTaxes.taxes.forEach((tax) => {
       taxTotal += tax.amount;
       taxDetails[tax.id] = tax.amount;
     });
