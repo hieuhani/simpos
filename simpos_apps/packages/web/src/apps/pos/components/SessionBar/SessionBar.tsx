@@ -137,7 +137,6 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Chọn thu ngân</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             <Stack spacing={2}>
               {employees.map((employee) => (

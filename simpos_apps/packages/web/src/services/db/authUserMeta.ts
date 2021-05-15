@@ -23,7 +23,7 @@ export const authUserMeta = {
     return this.db.limit(1).first();
   },
   async clear(): Promise<void> {
-    return this.db.clear();
+    return db.delete();
   },
 
   async update(metadata: Partial<AuthUserMeta>) {
