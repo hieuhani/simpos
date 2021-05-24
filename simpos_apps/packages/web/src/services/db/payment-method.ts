@@ -3,6 +3,7 @@ import { db } from './db';
 export interface PaymentMethod {
   id: number;
   name: string;
+  isCashCount: boolean;
 }
 
 export const paymentMethodRepository = {

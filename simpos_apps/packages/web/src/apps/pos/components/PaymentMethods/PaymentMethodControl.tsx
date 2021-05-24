@@ -13,7 +13,7 @@ export const PaymentMethodControl: React.FunctionComponent<PaymentMethodProps> =
   paymentMethod,
 }) => {
   const icon =
-    paymentMethod.id === 1 ? (
+    paymentMethod.isCashCount || paymentMethod.name === 'Cash' ? (
       <IconMoneyBill size="44" />
     ) : (
       <IconCreditCard size="40" />
