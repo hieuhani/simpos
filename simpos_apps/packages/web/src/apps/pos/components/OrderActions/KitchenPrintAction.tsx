@@ -5,6 +5,7 @@ import { useOrderManagerState } from '../../../../contexts/OrderManager';
 import { IconConciergeBell } from '../../../../components/icons/output/IconConciergeBell';
 import { useData } from '../../../../contexts/DataProvider';
 import dayjs from 'dayjs';
+import { SimpleOrderLine } from './SimpleOrderLine';
 
 export const KitchenPrintAction: React.FunctionComponent = () => {
   const { activeOrder } = useOrderManagerState();
@@ -40,11 +41,10 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         const image = canvas
           .toDataURL('image/jpeg')
           .replace('data:image/jpeg;base64,', '');
-
         // @ts-ignore
         if (typeof simpos !== 'undefined') {
           // @ts-ignore
-          simpos.printRestaurantOrder(image);
+          simpos.printReceipt(image);
         }
       });
     }
@@ -102,9 +102,7 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         </Box>
         <Box mb={4}>
           {kitchenOrderLines.map((line) => (
-            <Box key={line.id} fontSize="md">
-              {line.qty} x {line.productVariant?.displayName}
-            </Box>
+            <SimpleOrderLine key={line.id} orderLine={line} />
           ))}
         </Box>
         {footer && (

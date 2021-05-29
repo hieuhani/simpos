@@ -4,6 +4,7 @@ import { Box, Text, Button, Flex } from '@chakra-ui/react';
 import { useOrderManagerState } from '../../../../contexts/OrderManager';
 import { IconConciergeBell } from '../../../../components/icons/output/IconConciergeBell';
 import dayjs from 'dayjs';
+import { SimpleOrderLine } from './SimpleOrderLine';
 
 export const PreprintOrderAction: React.FunctionComponent = () => {
   const { activeOrder } = useOrderManagerState();
@@ -32,7 +33,6 @@ export const PreprintOrderAction: React.FunctionComponent = () => {
         const image = canvas
           .toDataURL('image/jpeg')
           .replace('data:image/jpeg;base64,', '');
-        console.log(image);
         // @ts-ignore
         if (typeof simpos !== 'undefined') {
           // @ts-ignore
@@ -82,7 +82,7 @@ export const PreprintOrderAction: React.FunctionComponent = () => {
         <Box mb={4}>
           {kitchenOrderLines.map((line) => (
             <Box key={line.id} fontSize="md">
-              {line.qty} x {line.productVariant?.displayName}
+              <SimpleOrderLine key={line.id} orderLine={line} />
             </Box>
           ))}
         </Box>
