@@ -21,6 +21,12 @@ export const partnerRepository = {
     return this.db.toArray();
   },
   async findPartners(keyword = ''): Promise<Partner[]> {
+    if (keyword) {
+      return this.db.where('phone').startsWithIgnoreCase(keyword).toArray();
+    }
     return this.db.toArray();
+  },
+  async addPartner(partner: Partner) {
+    return this.db.add(partner);
   },
 };

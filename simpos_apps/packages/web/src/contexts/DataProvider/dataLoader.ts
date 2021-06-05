@@ -157,6 +157,7 @@ export const loadModels: LoadModel[] = [
   },
   {
     model: 'res.partner',
+    indexes: '++id, phone, name',
     fields: [
       'name',
       'street',

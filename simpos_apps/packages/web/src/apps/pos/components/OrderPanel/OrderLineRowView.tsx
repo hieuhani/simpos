@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Heading, Badge, Flex, Stack } from '@chakra-ui/react';
 
 import { OrderLine } from '../../../../services/db';

@@ -7,7 +7,6 @@ import {
   FormLabel,
   Input,
   useToast,
-  Heading,
   Select,
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';

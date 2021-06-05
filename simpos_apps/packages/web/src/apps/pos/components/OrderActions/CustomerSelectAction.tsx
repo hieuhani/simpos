@@ -27,20 +27,31 @@ import {
   useOrderManagerAction,
   useOrderManagerState,
 } from '../../../../contexts/OrderManager';
+import { UpdateCustomerForm } from './UpdateCustomerForm';
+import { useDebounce } from '../../../../hooks/use-debounce';
 
 export const CustomerSelectAction: React.FunctionComponent = () => {
+  const [keyword, setKeyword] = useState('');
+  const debouncedKeyword = useDebounce(keyword, 500);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [selectPartnerId, setSelectedPartnerId] = useState(0);
   const { activeOrder } = useOrderManagerState();
+  const [customerFormDisplayed, setCustomerFormDisplayed] = useState(false);
+  const toggleCustomerForm = () => {
+    setCustomerFormDisplayed(!customerFormDisplayed);
+  };
   const { selectCustomer } = useOrderManagerAction();
   const fetchPartners = async () => {
-    const foundPartners = await partnerRepository.findPartners();
+    const foundPartners = await partnerRepository.findPartners(
+      debouncedKeyword,
+    );
     setPartners(foundPartners);
   };
   useEffect(() => {
     fetchPartners();
-  }, []);
+  }, [debouncedKeyword]);
   useEffect(() => {
     if (activeOrder?.order.partnerId) {
       setSelectedPartnerId(activeOrder.order.partnerId);
@@ -60,6 +71,15 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
     setSelectedPartnerId(0);
     selectCustomer(undefined);
     onClose();
+  };
+
+  const onCustomerClose = (value: Partner | undefined) => {
+    if (value) {
+      setPartners([value, ...partners]);
+      setSelectedPartnerId(value.id);
+    }
+
+    toggleCustomerForm();
   };
   return (
     <>
@@ -108,16 +128,26 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
             Chọn khách hàng
             <HStack mb={2} mt={2}>
               <InputGroup size="md">
-                <Input pr="3rem" placeholder="Tìm kiếm" />
+                <Input
+                  pr="3rem"
+                  value={keyword}
+                  placeholder="Tìm kiếm"
+                  onChange={(e) => setKeyword(e.target.value)}
+                />
                 <InputRightElement width="3rem">
                   <IconSearch size="20" color="gray" />
                 </InputRightElement>
               </InputGroup>
-              <Button colorScheme="blue">Thêm</Button>
+              <Button onClick={toggleCustomerForm} colorScheme="blue">
+                {customerFormDisplayed ? 'Đóng' : 'Thêm'}
+              </Button>
             </HStack>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            {customerFormDisplayed && (
+              <UpdateCustomerForm onClose={onCustomerClose} />
+            )}
             <Stack spacing={2}>
               {partners.map((partner) => (
                 <CustomerRow

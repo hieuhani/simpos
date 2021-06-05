@@ -8,6 +8,9 @@ export interface RemotePartner {
 }
 
 export const partnerService = {
+  createPartners(args: any[]) {
+    return dataService.call('res.partner', 'create_from_ui', args, {});
+  },
   getChateraise(): Promise<RemotePartner> {
     return dataService
       .searchRead({
