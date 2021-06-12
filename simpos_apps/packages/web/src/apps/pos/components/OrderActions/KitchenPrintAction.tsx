@@ -52,7 +52,7 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         if (typeof simpos !== 'undefined') {
           if (printerIp) {
             // @ts-ignore
-            simpos.printRestaurantOrder(ip + 'SIMPOS' + image);
+            simpos.printRestaurantOrder(printerIp + 'SIMPOS' + image);
           } else {
             // @ts-ignore
             simpos.printReceipt(image);
