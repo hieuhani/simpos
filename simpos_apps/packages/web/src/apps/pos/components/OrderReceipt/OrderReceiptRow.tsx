@@ -17,9 +17,7 @@ const Td = styled(CTd)`
 export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
   orderLine,
 }) => {
-  const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
-    orderLine,
-  );
+  const { getUnitPrice, getDisplayPrice } = useOrderLineExtensions(orderLine);
   const { formatCurrencyNoSymbol } = useMoneyFormatter();
   return (
     <React.Fragment key={orderLine.id}>
@@ -31,7 +29,7 @@ export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
       <Tr className="semi-border">
         <Td paddingTop="0">{orderLine.productVariant?.defaultCode}</Td>
         <Td paddingTop="0" isNumeric>
-          {formatCurrencyNoSymbol(getUnitDisplayPrice())}
+          {formatCurrencyNoSymbol(getUnitPrice())}
         </Td>
         <Td paddingTop="0" isNumeric>
           {orderLine.qty}
