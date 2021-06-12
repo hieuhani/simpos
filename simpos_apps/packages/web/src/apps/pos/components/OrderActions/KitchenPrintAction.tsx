@@ -101,7 +101,7 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         position="fixed"
         right="0"
         top="0"
-        width="80mm"
+        width="480px"
         backgroundColor="white"
         zIndex="-1"
         p={4}
@@ -109,8 +109,8 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         ref={ref}
       >
         <Box textAlign="center" mb={4}>
-          <Box fontSize="lg">{activeOrder.order.id}</Box>
-          <Box fontSize="xl">{dayjs().format('HH:mm')}</Box>
+          <Box fontSize="30px">{activeOrder.order.id}</Box>
+          <Box fontSize="30px">{dayjs().format('HH:mm')}</Box>
         </Box>
         <Box mb={4}>
           {kitchenOrderLines.map((line) => (
@@ -119,7 +119,7 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
         </Box>
         {footer && (
           <Box textAlign="center">
-            <Box fontSize="xl">{footer}</Box>
+            <Box fontSize="20px">{footer}</Box>
           </Box>
         )}
       </Box>

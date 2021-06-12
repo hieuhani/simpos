@@ -80,7 +80,13 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
 }) => {
   const ref = useRef(null);
   const barcodeRef = useRef(null);
-  const { company, paymentMethods, cashier, posConfig } = useData();
+  const {
+    company,
+    paymentMethods,
+    cashier,
+    posConfig,
+    printersDict,
+  } = useData();
 
   const { formatCurrencyNoSymbol } = useMoneyFormatter();
   const { getTotalWithTax } = useActiveOrderExtensions(activeOrder);
@@ -142,6 +148,13 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
     return fields;
   }, [activeOrder, cashier]);
 
+  const printId = Object.keys(printersDict)[0];
+  const printer = printersDict[printId];
+  const printerIp = (() => {
+    if (printer && printer.printerType === 'network_printer') {
+      return printer.networkPrinterIp;
+    }
+  })();
   const printReceipt = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     // @ts-ignore
@@ -153,6 +166,11 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
             .replace('data:image/jpeg;base64,', '');
           // @ts-ignore
           simpos.printReceipt(image);
+
+          if (printerIp) {
+            // @ts-ignore
+            simpos.printRestaurantOrder(printerIp + 'SIMPOS' + image);
+          }
         });
       }
     } else {
