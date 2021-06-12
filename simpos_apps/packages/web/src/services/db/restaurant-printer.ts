@@ -5,6 +5,7 @@ export interface RestaurantPrinter {
   name: string;
   productCategoriesIds: number[];
   printerType: 'network_printer' | 'iot';
+  networkPrinterIp?: string;
 }
 
 export const restaurantPrinterRepository = {

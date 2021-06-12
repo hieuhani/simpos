@@ -9,7 +9,7 @@ import { SimpleOrderLine } from './SimpleOrderLine';
 
 export const KitchenPrintAction: React.FunctionComponent = () => {
   const { activeOrder } = useOrderManagerState();
-  const { categoryPrinterIds } = useData();
+  const { categoryPrinterIds, printersDict } = useData();
   const ref = useRef(null);
   const kitchenOrderLines = useMemo(() => {
     if (!activeOrder || (activeOrder && activeOrder.orderLines.length === 0)) {
@@ -25,6 +25,13 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
     });
   }, [activeOrder, categoryPrinterIds]);
 
+  const printId = Object.keys(printersDict)[0];
+  const printer = printersDict[printId];
+  const printerIp = (() => {
+    if (printer && printer.printerType === 'network_printer') {
+      return printer.networkPrinterIp;
+    }
+  })();
   const footer = useMemo(() => {
     const tags = [];
     if (activeOrder?.order.tableNo) {
@@ -43,8 +50,13 @@ export const KitchenPrintAction: React.FunctionComponent = () => {
           .replace('data:image/jpeg;base64,', '');
         // @ts-ignore
         if (typeof simpos !== 'undefined') {
-          // @ts-ignore
-          simpos.printReceipt(image);
+          if (printerIp) {
+            // @ts-ignore
+            simpos.printRestaurantOrder(ip + 'SIMPOS' + image);
+          } else {
+            // @ts-ignore
+            simpos.printReceipt(image);
+          }
         }
       });
     }
