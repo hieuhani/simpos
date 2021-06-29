@@ -35,6 +35,9 @@ export const OrderReceiptRow: React.FunctionComponent<OrderReceiptRowProps> = ({
           {orderLine.qty}
         </Td>
         <Td paddingTop="0" isNumeric>
+          {orderLine.discount}%
+        </Td>
+        <Td paddingTop="0" isNumeric>
           {formatCurrencyNoSymbol(getDisplayPrice())}
         </Td>
       </Tr>

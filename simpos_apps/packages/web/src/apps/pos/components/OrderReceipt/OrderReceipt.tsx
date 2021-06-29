@@ -201,6 +201,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
             <Th>Sản phẩm</Th>
             <Th isNumeric>Đơn giá</Th>
             <Th isNumeric>SL</Th>
+            <Th isNumeric>C.Khấu</Th>
             <Th isNumeric>T.Tiền</Th>
           </Tr>
         </Thead>
@@ -211,7 +212,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
         </Tbody>
         <Tfoot>
           <Tr textTransform="uppercase" fontWeight="medium">
-            <Td {...py} pl="0" pr="0" colSpan={2} borderBottom="0">
+            <Td {...py} pl="0" pr="0" colSpan={3} borderBottom="0">
               Tổng tiền
             </Td>
             <Td {...py} pl="0" pr="0" colSpan={2} isNumeric borderBottom="0">
@@ -227,7 +228,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
             return (
               <Tr key={method}>
                 <Td
-                  colSpan={2}
+                  colSpan={3}
                   pt={0}
                   pb="0.1rem"
                   paddingLeft="1rem"
@@ -250,7 +251,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
             );
           })}
           <Tr textTransform="uppercase" fontWeight="medium">
-            <Td {...py} colSpan={2} pl="0" pr="0" borderBottom="0">
+            <Td {...py} colSpan={3} pl="0" pr="0" borderBottom="0">
               Tiền trả lại
             </Td>
             <Td {...py} colSpan={2} isNumeric pr={0} borderBottom="0">
