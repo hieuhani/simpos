@@ -22,7 +22,7 @@ export const productPricelistRepository = {
     }
 
     const pricelistItems = await productPricelistItemRepository.db
-      .where('pricelistId')
+      .where('pricelistIdInt')
       .equals(pricelist.id)
       .toArray();
 
@@ -42,7 +42,7 @@ export const productPricelistRepository = {
     return Promise.all(
       productPricelists.map((productPricelist) =>
         productPricelistItemRepository.db
-          .where('pricelistId')
+          .where('pricelistIdInt')
           .equals(productPricelist.id)
           .toArray()
           .then((items) => ({

@@ -227,7 +227,20 @@ export const loadModels: LoadModel[] = [
   {
     model: 'product.pricelist.item',
     fields: [],
-    indexes: '++id, pricelistId',
+    indexes: '++id, pricelistIdInt, pricelistId',
+    async load() {
+      return fetchModelData(
+        this.model,
+        this.fields,
+        undefined,
+        (rows) => {
+          return rows.map((row: any) => ({
+            ...row,
+            pricelistIdInt: row.pricelistId ? row.pricelistId[0] : null,
+          }));
+        },
+      );
+    },
   },
   {
     model: 'res.currency',

@@ -18,6 +18,7 @@ import {
   orderSnapshotRepository,
 } from '../../services/db/order-snapshot';
 import { useAuth } from '../AuthProvider';
+import { getPrice } from '../../hooks/helpers/price';
 
 export interface PaidContext {
   amount: number;
@@ -320,10 +321,11 @@ export const OrderManager: React.FunctionComponent = ({ children }) => {
       return canBeMergeOrderLine;
     }
 
+    const price = getPrice(variant, 1, data)
     const orderLineId = await orderLineRepository.create({
       orderId: state.activeOrderId,
       // TODO: Use getPrice function and check about fiscalPosition
-      priceUnit: variant.lstPrice,
+      priceUnit: price || variant.lstPrice,
       productId: variant.id,
       discount: 0,
       qty: 1,
