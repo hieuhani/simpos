@@ -33,7 +33,7 @@ class SimposCustomerDisplay(http.Controller):
         pos_session = request.env['pos.session'].sudo().search(domain, limit=1)
         if not pos_session:
             return werkzeug.utils.redirect('/web#action=point_of_sale.action_client_pos_menu')
-        
+
         cust_js = None
         with open(os.path.join(os.path.dirname(__file__), "../static/src/js/worker.js")) as js:
             cust_js = js.read()

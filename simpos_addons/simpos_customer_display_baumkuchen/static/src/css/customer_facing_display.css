@@ -1,7 +1,0 @@
-body .pos-customer_facing_display .pos-payment_info {
-  background-color: #471629;
-}
-
-body .pos-customer_facing_display .pos-payment_info .pos-company_logo {
-  background-image: url('/simpos_customer_display_baumkuchen/static/src/images/ctr.jpg');
-}
