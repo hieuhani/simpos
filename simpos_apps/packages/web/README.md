@@ -1,1 +1,0 @@
-# Simpos Web Frontend

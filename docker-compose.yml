@@ -1,28 +1,30 @@
-version: "2"
-services:
-  # web:
-  #   image: kyehani/odoo
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - "8069:8069"
-  #   tty: true
-  #   command: -- --dev=reload
-  #   volumes:
-  #     - odoo-web-data:/var/lib/odoo
-  #     - ./config:/etc/odoo
-  #     - ./simpos_addons:/mnt/extra-addons
-  db:
-    image: postgres:10
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD=odoo
-      - POSTGRES_USER=odoo
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
+version: '3.8'
+
 volumes:
-  odoo-web-data:
-  odoo-db-data:
+  postgres_data: {}
+  odoo_data: {}
+
+services:
+  odoo:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - '8069:8069'
+    volumes:
+      - odoo_data:/bitnami/odoo
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - ODOO_DATABASE_HOST=postgres
+      - ODOO_DATABASE_PORT_NUMBER=5432
+      - ODOO_DATABASE_USER=bn_odoo
+      - ODOO_DATABASE_NAME=bitnami_odoo
+
+  postgres:
+    image: bitnami/postgresql:14
+    volumes:
+      - postgres_data:/bitnami/postgresql
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=bn_odoo
+      - POSTGRESQL_DATABASE=bitnami_odoo
