@@ -2,26 +2,12 @@ version: '3.8'
 
 volumes:
   postgres_data: {}
-  odoo_data: {}
 
 services:
-  odoo:
-    build: .
-    depends_on:
-      - postgres
-    ports:
-      - '8069:8069'
-    volumes:
-      - odoo_data:/bitnami/odoo
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - ODOO_DATABASE_HOST=postgres
-      - ODOO_DATABASE_PORT_NUMBER=5432
-      - ODOO_DATABASE_USER=bn_odoo
-      - ODOO_DATABASE_NAME=bitnami_odoo
-
   postgres:
     image: bitnami/postgresql:14
+    ports:
+      - '5432:5432'
     volumes:
       - postgres_data:/bitnami/postgresql
     environment:
