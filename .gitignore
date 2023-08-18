@@ -25,3 +25,5 @@ yarn-error.log*
 .eslintcache
 odoo/
 venv
+
+.python-version

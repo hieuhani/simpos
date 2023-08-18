@@ -3,13 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "apps/*"
-    ]
-  },
   "scripts": {
-    "dev:web": "yarn workspace simpos start",
-    "build:web": "yarn workspace simpos build"
+    "dev": "pnpm dev",
+    "preinstall": "npx only-allow pnpm"
   }
 }

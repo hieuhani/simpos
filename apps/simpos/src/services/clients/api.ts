@@ -7,7 +7,7 @@ const defaultProtocol = 'https';
 const defaultUrl = 'localhost';
 
 export const getBaseApiUrl = (): string => {
-  let baseUrl = process.env.REACT_APP_BASE_API_URL || defaultUrl;
+  let baseUrl = defaultUrl;
   if (baseUrl.startsWith('http')) {
     return baseUrl;
   }

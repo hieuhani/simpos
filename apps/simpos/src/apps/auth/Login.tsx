@@ -8,7 +8,7 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { authService } from '../../services/auth';
@@ -29,7 +29,7 @@ export const Login: React.FunctionComponent = () => {
   };
   useEffect(() => {
     if (auth.isLoggedIn) {
-      navigate('/')
+      navigate('/');
     }
   }, [auth.isLoggedIn]);
   return (
@@ -43,7 +43,7 @@ export const Login: React.FunctionComponent = () => {
         shadow="md"
       >
         <Formik
-          initialValues={{  login: '', password: '' }}
+          initialValues={{ login: '', password: '' }}
           validationSchema={SignInSchema}
           onSubmit={async (values, { setSubmitting }) => {
             try {
@@ -74,11 +74,11 @@ export const Login: React.FunctionComponent = () => {
           }) => (
             <form onSubmit={handleSubmit}>
               <Stack spacing={4}>
-
                 <FormControl id="login">
                   <FormLabel>Email</FormLabel>
                   <Input
                     name="login"
+                    autoComplete="username"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.login}
@@ -93,6 +93,7 @@ export const Login: React.FunctionComponent = () => {
                   <Input
                     type="password"
                     name="password"
+                    autoComplete="current-password"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
