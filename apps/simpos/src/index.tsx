@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// @ts-ignore
+// @ts-expect-error no types for onscan.js
 import onScan from 'onscan.js';
 import { AuthProvider } from './contexts/AuthProvider';
 import { ThemeProvider } from './configs/themes';

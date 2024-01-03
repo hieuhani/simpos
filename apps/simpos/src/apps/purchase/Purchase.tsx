@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, Flex, Heading, Link } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Link } from '@chakra-ui/react';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useQueryParams } from '../../hooks';
 import { PurchaseOrder } from '../../services/db';
@@ -82,18 +82,6 @@ export const Purchase: React.FunctionComponent = () => {
             view={queryParams.get('status') || undefined}
             purchaseOrders={purchaseOrders}
           />
-        </Container>
-      </Box>
-      <Box position="fixed" left="0" right="0" bottom="0">
-        <Container maxW="6xl" py={2}>
-          <Button
-            as={RouterLink}
-            to="/purchase/new"
-            colorScheme="pink"
-            w="full"
-          >
-            Mua hàng
-          </Button>
         </Container>
       </Box>
     </>

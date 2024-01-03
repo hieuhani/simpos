@@ -80,13 +80,8 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
 }) => {
   const ref = useRef(null);
   const barcodeRef = useRef(null);
-  const {
-    company,
-    paymentMethods,
-    cashier,
-    posConfig,
-    printersDict,
-  } = useData();
+  const { company, paymentMethods, cashier, posConfig, printersDict } =
+    useData();
 
   const { formatCurrencyNoSymbol } = useMoneyFormatter();
   const { getTotalWithTax } = useActiveOrderExtensions(activeOrder);
@@ -157,18 +152,18 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
   })();
   const printReceipt = async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    // @ts-ignore
+    // @ts-expect-error running in Sunmi T2
     if (typeof simpos !== 'undefined') {
       if (ref.current) {
         html2canvas(ref.current!).then((canvas) => {
           const image = canvas
             .toDataURL('image/jpeg')
             .replace('data:image/jpeg;base64,', '');
-          // @ts-ignore
+          // @ts-expect-error simpos instance is only available in Sunmi T2
           simpos.printReceipt(image);
 
           if (printerIp) {
-            // @ts-ignore
+            // @ts-expect-error simpos instance is only available in Sunmi T2
             simpos.printRestaurantOrder(printerIp + 'SIMPOS' + image);
           }
         });

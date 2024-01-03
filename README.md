@@ -1,3 +1,3 @@
-## SimPOS monorepo
+# Simpos
 
-SimPOS monorepo development
+Intuitive interface and powerful features point of sale software that is well integrated with Odoo

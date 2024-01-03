@@ -4,10 +4,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  Button,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
-
 import React, { useCallback, useEffect, useState } from 'react';
 import { getLoadModelsMap } from '../../../../contexts/DataProvider/dataLoader';
 import { PosConfig, PosSession } from '../../../../services/db';
@@ -72,16 +69,6 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
               openSession={openSession}
             />
           ))}
-
-          <Button
-            my={2}
-            as={RouterLink}
-            to="/purchase"
-            variant="link"
-            colorScheme="blue"
-          >
-            Mua hàng
-          </Button>
         </ModalBody>
       </ModalContent>
     </Modal>

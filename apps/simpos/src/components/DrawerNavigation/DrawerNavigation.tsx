@@ -52,10 +52,6 @@ const menuGroups: Record<string, MenuGroup> = {
         to: '/purchase',
       },
       {
-        title: 'Mua hàng',
-        to: '/purchase/new',
-      },
-      {
         title: 'Báo cáo',
         to: '/purchase/report',
       },
@@ -89,7 +85,7 @@ export const DrawerNavigation: React.FunctionComponent = () => {
   return (
     <DrawerContent>
       <DrawerCloseButton />
-      <DrawerHeader>Chateraise</DrawerHeader>
+      <DrawerHeader>Giofamily</DrawerHeader>
 
       <DrawerBody>
         <Box listStyleType="none" as="ul">

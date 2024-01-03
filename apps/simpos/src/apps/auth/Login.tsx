@@ -31,7 +31,7 @@ export const Login: React.FunctionComponent = () => {
     if (auth.isLoggedIn) {
       navigate('/');
     }
-  }, [auth.isLoggedIn]);
+  }, [auth.isLoggedIn, navigate]);
   return (
     <Box backgroundColor="gray.50" position="fixed" w="full" h="full">
       <Box

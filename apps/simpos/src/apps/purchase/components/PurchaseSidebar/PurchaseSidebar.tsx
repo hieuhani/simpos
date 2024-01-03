@@ -156,7 +156,8 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
 
   const defaultGet = async () => {
     const defaultPo = await purchaseOrderService.defaultGet();
-    const serverStockPickingTypes = await stockPickingTypeService.getIncommingStockPickingTypes();
+    const serverStockPickingTypes =
+      await stockPickingTypeService.getIncommingStockPickingTypes();
     const chateraise = await partnerService.getChateraise();
     setStockPickingTypes(serverStockPickingTypes);
     setDefaultPurchaseOrder(defaultPo);
