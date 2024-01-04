@@ -43,7 +43,7 @@ export const PosSidebar: React.FunctionComponent<PosSidebarProps> = ({
         >
           <IconShoppingCart size="5rem" />
           <Heading mt={2} fontSize="1.2rem" fontWeight="medium">
-            Chưa có sản phẩm nào trong giỏ hàng
+            No cart items
           </Heading>
         </Flex>
       ) : (

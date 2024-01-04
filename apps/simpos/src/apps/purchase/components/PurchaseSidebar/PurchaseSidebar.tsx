@@ -3,7 +3,6 @@ import {
   Box,
   Flex,
   Stack,
-  Image,
   Text,
   Button,
   AlertDialog,
@@ -38,15 +37,14 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useUom } from '../../../../services/uom';
 import { DEFAULT_UOM_ID } from '../../../../configs/consants';
-import { partnerService, RemotePartner } from '../../../../services/partner';
 
 const poStateMessageMap: Record<string, string> = {
-  creatingPo: 'Đang tạo đơn mua...',
-  createdPo: 'Đã tạo đơn mua thành công',
-  confirmingPo: 'Đang xác nhận đơn mua...',
-  confirmedPo: 'Xác nhận đơn mua thành công',
-  confirmPoFailed: 'Xác nhận đơn mua thất bại',
-  createPoFailed: 'Tạo đơn mua thất bại',
+  creatingPo: 'Creating PO...',
+  createdPo: 'Created PO',
+  confirmingPo: 'Confirming PO...',
+  confirmedPo: 'Confirmed PO',
+  confirmPoFailed: 'Confirming PO failed',
+  createPoFailed: 'Crating PO failed',
 };
 
 const createPoMachine = Machine({
@@ -90,9 +88,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
   const dispatch = usePurchaseDispatch();
   const cancelPoDialogRef = useRef(null);
   const [, setStockPickingTypes] = useState<StockPickingType[]>([]);
-  const [chateraisePartner, setChateraisePartner] = useState<
-    RemotePartner | undefined
-  >();
+
   const [defaultPurchaseOrder, setDefaultPurchaseOrder] = useState<
     DefaultPurchaseOrder | undefined
   >();
@@ -120,7 +116,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
         companyId: po.companyId,
         pickingTypeId: po.pickingTypeId,
         userId: po.userId,
-        partnerId: chateraisePartner?.id || 1,
+        partnerId: 1,
         lines: state.lines.map((line) => ({
           productUom: line.productUom || DEFAULT_UOM_ID,
           productId: line.product.id,
@@ -158,10 +154,8 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
     const defaultPo = await purchaseOrderService.defaultGet();
     const serverStockPickingTypes =
       await stockPickingTypeService.getIncommingStockPickingTypes();
-    const chateraise = await partnerService.getChateraise();
     setStockPickingTypes(serverStockPickingTypes);
     setDefaultPurchaseOrder(defaultPo);
-    setChateraisePartner(chateraise);
   };
 
   useEffect(() => {
@@ -177,39 +171,12 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
       <Stack spacing={4} direction="row" p={4}>
         <Box flex="1">
           <Text color="brand.100" fontWeight="medium" mb={1}>
-            Đối tác cung ứng
+            Partner
           </Text>
-          <Flex
-            alignItems="center"
-            p={2}
-            rounded="md"
-            backgroundColor="white"
-            boxShadow="sm"
-            borderRadius="md"
-            minHeight="62px"
-          >
-            {chateraisePartner?.image128 && (
-              <Box w="40px">
-                <Image
-                  borderRadius="md"
-                  src={`data:image/png;base64,${chateraisePartner.image128}`}
-                />
-              </Box>
-            )}
-
-            {chateraisePartner && (
-              <Box ml="2">
-                <Text fontWeight="medium" mb="0">
-                  {chateraisePartner.name}
-                </Text>
-                <Text fontSize="sm">{chateraisePartner.phone}</Text>
-              </Box>
-            )}
-          </Flex>
         </Box>
         <Box flex="1">
           <Text color="brand.100" fontWeight="medium" mb={1}>
-            Ngày đặt hàng
+            Order time
           </Text>
           <Flex
             p={2}
@@ -227,7 +194,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
         </Box>
         <Box flex="1">
           <Text color="brand.100" fontWeight="medium" mb={1}>
-            Địa điểm nhận
+            Address
           </Text>
           <Flex
             p={2}
@@ -238,13 +205,13 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
             minHeight="62px"
             alignItems="center"
           >
-            <Text fontWeight="medium">Baumkuchen 25 Trần Nhân Tông</Text>
+            <Text fontWeight="medium">Demo address</Text>
           </Flex>
         </Box>
       </Stack>
       <Box px={4}>
         <Text color="brand.100" fontWeight="medium" mb={1}>
-          Giỏ sản phẩm
+          Cart
         </Text>
       </Box>
       {state.lines.length === 0 ? (
@@ -257,7 +224,7 @@ export const PurchaseSidebar: React.FunctionComponent = () => {
         >
           <IconShoppingCart size="5rem" />
           <Heading mt={2} fontSize="1.2rem" fontWeight="medium">
-            Chưa có sản phẩm nào trong giỏ hàng
+            No cart items
           </Heading>
         </Flex>
       ) : (

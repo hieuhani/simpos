@@ -40,7 +40,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
             };
             await partnerRepository.addPartner(partner);
             toast({
-              title: 'Thêm khách hàng thành công',
+              title: 'Create customer successfully',
               status: 'success',
               duration: 5000,
               isClosable: true,
@@ -48,7 +48,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
             onClose(partner);
           } catch (e) {
             toast({
-              title: 'Thêm khách hàng không thành công',
+              title: 'Create customer failed',
               status: 'error',
               duration: 5000,
               isClosable: true,
@@ -70,7 +70,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
               <FormControl id="name">
-                <FormLabel>Tên khách hàng</FormLabel>
+                <FormLabel>Customer name</FormLabel>
                 <Input
                   name="name"
                   onChange={handleChange}
@@ -81,7 +81,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
                 />
               </FormControl>
               <FormControl id="phone">
-                <FormLabel>Số điện thoại</FormLabel>
+                <FormLabel>Phone</FormLabel>
                 <Input
                   name="phone"
                   onChange={handleChange}
@@ -92,7 +92,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
                 />
               </FormControl>
               <FormControl id="street">
-                <FormLabel>Địa chỉ</FormLabel>
+                <FormLabel>Address</FormLabel>
                 <Input
                   name="street"
                   onChange={handleChange}
@@ -111,7 +111,7 @@ export const UpdateCustomerForm: React.FunctionComponent<Props> = ({
                 isLoading={isSubmitting}
                 colorScheme="red"
               >
-                Thêm khách hàng
+                Add customer
               </Button>
             </Stack>
           </form>

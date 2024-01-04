@@ -44,9 +44,8 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
   };
   const { selectCustomer } = useOrderManagerAction();
   const fetchPartners = async () => {
-    const foundPartners = await partnerRepository.findPartners(
-      debouncedKeyword,
-    );
+    const foundPartners =
+      await partnerRepository.findPartners(debouncedKeyword);
     setPartners(foundPartners);
   };
   useEffect(() => {
@@ -116,7 +115,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
           <>
             <IconSmile size="36" />
             <Heading size="md" fontWeight="medium" ml={2}>
-              Chọn khách hàng
+              Select customer
             </Heading>
           </>
         )}
@@ -125,13 +124,13 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Chọn khách hàng
+            Select customer
             <HStack mb={2} mt={2}>
               <InputGroup size="md">
                 <Input
                   pr="3rem"
                   value={keyword}
-                  placeholder="Tìm kiếm"
+                  placeholder="Search"
                   onChange={(e) => setKeyword(e.target.value)}
                 />
                 <InputRightElement width="3rem">
@@ -139,7 +138,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
                 </InputRightElement>
               </InputGroup>
               <Button onClick={toggleCustomerForm} colorScheme="blue">
-                {customerFormDisplayed ? 'Đóng' : 'Thêm'}
+                {customerFormDisplayed ? 'Close' : 'Add'}
               </Button>
             </HStack>
           </ModalHeader>
@@ -167,7 +166,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
                 variant="outline"
                 onClick={unselectCustomer}
               >
-                Bỏ chọn
+                Unselect
               </Button>
             )}
             <Button
@@ -178,7 +177,7 @@ export const CustomerSelectAction: React.FunctionComponent = () => {
                 selectPartnerId === activeOrder?.order.partnerId
               }
             >
-              Chọn
+              Select
             </Button>
           </ModalFooter>
         </ModalContent>

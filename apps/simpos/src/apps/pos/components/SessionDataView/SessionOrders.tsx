@@ -25,12 +25,12 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
     <Table variant="striped" colorScheme="pink">
       <Thead>
         <Tr>
-          <Th>Mã đơn hàng</Th>
-          <Th>Mã trên biên lai</Th>
-          <Th>Thời gian</Th>
-          <Th>Khách hàng</Th>
-          <Th>Thu ngân</Th>
-          <Th>Tổng</Th>
+          <Th>Order No</Th>
+          <Th>Receipt No</Th>
+          <Th>Time</Th>
+          <Th>Customer</Th>
+          <Th>Cashier</Th>
+          <Th>Total</Th>
         </Tr>
       </Thead>
       <Tbody>
@@ -49,7 +49,7 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
                 colorScheme="pink"
                 w="full"
               >
-                Chi tiết
+                Details
               </Button>
             </Td>
           </Tr>

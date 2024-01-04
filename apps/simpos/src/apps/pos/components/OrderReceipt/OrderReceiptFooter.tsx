@@ -7,10 +7,9 @@ export interface OrderReceiptFooterProps {
   company: Company;
   posConfig?: PosConfig;
 }
-export const OrderReceiptFooter: React.FunctionComponent<OrderReceiptFooterProps> = ({
-  company,
-  posConfig,
-}) => (
+export const OrderReceiptFooter: React.FunctionComponent<
+  OrderReceiptFooterProps
+> = ({ company, posConfig }) => (
   <Box textAlign="center" mb={4} mt={4}>
     {posConfig?.receiptFooter ? (
       <div
@@ -26,7 +25,7 @@ export const OrderReceiptFooter: React.FunctionComponent<OrderReceiptFooterProps
           fontWeight="medium"
           fontSize="sm"
         >
-          Cảm ơn quý khách và hẹn gặp lại!
+          Thank you and see you again!
         </Heading>
         <Text>Hotline: {company.phone}</Text>
       </>

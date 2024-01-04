@@ -69,19 +69,19 @@ export const receiveProductsMachine = Machine({
 });
 
 export const receiveProductsMachineStateMapping: Record<string, string> = {
-  updatingMoves: 'Đang cập nhật thông tin chuyển hàng',
-  updatedMoves: 'Đã cập nhật thông tin chuyển hàng',
-  updateMovesFailed: 'Có lỗi khi cập nhật thông tin chuyển hàng',
-  validatingMoves: 'Đang kiểm tra thông tin chuyển hàng',
-  validatedMoves: 'Đã kiểm tra thông tin chuyển hàng xong',
-  validateMovesFailed: 'Có lỗi khi kiểm tra thông tin chuyển hàng',
+  updatingMoves: 'Updating moves',
+  updatedMoves: 'Updated moves',
+  updateMovesFailed: 'Error in updating moves',
+  validatingMoves: 'Validating moves',
+  validatedMoves: 'Validated moves',
+  validateMovesFailed: 'Error in validating moves',
   backorderConfirmation:
-    'Do nhận hàng thiếu nên cần xác nhận cách nhận phần còn lại',
-  creatingBackorder: 'Đang tạo đơn bù hàng thiếu',
-  skippingBackorder: 'Đang bỏ qua phần hàng thiếu',
-  createdBackorder: 'Đã tạo đơn bù hàng thiếu xong',
-  skippedBackorder: 'Đã bỏ qua phần hàng thiếu',
-  lockingPurchaseOrder: 'Đang hoàn thành đơn hàng',
-  lockedPurchaseOrder: 'Đã hoàn thành đơn hàng',
-  lockPurchaseOrderFailed: 'Có lỗi khi hoàn thành đơn hàng',
+    'Because of missing products, please confirm how to receive the rest',
+  creatingBackorder: 'Creating back order',
+  skippingBackorder: 'Skipping back order',
+  createdBackorder: 'Back order created',
+  skippedBackorder: 'Skipping back order',
+  lockingPurchaseOrder: 'Purchasing',
+  lockedPurchaseOrder: 'Purchase completed',
+  lockPurchaseOrderFailed: 'Error in purchasing',
 };

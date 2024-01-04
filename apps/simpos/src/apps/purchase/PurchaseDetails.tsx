@@ -22,7 +22,6 @@ import { PurchaseSummary } from './components/PurchaseSummary';
 import { PurchaseOrderLines } from './components/PurchaseDetails/PurchaseOrderLines';
 import { ActionButtonProps } from '../../types';
 
-
 const PurchaseDetails: React.FunctionComponent = () => {
   const params = useParams<{
     purchaseOrderId: string;
@@ -41,9 +40,10 @@ const PurchaseDetails: React.FunctionComponent = () => {
     );
 
     if (serverPurchaseOrder && serverPurchaseOrder.orderLine.length > 0) {
-      const serverPurchaseOrderLines = await purchaseOrderLineService.getPurhcaseOrderLines(
-        serverPurchaseOrder.orderLine,
-      );
+      const serverPurchaseOrderLines =
+        await purchaseOrderLineService.getPurhcaseOrderLines(
+          serverPurchaseOrder.orderLine,
+        );
 
       setPurchaseOrderLines(serverPurchaseOrderLines);
     }
@@ -53,7 +53,6 @@ const PurchaseDetails: React.FunctionComponent = () => {
     if (params.purchaseOrderId) {
       getPurchaseOrder(params.purchaseOrderId);
     }
-
   }, [params.purchaseOrderId]);
 
   const handleCancelPurchaseOrder = useCallback(async () => {
@@ -63,15 +62,15 @@ const PurchaseDetails: React.FunctionComponent = () => {
       );
       getPurchaseOrder(params.purchaseOrderId!);
       toast({
-        title: 'Thông báo',
-        description: 'Huỷ đơn mua thành công',
+        title: 'Alert',
+        description: 'Cancel purchase order successfully',
         status: 'success',
         duration: 9000,
         isClosable: true,
       });
     } catch (e: any) {
       toast({
-        title: 'Huỷ đơn mua không thành công',
+        title: 'Cancel purchase order failed',
         description: e.message,
         status: 'error',
         duration: 9000,
@@ -172,7 +171,7 @@ const PurchaseDetails: React.FunctionComponent = () => {
           <Breadcrumb mb={4}>
             <BreadcrumbItem>
               <BreadcrumbLink as={RouterLink} to="/purchase">
-                Danh sách đơn mua
+                Purchase orders
               </BreadcrumbLink>
             </BreadcrumbItem>
 

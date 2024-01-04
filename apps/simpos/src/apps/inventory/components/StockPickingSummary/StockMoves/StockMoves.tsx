@@ -48,9 +48,9 @@ export const StockMoves: React.FunctionComponent<StockMovesProps> = ({
       <Table variant="striped" colorScheme="pink">
         <Thead>
           <Tr>
-            <Th>Sản phẩm</Th>
-            <Th>Số lượng yêu cầu</Th>
-            <Th>Nhận</Th>
+            <Th>Product</Th>
+            <Th>Initial demand quantity</Th>
+            <Th>Receive quantity</Th>
           </Tr>
         </Thead>
         <Tbody>

@@ -70,12 +70,12 @@ export const PurchaseSelectProduct: React.FunctionComponent = () => {
       />
       <Flex px={4} alignItems="center" mb={4}>
         <Heading color="brand.100" size="md" mr="auto">
-          Danh sách sản phẩm
+          Selling products
         </Heading>
         <InputGroup size="md" width="250px" background="white">
           <Input
             pr="3rem"
-            placeholder="Tìm kiếm"
+            placeholder="Search"
             value={keyword}
             onChange={(event) => setKeyword(event.target.value)}
           />

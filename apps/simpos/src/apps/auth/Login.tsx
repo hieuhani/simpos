@@ -51,9 +51,8 @@ export const Login: React.FunctionComponent = () => {
               auth.signIn(data);
             } catch (e) {
               toast({
-                title: 'Đăng nhập không thành công',
-                description:
-                  'Thông tin tài khoản hoặc mật khẩu không chính xác',
+                title: 'Sign in failed',
+                description: 'Wrong email or password. Please try again.',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,

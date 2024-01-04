@@ -21,8 +21,6 @@ import { posPaymentService } from '../../services/pos-payment';
 import { NavigationBarGeneral } from '../pos/components/NavigationBar';
 import { OrderDetails } from './components/OrderDetails';
 
-
-
 const Order: React.FunctionComponent = () => {
   const params = useParams<{
     orderId: string;
@@ -56,7 +54,6 @@ const Order: React.FunctionComponent = () => {
     if (params.orderId) {
       getOrder(params.orderId);
     }
-
   }, [params.orderId]);
 
   if (!order) {
@@ -70,11 +67,11 @@ const Order: React.FunctionComponent = () => {
           <Breadcrumb mb={4}>
             <BreadcrumbItem>
               <BreadcrumbLink as={RouterLink} to="/pos/session">
-                Phiên bán hàng
+                Session
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="#">Đơn hàng</BreadcrumbLink>
+              <BreadcrumbLink href="#">Order</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">{order.posReference}</BreadcrumbLink>

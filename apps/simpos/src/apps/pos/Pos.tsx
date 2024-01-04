@@ -23,7 +23,7 @@ export const Pos: React.FunctionComponent = () => {
         if (!activeOrder) {
           return toast({
             title: 'Error',
-            description: 'Không tìm thấy đơn hàng hiện tại',
+            description: 'Order is not found',
             status: 'error',
             duration: 9000,
             isClosable: true,
@@ -36,8 +36,7 @@ export const Pos: React.FunctionComponent = () => {
         if (!productVariant) {
           return toast({
             title: 'Error',
-            description:
-              'Sản phẩm không tồn tại hoặc chưa được cài đặt mã vạch',
+            description: 'Product not found or barcode is not set up',
             status: 'error',
             duration: 9000,
             isClosable: true,

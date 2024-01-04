@@ -16,22 +16,22 @@ interface TabConfig {
 const tabs: Record<string, TabConfig> = {
   all: {
     route: { pathname: '/purchase' },
-    title: 'Tất cả',
+    title: 'All',
     domain: [],
   },
   waiting: {
     route: { pathname: '/purchase', search: '?status=waiting' },
-    title: 'Chờ nhận hàng',
+    title: 'Waiting to receive',
     domain: [['state', 'in', ['purchase']]],
   },
   received: {
     route: { pathname: '/purchase', search: '?status=received' },
-    title: 'Đã nhận hàng',
+    title: 'Received',
     domain: [['state', '=', 'done']],
   },
   cancelled: {
     route: { pathname: '/purchase', search: '?status=cancelled' },
-    title: 'Đã huỷ',
+    title: 'Cancelled',
     domain: [['state', '=', 'cancel']],
   },
 };
@@ -55,7 +55,7 @@ export const Purchase: React.FunctionComponent = () => {
       <NavigationBarGeneral />
       <Box height="calc(100vh - 112px)" overflowY="auto">
         <Container maxW="6xl" pt={4}>
-          <Heading mb={4}>Danh sách đơn mua</Heading>
+          <Heading mb={4}>Purchase orders</Heading>
           <Flex>
             {Object.keys(tabs).map((tabKey) => (
               <Link key={tabKey} to={tabs[tabKey].route} as={RouterLink}>

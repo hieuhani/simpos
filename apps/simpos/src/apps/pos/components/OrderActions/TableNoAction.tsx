@@ -61,14 +61,14 @@ export const TableNoAction: React.FunctionComponent = () => {
               <IconFlag size="20" />
             )}
           </Flex>
-          <Text fontSize="sm">Số bàn</Text>
+          <Text fontSize="sm">Table no</Text>
         </Box>
       </PopoverTrigger>
       <Portal>
         <PopoverContent>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>Chọn số bàn</PopoverHeader>
+          <PopoverHeader>Select table number</PopoverHeader>
           <PopoverBody>
             <Grid templateColumns="1fr 1fr 1fr" gridGap={2}>
               {Array.from({ length: 21 }, (_, i) => (
@@ -83,7 +83,7 @@ export const TableNoAction: React.FunctionComponent = () => {
                   colorScheme="red"
                   onClick={() => onSelect(undefined)}
                 >
-                  Xóa số bàn
+                  Delete table number
                 </Button>
               )}
             </Grid>

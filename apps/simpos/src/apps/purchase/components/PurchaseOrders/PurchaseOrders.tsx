@@ -6,12 +6,12 @@ import { PurchaseOrder } from '../../../../services/db';
 import { formatMoney } from '../../../../utils';
 
 const purchaseOrderStateMap = {
-  draft: 'Chờ báo giá',
-  sent: 'Đã gửi báo giá',
-  'to approve': 'Chờ phê duyệt',
-  purchase: 'Đã tạo đơn',
-  done: 'Hoành thành',
-  cancel: 'Đã huỷ',
+  draft: 'Waiting for RFQ',
+  sent: 'RFQ Sent',
+  'to approve': 'Need to approve',
+  purchase: 'Order placed',
+  done: 'Done',
+  cancel: 'Cancelled',
 };
 export interface PurchaseOrdersProps {
   purchaseOrders: PurchaseOrder[];
@@ -24,11 +24,11 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
     <Table variant="striped" colorScheme="pink">
       <Thead>
         <Tr>
-          <Th>Mã phiếu mua</Th>
-          <Th>Ngày tạo</Th>
-          <Th>Trạng thái</Th>
-          <Th>Người tạo</Th>
-          <Th>Giá trị</Th>
+          <Th>Order code</Th>
+          <Th>Created at</Th>
+          <Th>Status</Th>
+          <Th>Creator</Th>
+          <Th>Amount</Th>
           <Th />
         </Tr>
       </Thead>
@@ -48,7 +48,7 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
                 colorScheme="pink"
                 w="full"
               >
-                Chi tiết
+                Details
               </Button>
             </Td>
           </Tr>

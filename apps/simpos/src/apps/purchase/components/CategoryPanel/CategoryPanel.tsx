@@ -19,7 +19,7 @@ export const CategoryPanel: React.FunctionComponent<CategoryPanelProps> = ({
 
   const fetchCategories = async () => {
     const dbCategories = await posCategoryRepository.treeCategories();
-    setCategories([{ id: 0, name: 'Tất cả' }, ...dbCategories]);
+    setCategories([{ id: 0, name: 'All products' }, ...dbCategories]);
   };
   useEffect(() => {
     fetchCategories();

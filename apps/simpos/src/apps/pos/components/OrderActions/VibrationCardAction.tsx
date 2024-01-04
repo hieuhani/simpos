@@ -61,14 +61,14 @@ export const VibrationCardAction: React.FunctionComponent = () => {
               <IconTag size="20" />
             )}
           </Flex>
-          <Text fontSize="sm">Số thẻ</Text>
+          <Text fontSize="sm">Vibr tag</Text>
         </Box>
       </PopoverTrigger>
       <Portal>
         <PopoverContent>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>Chọn số thẻ rung</PopoverHeader>
+          <PopoverHeader>Select vibration tag</PopoverHeader>
           <PopoverBody>
             <Grid templateColumns="1fr 1fr 1fr" gridGap={2}>
               {Array.from({ length: 12 }, (_, i) => (
@@ -83,7 +83,7 @@ export const VibrationCardAction: React.FunctionComponent = () => {
                   colorScheme="red"
                   onClick={() => onSelect(undefined)}
                 >
-                  Xóa thẻ rung
+                  Unselect vibration tag
                 </Button>
               )}
             </Grid>

@@ -63,7 +63,7 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
       <Modal isOpen={true} onClose={() => {}}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Chọn phiên bán hàng</ModalHeader>
+          <ModalHeader>Select selling session</ModalHeader>
           <ModalBody>
             {configs.map((config) => (
               <SessionConfig

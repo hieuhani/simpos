@@ -119,7 +119,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
           >
             {cashier && (
               <Box textAlign="left">
-                <Text fontSize="sm">Thu ngân</Text>
+                <Text fontSize="sm">Cashier</Text>
                 <Heading size="sm" color="brand.100">
                   {cashier.name}
                 </Heading>
@@ -137,7 +137,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Chọn thu ngân</ModalHeader>
+          <ModalHeader>Select cashier</ModalHeader>
           <ModalBody>
             <Stack spacing={2}>
               {employees.map((employee) => (
@@ -156,7 +156,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
               disabled={!selectEmployee}
               onClick={selectCashier}
             >
-              Chọn
+              Select
             </Button>
           </ModalFooter>
         </ModalContent>

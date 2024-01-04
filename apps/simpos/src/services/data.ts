@@ -45,8 +45,6 @@ export const dataService = {
     if (kwargs) {
       kwargs.context = {
         ...kwargs.context,
-        lang: 'vi_VN',
-        tz: 'Asia/Ho_Chi_Minh',
       };
     }
     return simApi.post(`/web/dataset/call_kw/${model}/${method}`, {

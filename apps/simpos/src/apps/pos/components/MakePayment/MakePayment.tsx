@@ -63,7 +63,7 @@ export const MakePayment: React.FunctionComponent<MakePaymentProps> = ({
             variant="link"
             onClick={() => setSelectedPaymentMethod(null)}
           >
-            Chọn phương thức khác
+            Use different payment method
           </Button>
         </>
       ) : (

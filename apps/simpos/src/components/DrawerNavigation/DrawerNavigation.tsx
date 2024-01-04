@@ -25,47 +25,47 @@ interface MenuGroup {
 const menuGroups: Record<string, MenuGroup> = {
   '/pos': {
     menu: {
-      title: 'Bán hàng',
+      title: 'Point of sale',
       icon: <IconStore size="20px" color="white" />,
       to: '/pos',
     },
     subMenus: [
       {
-        title: 'Phiên bán hàng',
+        title: 'Selling session',
         to: '/pos/session',
       },
       {
-        title: 'Báo cáo',
+        title: 'Report',
         to: '/pos/report',
       },
     ],
   },
   '/purchase': {
     menu: {
-      title: 'Mua hàng',
+      title: 'Purchase',
       icon: <IconTruckMoving size="20px" color="white" />,
       to: '/purchase',
     },
     subMenus: [
       {
-        title: 'Danh sách đơn mua',
+        title: 'Purchase orders',
         to: '/purchase',
       },
       {
-        title: 'Báo cáo',
+        title: 'Report',
         to: '/purchase/report',
       },
     ],
   },
   '/inventory': {
     menu: {
-      title: 'Kho',
+      title: 'Inventory',
       icon: <IconInventory size="20px" color="white" />,
       to: '/inventory',
     },
     subMenus: [
       {
-        title: 'Báo cáo',
+        title: 'Report',
         to: '/purchase/report',
       },
     ],
@@ -85,7 +85,7 @@ export const DrawerNavigation: React.FunctionComponent = () => {
   return (
     <DrawerContent>
       <DrawerCloseButton />
-      <DrawerHeader>Giofamily</DrawerHeader>
+      <DrawerHeader>Satogato</DrawerHeader>
 
       <DrawerBody>
         <Box listStyleType="none" as="ul">
@@ -114,7 +114,7 @@ export const DrawerNavigation: React.FunctionComponent = () => {
       </DrawerBody>
       <DrawerFooter>
         <Button w="full" onClick={() => signOut()}>
-          Đăng xuất
+          Sign out
         </Button>
       </DrawerFooter>
     </DrawerContent>

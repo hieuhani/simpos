@@ -16,23 +16,23 @@ export const SessionSummary: React.FunctionComponent<SessionSummaryProps> = ({
     <>
       <Flex mb={4} backgroundColor="gray.100" borderRadius="md" px={4} py={2}>
         <Box>
-          <Text>Phiên bán hàng</Text>
+          <Text>Selling session</Text>
           <Heading>{session.displayName}</Heading>
         </Box>
         <Flex ml="auto">
-          <DisplayCount title="Đơn hàng" value={String(session.orderCount)} />
+          <DisplayCount title="Orders" value={String(session.orderCount)} />
           <Box w={4} />
           <DisplayCount
-            title="Doanh thu"
+            title="Net sales"
             value={formatCurrency(session.totalPaymentsAmount!)}
           />
         </Flex>
       </Flex>
       <Grid templateColumns="1fr 1fr 1fr 1fr" gridGap={4}>
-        <BoxInfo title="Người phụ trách" value={session.userId[1]} />
-        <BoxInfo title="Điểm bán hàng" value={session.configId[1]} />
-        <BoxInfo title="Ngày tạo phiên" value={session.startAt} />
-        <BoxInfo title="Trạng thái" value={session.state} />
+        <BoxInfo title="Responsible staff" value={session.userId[1]} />
+        <BoxInfo title="Point of sale" value={session.configId[1]} />
+        <BoxInfo title="Created at" value={session.startAt} />
+        <BoxInfo title="Status" value={session.state} />
       </Grid>
     </>
   );

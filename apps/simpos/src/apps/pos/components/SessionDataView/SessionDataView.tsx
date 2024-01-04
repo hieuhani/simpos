@@ -14,8 +14,8 @@ export const SessionDataView: React.FunctionComponent<SessionDataViewProps> = ({
     <Box mt={4} backgroundColor="gray.100" borderRadius="md">
       <Tabs isLazy variant="soft-rounded" colorScheme="pink">
         <TabList px={4} pt={4} pb={2}>
-          <Tab>Đơn hàng</Tab>
-          <Tab>Thanh toán</Tab>
+          <Tab>Orders</Tab>
+          <Tab>Payments</Tab>
         </TabList>
         <TabPanels>
           <TabPanel p={0}>

@@ -38,7 +38,7 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
         <Flex direction="column" alignItems="center" mb={4}>
           <IconCheckCircle size={50} color="#48BB78" />
           <Heading size="sm" mt={2}>
-            Thanh toán thành công
+            Paid successfully
           </Heading>
         </Flex>
         <Divider mb={4} />
@@ -51,10 +51,10 @@ export const OrderComplete: React.FunctionComponent<OrderCompleteProps> = ({
       )}
       <Stack direction="row">
         <Button colorScheme="yellow" onClick={reprint}>
-          In hóa đơn
+          Print
         </Button>
         <Button colorScheme="green" onClick={onComplete}>
-          Tiếp tục bán hàng
+          Continue
         </Button>
       </Stack>
     </Flex>

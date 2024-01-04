@@ -45,7 +45,7 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
         onClick={onOpen}
         disabled={disabled}
       >
-        Thanh toán
+        Pay
       </Button>
       <Modal isOpen={isOpen} onClose={onComplete} size="lg">
         <ModalOverlay />
@@ -57,7 +57,7 @@ export const PaymentAction: React.FunctionComponent<PaymentActionProps> = ({
           </ModalContent>
         ) : (
           <ModalContent>
-            <ModalHeader>Thanh toán {formatCurrency(totalAmount)}</ModalHeader>
+            <ModalHeader>Pay {formatCurrency(totalAmount)}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <MakePayment totalAmount={totalAmount} onPaid={onPaid} />

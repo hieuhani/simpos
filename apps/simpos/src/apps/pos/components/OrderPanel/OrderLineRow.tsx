@@ -187,11 +187,11 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
               <Stepper value={orderLine.qty} onChange={onChange} />
               <Button
                 ml="auto"
-                colorScheme="red"
+                backgroundColor="brand.100"
                 size="sm"
                 onClick={onDeleteOrderLine}
               >
-                <IconTrashAlt size="20" />
+                <IconTrashAlt size="20" color="#def3ec" />
               </Button>
             </Flex>
           </PopoverFooter>

@@ -14,7 +14,7 @@ export const SessionConfig: React.FunctionComponent<SessionConfigProps> = ({
   const status = useMemo<string | undefined>(() => {
     switch (config.posSessionState) {
       case 'opened':
-        return 'đang bán hàng';
+        return 'selling';
       default:
         return undefined;
     }
@@ -49,7 +49,7 @@ export const SessionConfig: React.FunctionComponent<SessionConfigProps> = ({
             colorScheme="green"
             onClick={() => openSession(config.id)}
           >
-            Mở phiên
+            Open session
           </Button>
         )}
       </Box>

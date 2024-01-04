@@ -5,9 +5,9 @@ import { Company } from '../../../../services/db/company';
 export interface OrderReceiptHeaderProps {
   company: Company;
 }
-export const OrderReceiptHeader: React.FunctionComponent<OrderReceiptHeaderProps> = ({
-  company,
-}) => (
+export const OrderReceiptHeader: React.FunctionComponent<
+  OrderReceiptHeaderProps
+> = ({ company }) => (
   <>
     <Box w="250px" h="80px" margin="0 auto 1rem auto">
       {company.logo && <Image src={`data:image/png;base64,${company.logo}`} />}
@@ -23,7 +23,7 @@ export const OrderReceiptHeader: React.FunctionComponent<OrderReceiptHeaderProps
       fontSize="xl"
       mb={2}
     >
-      Phiếu thanh toán
+      Pay receipt
     </Heading>
   </>
 );

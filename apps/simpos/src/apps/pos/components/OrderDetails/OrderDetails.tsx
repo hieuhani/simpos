@@ -95,19 +95,19 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
   const headerFields = useMemo<HeaderField[]>(() => {
     const fields = [
       {
-        name: 'Thời gian',
+        name: 'Time',
         value: dayjs(order.dateOrder).format('HH:mm DD/MM/YYYY'),
       },
     ];
     if (order.partnerId) {
       fields.unshift({
-        name: 'Khách hàng',
+        name: 'Customer',
         value: order.partnerId[1],
       });
     }
     if (order.employeeId) {
       fields.push({
-        name: 'Nhân viên',
+        name: 'Staff',
         value: order.employeeId[1],
       });
     }
@@ -129,21 +129,21 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
         <Container ref={ref}>
           <OrderReceiptHeader company={company} />
           <Text textAlign="center" fontSize="lg" fontWeight="bold">
-            In lại
+            Reprint
           </Text>
           <OrderReceiptSummary fields={headerFields} />
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>Sản phẩm</Th>
+                <Th>Product</Th>
                 <Th {...py} isNumeric>
-                  Đơn giá
+                  Price
                 </Th>
                 <Th {...py} isNumeric>
-                  SL
+                  Qty
                 </Th>
                 <Th {...py} isNumeric>
-                  T.Tiền
+                  Amount
                 </Th>
               </Tr>
             </Thead>
@@ -179,7 +179,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
             <Tfoot>
               <Tr textTransform="uppercase" fontWeight="medium">
                 <Td px={0} {...py} pl="0" pr="0" colSpan={2}>
-                  Tổng tiền
+                  Total amount
                 </Td>
                 <Td px={0} {...py} pl="0" pr="0" colSpan={2} isNumeric>
                   {formatMoney(order.amountTotal, false)}
@@ -187,7 +187,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
               </Tr>
               <Tr textTransform="uppercase" fontWeight="medium">
                 <Td px={0} {...py} colSpan={4} borderBottom="0" pl="0" pr="0">
-                  Tiền khách trả
+                  Customer pay
                 </Td>
               </Tr>
 
@@ -208,7 +208,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
                   key={payment.id}
                 >
                   <Td {...py} colSpan={2} pl="0" pr="0">
-                    Tiền trả lại
+                    Change
                   </Td>
                   <Td {...py} colSpan={2} isNumeric pr={0}>
                     {formatMoney(payment.amount * -1, false)}
@@ -221,7 +221,7 @@ export const OrderDetails: React.FunctionComponent<OrderDetailsProps> = ({
         </Container>
       </Box>
       <Button w="400px" colorScheme="yellow" onClick={printReceipt}>
-        In lại phiếu
+        Reprint
       </Button>
     </>
   );

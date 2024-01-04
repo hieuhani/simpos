@@ -8,17 +8,7 @@ import {
 import { useMoneyFormatter } from '../../../../hooks';
 
 const denominations = [
-  1000,
-  2000,
-  5000,
-  10000,
-  20000,
-  50000,
-  100000,
-  150000,
-  200000,
-  300000,
-  400000,
+  1000, 2000, 5000, 10000, 20000, 50000, 100000, 150000, 200000, 300000, 400000,
   500000,
 ];
 
@@ -93,7 +83,7 @@ export const PaymentPane: React.FunctionComponent<PaymentPaneProps> = ({
       <NumberPad onClick={handlePadClick} submittable={value >= paymentValue} />
       {value > paymentValue && (
         <Alert mt={2} status="warning" borderRadius="md">
-          Tiền trả lại khách:
+          Change:
           <Text ml={2} fontWeight="bold" fontSize="xl">
             {formatCurrency(value - paymentValue)}
           </Text>

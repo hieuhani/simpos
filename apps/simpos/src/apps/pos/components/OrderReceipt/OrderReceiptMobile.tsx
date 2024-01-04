@@ -46,9 +46,9 @@ const bt = {
   borderTop: '1px solid',
   borderColor: '#000',
 };
-export const OrderReceiptMobile: React.FunctionComponent<OrderReceiptMobileProps> = ({
-  activeOrder,
-}) => {
+export const OrderReceiptMobile: React.FunctionComponent<
+  OrderReceiptMobileProps
+> = ({ activeOrder }) => {
   const ref = useRef(null);
   const { company, paymentMethods, cashier } = useData();
 
@@ -78,33 +78,33 @@ export const OrderReceiptMobile: React.FunctionComponent<OrderReceiptMobileProps
   const headerFields = useMemo<HeaderField[]>(() => {
     const fields = [
       {
-        name: 'Thời gian',
+        name: 'Time',
         value: dayjs(activeOrder.order.creationDate).format('HH:mm DD/MM/YYYY'),
       },
     ];
     if (activeOrder.order.partner?.name) {
       fields.unshift({
-        name: 'Khách hàng',
+        name: 'Customer',
         value: activeOrder.order.partner.name,
       });
     }
     if (cashier?.name) {
       fields.push({
-        name: 'Nhân viên',
+        name: 'Staff',
         value: cashier.name,
       });
     }
 
     if (activeOrder.order.vibrationCardNo) {
       fields.push({
-        name: 'Thẻ rung',
+        name: 'Vibration card',
         value: activeOrder.order.vibrationCardNo,
       });
     }
 
     if (activeOrder.order.tableNo) {
       fields.push({
-        name: 'Thẻ bàn',
+        name: 'Table tag',
         value: activeOrder.order.tableNo,
       });
     }
@@ -154,7 +154,7 @@ export const OrderReceiptMobile: React.FunctionComponent<OrderReceiptMobileProps
         mb={1}
         fontSize="12px"
       >
-        Phiếu thanh toán
+        Receipt
       </Text>
       <OrderReceiptSummaryMobile fields={headerFields} />
       <Table variant="simple">
@@ -217,7 +217,7 @@ export const OrderReceiptMobile: React.FunctionComponent<OrderReceiptMobileProps
       </Table>
       <Box textAlign="center" mb={2}>
         <Text mt={2} textTransform="uppercase" fontWeight="medium">
-          Cảm ơn quý khách và hẹn gặp lại!
+          Thank you and see you again!
         </Text>
         <Text>Hotline: {company.phone}</Text>
       </Box>

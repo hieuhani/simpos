@@ -51,7 +51,7 @@ export const SessionScreen: React.FunctionComponent = () => {
               isLoading={loading}
               onClick={closeSession}
             >
-              Đóng phiên
+              Close session
             </Button>
           </Container>
         </Box>

@@ -18,7 +18,7 @@ export const OrderSummary: React.FunctionComponent<OrderSummaryProps> = ({
       <Grid templateColumns="1fr auto 1fr auto 2fr" gridGap={2}>
         <Box>
           <Text fontSize="sm" fontWeight="400">
-            Chiết khấu
+            Discount
           </Text>
           <Heading size="md" color="brand.100">
             {discount}
@@ -27,7 +27,7 @@ export const OrderSummary: React.FunctionComponent<OrderSummaryProps> = ({
         <Divider orientation="vertical" />
         <Box>
           <Text fontSize="sm" fontWeight="400">
-            Số sản phẩm
+            Total items
           </Text>
           <Heading size="md" color="brand.100">
             {totalItems}
@@ -36,7 +36,7 @@ export const OrderSummary: React.FunctionComponent<OrderSummaryProps> = ({
         <Divider orientation="vertical" />
         <Box textAlign="right">
           <Text fontSize="sm" fontWeight="400">
-            Tổng tiền
+            Total amount
           </Text>
           <Heading size="md" color="brand.100">
             {totalAmount}

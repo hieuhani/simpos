@@ -6,21 +6,21 @@ import { formatMoney } from '../../../../utils';
 export interface PurchaseOrderLinesProps {
   purchaseOrderLines: PurchaseOrderLine[];
 }
-export const PurchaseOrderLines: React.FunctionComponent<PurchaseOrderLinesProps> = ({
-  purchaseOrderLines,
-}) => {
+export const PurchaseOrderLines: React.FunctionComponent<
+  PurchaseOrderLinesProps
+> = ({ purchaseOrderLines }) => {
   return (
     <Box mt={4} backgroundColor="gray.100" borderRadius="md">
       <Table variant="striped" colorScheme="pink">
         <Thead>
           <Tr>
-            <Th>Sản phẩm</Th>
-            <Th>Miêu tả</Th>
+            <Th>Product</Th>
+            <Th>Description</Th>
             <Th>Số lượng</Th>
-            <Th>Đơn vị mua</Th>
-            <Th>Giá niêm yết</Th>
-            <Th>Giá trị</Th>
-            <Th>Đã nhận</Th>
+            <Th>UoM</Th>
+            <Th>Price</Th>
+            <Th>Amount</Th>
+            <Th>Received</Th>
           </Tr>
         </Thead>
         <Tbody>

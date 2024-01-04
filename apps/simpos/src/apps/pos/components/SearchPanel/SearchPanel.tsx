@@ -23,7 +23,7 @@ export const SearchPanel: React.FunctionComponent = () => {
       {!isMobile && (
         <Box mr="auto">
           <Heading size="md" color="brand.100">
-            Danh sách sản phẩm
+            Selling products
           </Heading>
         </Box>
       )}
@@ -36,7 +36,7 @@ export const SearchPanel: React.FunctionComponent = () => {
       >
         <Input
           pr="3rem"
-          placeholder="Tìm kiếm"
+          placeholder="Search"
           value={state.keyword}
           onChange={(event) =>
             dispatch({ type: 'KEYWORD_CHANGED', payload: event.target.value })

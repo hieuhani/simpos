@@ -56,9 +56,8 @@ const StockPickingDetails: React.FunctionComponent = () => {
     receiveProductsMachine,
   );
   const getStockPicking = async (stockPickingId: number) => {
-    const serverStockPicking = await stockPickingService.getStockPicking(
-      stockPickingId,
-    );
+    const serverStockPicking =
+      await stockPickingService.getStockPicking(stockPickingId);
     if (
       serverStockPicking &&
       serverStockPicking.moveIdsWithoutPackage.length > 0
@@ -99,8 +98,8 @@ const StockPickingDetails: React.FunctionComponent = () => {
   const nextActionNode = useMemo<React.ReactNode>(() => {
     const createBackorder = async (id: number) => {
       toast({
-        title: 'Thông báo',
-        description: 'Chức năng tạo backorder chưa hoàn thiện',
+        title: 'Aleart',
+        description: 'Back order feature is not re ready',
         status: 'warning',
         duration: 9000,
         isClosable: true,
@@ -123,14 +122,14 @@ const StockPickingDetails: React.FunctionComponent = () => {
         <Box>
           <Alert status="warning" mb={2} borderRadius="md">
             <AlertIcon />
-            Số lượng hàng nhập ít hơn số lương yêu cầu ban đầu.
+            Receiving quantity is less than the initial demand quantity.
           </Alert>
           <Grid templateColumns="1fr 1fr" gridGap={2}>
             <Button colorScheme="teal" onClick={() => createBackorder(resId)}>
-              Tạo đơn nhập sau
+              Create PO for later
             </Button>
             <Button colorScheme="orange" onClick={() => skipBackorder(resId)}>
-              Bỏ qua
+              Ignore
             </Button>
           </Grid>
         </Box>
@@ -261,7 +260,7 @@ const StockPickingDetails: React.FunctionComponent = () => {
           <Breadcrumb mb={4}>
             <BreadcrumbItem>
               <BreadcrumbLink as={RouterLink} to="/purchase">
-                Danh sách đơn mua
+                Purchase orders
               </BreadcrumbLink>
             </BreadcrumbItem>
 
@@ -302,12 +301,12 @@ const StockPickingDetails: React.FunctionComponent = () => {
         <AlertDialogOverlay />
 
         <AlertDialogContent>
-          <AlertDialogHeader>Trạng thái</AlertDialogHeader>
+          <AlertDialogHeader>Status</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>{nextActionNode}</AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelPoDialogRef} onClick={onDialogClose}>
-              Tiếp tục
+              Continue
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

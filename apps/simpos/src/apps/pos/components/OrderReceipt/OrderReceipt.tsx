@@ -109,37 +109,37 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
   const headerFields = useMemo<HeaderField[]>(() => {
     const fields = [
       {
-        name: 'Thời gian',
+        name: 'Time',
         value: dayjs(activeOrder.order.creationDate).format('HH:mm DD/MM/YYYY'),
       },
     ];
     if (activeOrder.order.partner?.name) {
       fields.unshift({
-        name: 'Khách hàng',
+        name: 'Customer',
         value: activeOrder.order.partner.name,
       });
     }
     if (cashier?.name) {
       fields.push({
-        name: 'Nhân viên',
+        name: 'Staff',
         value: cashier.name,
       });
     }
 
     if (activeOrder.order.vibrationCardNo) {
       fields.push({
-        name: 'Thẻ rung',
+        name: 'Vibration card',
         value: activeOrder.order.vibrationCardNo,
       });
     }
 
     if (activeOrder.order.tableNo) {
       fields.push({
-        name: 'Thẻ bàn',
+        name: 'Table tag',
         value: activeOrder.order.tableNo,
       });
     }
-    fields.push({ name: 'Số HĐ', value: activeOrder.order.id });
+    fields.push({ name: 'Receipt no', value: activeOrder.order.id });
     return fields;
   }, [activeOrder, cashier]);
 
@@ -193,11 +193,11 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>Sản phẩm</Th>
-            <Th isNumeric>Đơn giá</Th>
-            <Th isNumeric>SL</Th>
-            <Th isNumeric>C.Khấu</Th>
-            <Th isNumeric>T.Tiền</Th>
+            <Th>Product</Th>
+            <Th isNumeric>Price</Th>
+            <Th isNumeric>Qty</Th>
+            <Th isNumeric>Discount</Th>
+            <Th isNumeric>Amount</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -208,7 +208,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
         <Tfoot>
           <Tr textTransform="uppercase" fontWeight="medium">
             <Td {...py} pl="0" pr="0" colSpan={3} borderBottom="0">
-              Tổng tiền
+              Total amount
             </Td>
             <Td {...py} pl="0" pr="0" colSpan={2} isNumeric borderBottom="0">
               {formatCurrencyNoSymbol(getTotalWithTax())}
@@ -216,7 +216,7 @@ export const OrderReceipt: React.FunctionComponent<OrderReceiptProps> = ({
           </Tr>
           <Tr textTransform="uppercase" fontWeight="medium">
             <Td {...py} colSpan={4} borderBottom="0" pl="0" pr="0">
-              Tiền khách trả
+              Customer pay
             </Td>
           </Tr>
           {Object.keys(payments).map((method) => {
