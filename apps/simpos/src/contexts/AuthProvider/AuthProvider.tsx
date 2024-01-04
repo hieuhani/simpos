@@ -1,4 +1,10 @@
-import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { authService } from '../../services/auth';
 import { updateSimApiToken } from '../../services/clients';
 import { AuthUserMeta } from '../../services/db';
@@ -23,7 +29,9 @@ const initialState: AuthContextState = {
 
 const AuthContext = createContext<AuthContextState>(initialState);
 
-export const AuthProvider: React.FunctionComponent<PropsWithChildren> = ({ children }) => {
+export const AuthProvider: React.FunctionComponent<PropsWithChildren> = ({
+  children,
+}) => {
   const [userMeta, setUserMeta] = useState<AuthUserMeta | undefined>();
   const [authChecking, setAuthChecking] = useState(true);
   const signIn = async (authUserMeta: AuthUserMeta) => {

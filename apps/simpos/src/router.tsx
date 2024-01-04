@@ -9,10 +9,11 @@ import ReportScreen from './apps/pos/ReportScreen';
 import Purchase from './apps/purchase';
 import PurchaseReport from './apps/purchase/PurchaseReport';
 import Inventory from './apps/inventory';
+import OrderScreen from './apps/pos/OrderScreen';
 
 export const router = createBrowserRouter([
   {
-    path: '/login',
+    path: '/',
     element: <Home />,
   },
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: 'report',
         element: <ReportScreen />,
+      },
+      {
+        path: 'orders/:orderId',
+        element: <OrderScreen />,
       },
     ],
   },

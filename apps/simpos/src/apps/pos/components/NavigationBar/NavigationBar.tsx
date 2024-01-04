@@ -39,7 +39,7 @@ export const NavigationBar: React.FunctionComponent = () => {
           onClick={onOpen}
           colorScheme={isStaging ? 'yellow' : ''}
         >
-          <IconBars size="20" color="#7c2551" />
+          <IconBars size="20" color="#1FB886" />
         </Button>
         <Flex flex="1" overflow="hidden" px={2} justifyContent="flex-start">
           <StyledSwiper spaceBetween={8} slidesPerView="auto">

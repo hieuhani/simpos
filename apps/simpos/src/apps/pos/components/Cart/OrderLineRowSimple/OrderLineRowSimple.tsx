@@ -14,13 +14,12 @@ export interface OrderLineRowSimpleProps {
   orderLine: OrderLine;
 }
 
-export const OrderLineRowSimple: React.FunctionComponent<OrderLineRowSimpleProps> = ({
-  orderLine,
-}) => {
+export const OrderLineRowSimple: React.FunctionComponent<
+  OrderLineRowSimpleProps
+> = ({ orderLine }) => {
   const { formatCurrency } = useMoneyFormatter();
-  const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
-    orderLine,
-  );
+  const { getUnitDisplayPrice, getDisplayPrice } =
+    useOrderLineExtensions(orderLine);
   const { updateOrderLine, deleteOrderLine } = useOrderManagerAction();
   if (!orderLine.productVariant) {
     return null;

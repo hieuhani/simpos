@@ -1,5 +1,5 @@
 import keyBy from 'lodash.keyby';
-import React, {
+import {
   PropsWithChildren,
   createContext,
   useContext,
@@ -36,6 +36,7 @@ import {
 import { userRepository } from '../../services/db/user';
 import { useAuth } from '../AuthProvider';
 import { syncData } from './dataLoader';
+import { Loading } from '../../apps/pos/components/Loading';
 
 export interface DataContextState {
   posConfig: PosConfig;
@@ -66,9 +67,9 @@ export type GlobalDataDispatch = (action: GlobalDataAction) => void;
 
 const DataContext = createContext<DataContextState | undefined>(undefined);
 
-const GlobalDataDispatchContext = React.createContext<
-  GlobalDataDispatch | undefined
->(undefined);
+const GlobalDataDispatchContext = createContext<GlobalDataDispatch | undefined>(
+  undefined,
+);
 
 function globalDataReducer(
   state: DataContextState | undefined,
@@ -78,9 +79,11 @@ function globalDataReducer(
     case 'INITIAL_LOAD':
       return action.payload;
     case 'UPDATE_DATA':
-      const currentState = state!;
+      if (!state) {
+        throw new Error('You can only update data after initial load');
+      }
       return {
-        ...currentState,
+        ...state,
         ...action.payload,
       };
     default:
@@ -89,7 +92,9 @@ function globalDataReducer(
 }
 const initialState: DataContextState | undefined = undefined;
 
-export const DataProvider: React.FunctionComponent<PropsWithChildren> = ({ children }) => {
+export const DataProvider: React.FunctionComponent<PropsWithChildren> = ({
+  children,
+}) => {
   const auth = useAuth();
   const [state, dispatch] = useReducer(globalDataReducer, initialState);
   const [initializing, setInitializing] = useState(true);
@@ -210,11 +215,10 @@ export const DataProvider: React.FunctionComponent<PropsWithChildren> = ({ child
       onSessionSelected={onSessionSelected}
     />
   );
-
   return (
     <DataContext.Provider value={state}>
       <GlobalDataDispatchContext.Provider value={dispatch}>
-        {!initializing && node}
+        {initializing ? <Loading /> : node}
       </GlobalDataDispatchContext.Provider>
     </DataContext.Provider>
   );

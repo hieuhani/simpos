@@ -1,9 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthProvider';
+import { useEffect } from 'react';
 
 export const Home: React.FunctionComponent = () => {
-  return (
-    <div>
-      <Link to="/pos">Go to Point of Sale</Link>
-    </div>
-  );
+  const auth = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      navigate('/pos');
+    } else {
+      navigate('/login');
+    }
+  }, [auth.isLoggedIn, navigate]);
+  return null;
 };

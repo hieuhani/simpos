@@ -46,9 +46,8 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
   const { formatCurrency } = useMoneyFormatter();
   const [localValue, setLocalValue] = useState(orderLine.discount);
   const debouncedValue = useDebounce(localValue, 500);
-  const { getUnitDisplayPrice, getDisplayPrice } = useOrderLineExtensions(
-    orderLine,
-  );
+  const { getUnitDisplayPrice, getDisplayPrice } =
+    useOrderLineExtensions(orderLine);
   useEffect(() => {
     updateOrderLine(orderLine.id!, {
       discount: debouncedValue,
@@ -131,7 +130,7 @@ export const OrderLineRow: React.FunctionComponent<OrderLineRowProps> = ({
             </Stack>
           </Box>
           <Box ml="auto">
-            <Heading size="sm">
+            <Heading size="sm" color="brand.100">
               {formatCurrency(getDisplayPrice(), 'Product Price')}
             </Heading>
           </Box>

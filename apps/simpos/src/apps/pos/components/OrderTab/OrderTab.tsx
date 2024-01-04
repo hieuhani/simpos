@@ -6,7 +6,7 @@ import { Order } from '../../../../services/db';
 
 export interface OrderTabProps {
   order: Order;
-  active?: Boolean;
+  active?: boolean;
   onSelectOrder: () => void;
   onDeleteOrder: () => void;
 }
@@ -19,10 +19,10 @@ export const OrderTab: React.FunctionComponent<OrderTabProps> = ({
 }) => (
   <Flex
     borderWidth="2px"
-    borderColor={active ? 'brand.100' : 'gray.100'}
+    borderColor={active ? 'brand.100' : 'brand.500'}
     backgroundColor={active ? 'brand.100' : 'transparent'}
     borderRadius="full"
-    color={active ? 'white' : 'gray.800'}
+    color={active ? 'white' : 'brand.100'}
     flexDirection="row"
   >
     <Box

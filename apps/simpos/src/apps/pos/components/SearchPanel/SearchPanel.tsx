@@ -22,7 +22,9 @@ export const SearchPanel: React.FunctionComponent = () => {
     <Flex align="center" px={4} py={2} background="gray.50">
       {!isMobile && (
         <Box mr="auto">
-          <Heading size="md">Danh sách sản phẩm</Heading>
+          <Heading size="md" color="brand.100">
+            Danh sách sản phẩm
+          </Heading>
         </Box>
       )}
 

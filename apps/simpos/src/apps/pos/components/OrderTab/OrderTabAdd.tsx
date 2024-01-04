@@ -11,12 +11,12 @@ export const OrderTabAdd: React.FunctionComponent<OrderTabAddProps> = ({
   <Flex
     as="button"
     borderWidth="2px"
-    borderColor="gray.100"
+    borderColor="brand.500"
     borderRadius="full"
     px="3"
     alignItems="center"
     onClick={onClick}
   >
-    <IconPlus />
+    <IconPlus color="#1FB886" />
   </Flex>
 );

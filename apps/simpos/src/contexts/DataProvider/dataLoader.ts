@@ -229,17 +229,12 @@ export const loadModels: LoadModel[] = [
     fields: [],
     indexes: '++id, pricelistIdInt, pricelistId',
     async load() {
-      return fetchModelData(
-        this.model,
-        this.fields,
-        undefined,
-        (rows) => {
-          return rows.map((row: any) => ({
-            ...row,
-            pricelistIdInt: row.pricelistId ? row.pricelistId[0] : null,
-          }));
-        },
-      );
+      return fetchModelData(this.model, this.fields, undefined, (rows) => {
+        return rows.map((row: any) => ({
+          ...row,
+          pricelistIdInt: row.pricelistId ? row.pricelistId[0] : null,
+        }));
+      });
     },
   },
   {

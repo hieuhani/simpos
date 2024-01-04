@@ -11,6 +11,7 @@ import { PosConfig, PosSession } from '../../../../services/db';
 import { AuthUserMeta } from '../../../../services/db/root';
 import { posConfigService } from '../../../../services/pos-config';
 import { SessionConfig } from './SessionConfig';
+import { Loading } from '../Loading';
 
 const loadModelsMap = getLoadModelsMap();
 export interface SessionManagerProps {
@@ -53,24 +54,27 @@ export const SessionManager: React.FunctionComponent<SessionManagerProps> = ({
   };
 
   if (configs.length === 0) {
-    return null;
+    return <Loading />;
   }
 
   return (
-    <Modal isOpen={true} onClose={() => {}}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Chọn phiên bán hàng</ModalHeader>
-        <ModalBody>
-          {configs.map((config) => (
-            <SessionConfig
-              key={config.id}
-              config={config}
-              openSession={openSession}
-            />
-          ))}
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+    <>
+      <Loading />
+      <Modal isOpen={true} onClose={() => {}}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Chọn phiên bán hàng</ModalHeader>
+          <ModalBody>
+            {configs.map((config) => (
+              <SessionConfig
+                key={config.id}
+                config={config}
+                openSession={openSession}
+              />
+            ))}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };

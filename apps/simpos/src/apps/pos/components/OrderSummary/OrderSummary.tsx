@@ -20,21 +20,27 @@ export const OrderSummary: React.FunctionComponent<OrderSummaryProps> = ({
           <Text fontSize="sm" fontWeight="400">
             Chiết khấu
           </Text>
-          <Heading size="md">{discount}</Heading>
+          <Heading size="md" color="brand.100">
+            {discount}
+          </Heading>
         </Box>
         <Divider orientation="vertical" />
         <Box>
           <Text fontSize="sm" fontWeight="400">
             Số sản phẩm
           </Text>
-          <Heading size="md">{totalItems}</Heading>
+          <Heading size="md" color="brand.100">
+            {totalItems}
+          </Heading>
         </Box>
         <Divider orientation="vertical" />
         <Box textAlign="right">
           <Text fontSize="sm" fontWeight="400">
             Tổng tiền
           </Text>
-          <Heading size="md">{totalAmount}</Heading>
+          <Heading size="md" color="brand.100">
+            {totalAmount}
+          </Heading>
         </Box>
       </Grid>
     </Box>

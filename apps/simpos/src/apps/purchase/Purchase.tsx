@@ -66,8 +66,8 @@ export const Purchase: React.FunctionComponent = () => {
                   fontWeight="600"
                   {...(tabKey === (queryParams.get('status') || 'all')
                     ? {
-                        color: 'pink.700',
-                        backgroundColor: 'pink.100',
+                        color: 'green.700',
+                        backgroundColor: 'green.100',
                       }
                     : {
                         color: 'gray.600',

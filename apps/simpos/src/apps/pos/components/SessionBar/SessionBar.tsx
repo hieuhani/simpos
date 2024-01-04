@@ -120,7 +120,9 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
             {cashier && (
               <Box textAlign="left">
                 <Text fontSize="sm">Thu ngân</Text>
-                <Heading size="sm">{cashier.name}</Heading>
+                <Heading size="sm" color="brand.100">
+                  {cashier.name}
+                </Heading>
               </Box>
             )}
 
@@ -150,7 +152,7 @@ export const SessionBar: React.FunctionComponent<SessionBarProps> = ({
           </ModalBody>
           <ModalFooter>
             <Button
-              colorScheme="red"
+              colorScheme="green"
               disabled={!selectEmployee}
               onClick={selectCashier}
             >

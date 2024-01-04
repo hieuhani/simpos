@@ -34,12 +34,14 @@ export const ProductCard: React.FunctionComponent<ProductCardProps> = ({
       </Box>
       <Box textAlign="left" ml={2} flex={1}>
         <Heading size="sm" fontWeight="medium">
-          {product.defaultCode && <Badge mr={1}>{product.defaultCode}</Badge>}
+          {/* {product.defaultCode && <Badge mr={1}>{product.defaultCode}</Badge>} */}
           {product.name}
         </Heading>
 
         <Flex alignItems="center" justifyContent="space-between" mt={2}>
-          <Heading size="sm">{formatCurrency(price, 'Product Price')}</Heading>
+          <Heading size="sm" color="brand.100">
+            {formatCurrency(price, 'Product Price')}
+          </Heading>
           {product.productVariantIds.length > 1 && (
             <Text fontSize="sm">
               Có {product.productVariantIds.length} biến thể

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Grid, Box, Flex, useToast } from '@chakra-ui/react';
 import { NavigationBar } from './components/NavigationBar';
 import { CategoryPanel } from './components/CategoryPanel';
@@ -18,8 +18,8 @@ export const Pos: React.FunctionComponent = () => {
   const { addProductVariantToCart } = useOrderManagerAction();
 
   useEffect(() => {
-    const onBarcodeScanned = async (e: CustomEvent) => {
-      if (e.detail.scanCode) {
+    const onBarcodeScanned = async (e: Event) => {
+      if ((e as CustomEvent).detail.scanCode) {
         if (!activeOrder) {
           return toast({
             title: 'Error',
@@ -30,7 +30,7 @@ export const Pos: React.FunctionComponent = () => {
           });
         }
         const productVariant = await productVariantRepository.findByBarcode(
-          e.detail.scanCode,
+          (e as CustomEvent).detail.scanCode,
         );
 
         if (!productVariant) {
@@ -46,9 +46,9 @@ export const Pos: React.FunctionComponent = () => {
         await addProductVariantToCart(productVariant);
       }
     };
-    (document as any).addEventListener('scan', onBarcodeScanned);
+    document.addEventListener('scan', onBarcodeScanned);
     return () => {
-      (document as any).removeEventListener('scan', onBarcodeScanned);
+      document.removeEventListener('scan', onBarcodeScanned);
     };
   }, [activeOrder]);
   return (

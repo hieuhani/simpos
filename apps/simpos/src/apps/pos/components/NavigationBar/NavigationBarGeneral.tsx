@@ -18,7 +18,7 @@ export const NavigationBarGeneral: React.FunctionComponent = () => {
     <>
       <Flex align="center" px={4} py={2}>
         <Button ref={btnRef} onClick={onOpen}>
-          <IconBars size="20" color="#7c2551" />
+          <IconBars size="20" color="#1FB886" />
         </Button>
       </Flex>
       <Drawer

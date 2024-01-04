@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "generate-icons": "node scripts/generate-icon-components.js"
   },
+  "type": "module",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",

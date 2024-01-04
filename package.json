@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "pnpm dev",
+    "dev": "pnpm --filter \"simpos\" dev",
     "preinstall": "npx only-allow pnpm"
   }
 }

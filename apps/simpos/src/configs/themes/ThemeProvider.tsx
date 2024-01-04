@@ -11,11 +11,10 @@ export interface ThemeProviderProps {
 const theme = extendTheme({
   colors: {
     brand: {
-      100: '#551937',
-      200: '#7C2551',
-      300: '#893645',
-      400: '#894966',
-      500: '#BCA5AE',
+      100: '#1FB886',
+      200: '#06a06e',
+      400: '#1FB886',
+      500: '#def3ec',
     },
   },
 });
