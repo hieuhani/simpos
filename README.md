@@ -1,5 +1,17 @@
 [![](./material/github_banner.png?raw=true)](https://github.com/hieuhani/simpos)
 
+<p>
+  <a href="#simpos-"><strong>Introduction</strong></a> ·
+  <a href="https://simpos.vercel.app/"><strong>Demo</strong></a> ·
+  <a href="#️-technical-specifications"><strong>Technical specifications</strong></a> ·
+  <a href="#️-quick-start"><strong>Quick start</strong></a> ·
+  <a href="#-screenshots"><strong>Screenshots</strong></a> ·
+  <a href="#-contributing"><strong>Contributing</strong></a>
+</p>
+
+
+
+
 # Simpos 🧑‍🍳
 
 Simpos is an intuitive interface and powerful features point of sale client software for Odoo back end using React.
@@ -22,7 +34,7 @@ It brings better experiences and easy to customize your point of sale and still 
 - Multiple price list support
 - ...and many more
 
-## ❤️ Technical specification
+## ❤️ Technical specifications
 
 Basic dependencies used:
 
