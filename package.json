@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter \"simpos\" dev",
+    "build": "pnpm --filter \"simpos\" build",
     "preinstall": "npx only-allow pnpm"
   }
 }

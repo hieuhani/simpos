@@ -382,4 +382,7 @@ export const syncData = async (userMeta?: AuthUserMeta, worker?: Worker) => {
       })
       .filter(Boolean),
   );
+  syncWorker?.postMessage({
+    type: 'DATA_INITIALIZED',
+  });
 };

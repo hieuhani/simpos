@@ -32,7 +32,7 @@ const downloadProductImages = async (productVariants: ProductVariant[]) => {
         const images = await Promise.all(
           sizes.map(async (size) => {
             const res = await fetch(
-              `/web/image?model=product.product&field=image_${size}&id=${productId}`,
+              `/api/web/image?model=product.product&field=image_${size}&id=${productId}`,
             );
             if (res.status !== 200) {
               return {
@@ -92,9 +92,8 @@ onmessage = async function (e) {
     case 'PRODUCT_TEMPLATE_CHANGED': {
       if (Array.isArray(e.data.payload) && e.data.payload.length > 0) {
         const templateIds = e.data.payload.map(({ id }: any) => id);
-        const productVariants = await productVariantRepository.findByTemplateIds(
-          templateIds,
-        );
+        const productVariants =
+          await productVariantRepository.findByTemplateIds(templateIds);
         if (productVariants.length > 0) {
           downloadProductImages(productVariants);
         }

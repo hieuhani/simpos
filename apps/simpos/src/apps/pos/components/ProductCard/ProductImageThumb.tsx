@@ -8,9 +8,9 @@ export interface ProductImageThumbProps {
   variant?: ProductVariant;
 }
 
-export const ProductImageThumb: React.FunctionComponent<ProductImageThumbProps> = ({
-  variant,
-}) => {
+export const ProductImageThumb: React.FunctionComponent<
+  ProductImageThumbProps
+> = ({ variant }) => {
   const productImage = useMemo(() => {
     if (!variant?.image128) {
       return noImage;
