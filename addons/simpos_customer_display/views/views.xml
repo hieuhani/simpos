@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <template id="assets" name="point_of_sale assets" inherit_id="point_of_sale.assets">
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/chrome.js']" position="after">
+                <script type="text/javascript" src="/simpos_customer_display/static/src/js/chrome.js"></script>
+            </xpath>
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="after">
+                <script type="text/javascript" src="/simpos_customer_display/static/src/js/models.js"></script>
+            </xpath>
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/screens.js']" position="after">
+                <script type="text/javascript" src="/simpos_customer_display/static/src/js/screens.js"></script>
+            </xpath>
+        </template>
+        <template id="customer_facing_display_html" name="point_of_sale customer_facing_display_html"
+                  inherit_id="point_of_sale.customer_facing_display_html">
+            <xpath expr="//div[@class='pos-odoo_logo_container']" position="replace"/>
+        </template>
+        <record id="pos_config_view_form" model="ir.ui.view">
+          <field name="name">pos.config.form.view.inherit.simpos_customer_display_baumkuchen</field>
+          <field name="model">pos.config</field>
+          <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+          <field name="arch" type="xml">
+              <div id="category_reference" position="before">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <div>
+                            <label string="Customer welcome HTML" for="customer_welcome_html" class="col-lg-2 o_light_label"/>
+                            <field name="customer_welcome_html"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </field>
+        </record>
+    </data>
+</odoo>
