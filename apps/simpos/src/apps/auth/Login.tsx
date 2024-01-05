@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Box,
   Stack,
@@ -7,6 +7,9 @@ import {
   FormLabel,
   Input,
   useToast,
+  Heading,
+  Image,
+  Flex,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -23,10 +26,7 @@ export const Login: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const auth = useAuth();
-  const [debug, setDebug] = useState(false);
-  const toggleDebug = () => {
-    setDebug(!debug);
-  };
+
   useEffect(() => {
     if (auth.isLoggedIn) {
       navigate('/');
@@ -42,6 +42,17 @@ export const Login: React.FunctionComponent = () => {
         backgroundColor="white"
         shadow="md"
       >
+        <Flex alignItems="center" mb={8}>
+          <Image width="50px" height="50px" borderRadius="md" src="/logo.svg" />
+          <Box ml={3}>
+            <Heading color="brand.100" fontSize="2xl" fontWeight="medium">
+              Simpos
+            </Heading>
+            <Heading color="brand.100" fontSize="sm" fontWeight="medium">
+              A comprehensive point of sale system
+            </Heading>
+          </Box>
+        </Flex>
         <Formik
           initialValues={{ login: '', password: '' }}
           validationSchema={SignInSchema}
@@ -88,7 +99,7 @@ export const Login: React.FunctionComponent = () => {
                   />
                 </FormControl>
                 <FormControl id="password">
-                  <FormLabel>Mật khẩu</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <Input
                     type="password"
                     name="password"
@@ -107,13 +118,12 @@ export const Login: React.FunctionComponent = () => {
                   disabled={isSubmitting || !isValid}
                   isLoading={isSubmitting}
                 >
-                  Đăng nhập
+                  Sign in
                 </Button>
               </Stack>
             </form>
           )}
         </Formik>
-        <Button position="fixed" right="2" bottom="2" onClick={toggleDebug} />
       </Box>
     </Box>
   );
