@@ -32,7 +32,7 @@ const downloadProductImages = async (productVariants: ProductVariant[]) => {
         const images = await Promise.all(
           sizes.map(async (size) => {
             const res = await fetch(
-              `/api/web/image?model=product.product&field=image_${size}&id=${productId}`,
+              `https://odoo13.fibotree.com/web/image?model=product.product&field=image_${size}&id=${productId}`,
             );
             if (res.status !== 200) {
               return {
