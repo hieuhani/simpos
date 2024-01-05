@@ -21,7 +21,7 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
   purchaseOrders,
 }) => {
   return (
-    <Table variant="striped" colorScheme="pink">
+    <Table variant="striped" colorScheme="green">
       <Thead>
         <Tr>
           <Th>Order code</Th>
@@ -45,7 +45,7 @@ export const PurchaseOrders: React.FunctionComponent<PurchaseOrdersProps> = ({
               <Button
                 as={RouterLink}
                 to={`/purchase/${purchaseOrder.id}`}
-                colorScheme="pink"
+                colorScheme="green"
                 w="full"
               >
                 Details

@@ -1,4 +1,6 @@
-# Simpos
+[![](./material/github_banner.png?raw=true)](https://github.com/hieuhani/simpos)
+
+# Simpos 🧑‍🍳
 
 Simpos is an intuitive interface and powerful features point of sale client software for Odoo back end using React.
 
@@ -20,7 +22,7 @@ It brings better experiences and easy to customize your point of sale and still 
 - Multiple price list support
 - ...and many more
 
-## Technical specification
+## ❤️ Technical specification
 
 Basic dependencies used:
 
@@ -42,16 +44,43 @@ Advanced technologies used and why:
     - To store all application data including products, orders
     - To create composite index base on several product key-paths to support full product text search
 
-## Quick start
+## ⚡️ Quick start
 
 1. Run `pnpm install` to install dependencies
 2. Run `pnpm dev` to start development
 3. Open [http://localhost:5173](http://localhost:5173)
 
-## Contributing
+## 📸 Screenshots
+
+<img
+  src="./material/screenshot_1.png?raw=true"
+  alt="Simpos"
+  width="100%"
+/>
+
+<img
+  src="./material/screenshot_3.png?raw=true"
+  alt="Simpos"
+  width="100%"
+/>
+
+<img
+  src="./material/screenshot_5.png?raw=true"
+  alt="Simpos"
+  width="100%"
+/>
+
+<img
+  src="./material/screenshot_7.png?raw=true"
+  alt="Simpos"
+  width="100%"
+/>
+
+
+## 📚 Contributing
 
 - [Open an issue](https://github.com/hieuhani/simpos/issues) if you believe you've encountered a bug with the module.
 
-## License
+## ⛓️ License
 
 [MIT License](./LICENSE)

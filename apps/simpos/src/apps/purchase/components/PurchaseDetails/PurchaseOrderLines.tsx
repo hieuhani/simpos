@@ -11,7 +11,7 @@ export const PurchaseOrderLines: React.FunctionComponent<
 > = ({ purchaseOrderLines }) => {
   return (
     <Box mt={4} backgroundColor="gray.100" borderRadius="md">
-      <Table variant="striped" colorScheme="pink">
+      <Table variant="striped" colorScheme="green">
         <Thead>
           <Tr>
             <Th>Product</Th>

@@ -61,7 +61,7 @@ export const SessionPayments: React.FunctionComponent<SessionPaymentsProps> = ({
         <Box key={index} backgroundColor="white" borderRadius="md" p={4}>
           <Flex alignItems="center" justifyContent="space-between" pb={3}>
             <Heading fontSize="lg">{paymentGroup.paymentMethodId[1]}</Heading>
-            <Tag colorScheme="pink">{formatCurrency(paymentGroup.amount)}</Tag>
+            <Tag colorScheme="green">{formatCurrency(paymentGroup.amount)}</Tag>
           </Flex>
           {methodPayments[paymentGroup.paymentMethodId[0]] && (
             <Box>

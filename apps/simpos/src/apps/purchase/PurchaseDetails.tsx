@@ -93,44 +93,44 @@ const PurchaseDetails: React.FunctionComponent = () => {
     if (purchaseOrder.state === 'draft') {
       buttons.push({
         children: 'Gửi email',
-        colorScheme: 'pink',
+        colorScheme: 'green',
       });
 
       buttons.push({
         children: 'In phiếu mua',
-        colorScheme: 'pink',
+        colorScheme: 'green',
       });
     }
 
     if (purchaseOrder.state === 'sent') {
       buttons.push({
         children: 'Xác nhận',
-        colorScheme: 'pink',
+        colorScheme: 'green',
       });
       buttons.push({
         children: 'Gửi email',
-        colorScheme: 'pink',
+        colorScheme: 'green',
       });
     }
 
     if (purchaseOrder.state === 'to approve') {
       buttons.push({
         children: 'Duyệt mua',
-        colorScheme: 'pink',
+        colorScheme: 'green',
       });
     }
 
     // if (purchaseOrder.state === 'purchase') {
     //   buttons.push({
     //     children: 'Khoá',
-    //     colorScheme: 'pink',
+    //     colorScheme: 'green',
     //   });
     // }
 
     // if (purchaseOrder.state === 'done') {
     //   buttons.push({
     //     children: 'Mở khoá',
-    //     colorScheme: 'pink',
+    //     colorScheme: 'green',
     //   });
     // }
     if (

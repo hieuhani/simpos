@@ -45,7 +45,7 @@ export const SessionScreen: React.FunctionComponent = () => {
         <Box position="fixed" bottom="0" left="0" right="0">
           <Container maxW="6xl" py={2}>
             <Button
-              colorScheme="pink"
+              colorScheme="green"
               w="full"
               disabled={loading}
               isLoading={loading}

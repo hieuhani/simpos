@@ -12,7 +12,7 @@ export const SessionDataView: React.FunctionComponent<SessionDataViewProps> = ({
 }) => {
   return (
     <Box mt={4} backgroundColor="gray.100" borderRadius="md">
-      <Tabs isLazy variant="soft-rounded" colorScheme="pink">
+      <Tabs isLazy variant="soft-rounded" colorScheme="green">
         <TabList px={4} pt={4} pb={2}>
           <Tab>Orders</Tab>
           <Tab>Payments</Tab>

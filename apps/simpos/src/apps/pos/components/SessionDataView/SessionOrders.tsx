@@ -22,7 +22,7 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
     getSessionOrders();
   }, [sessionId]);
   return (
-    <Table variant="striped" colorScheme="pink">
+    <Table variant="striped" colorScheme="green">
       <Thead>
         <Tr>
           <Th>Order No</Th>
@@ -46,7 +46,7 @@ export const SessionOrders: React.FunctionComponent<SessionOrdersProps> = ({
               <Button
                 as={RouterLink}
                 to={`/pos/orders/${order.id}`}
-                colorScheme="pink"
+                colorScheme="green"
                 w="full"
               >
                 Details

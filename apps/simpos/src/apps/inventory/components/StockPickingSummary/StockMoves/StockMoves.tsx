@@ -45,7 +45,7 @@ export const StockMoves: React.FunctionComponent<StockMovesProps> = ({
   };
   return (
     <Box mt={4} backgroundColor="gray.100" borderRadius="md">
-      <Table variant="striped" colorScheme="pink">
+      <Table variant="striped" colorScheme="green">
         <Thead>
           <Tr>
             <Th>Product</Th>
@@ -87,7 +87,7 @@ export const StockMoves: React.FunctionComponent<StockMovesProps> = ({
               <Th colSpan={2} />
               <Th>
                 <Button
-                  colorScheme="pink"
+                  colorScheme="green"
                   w="full"
                   onClick={() => onReceive && onReceive(quantityDoneMap)}
                 >
