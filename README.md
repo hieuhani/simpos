@@ -1,11 +1,9 @@
 [![](./material/github_banner.png?raw=true)](https://github.com/hieuhani/simpos)
 
 <p>
-  <a href="#simpos-"><strong>Introduction</strong></a> ·
-  <a href="https://simpos.vercel.app/"><strong>Demo</strong></a> ·
+  <a href="https://simpos.vercel.app/"><strong>Web Demo</strong></a> ·
+  <a href="https://github.com/hieuhani/simpos/releases"><strong>Download Demo App</strong></a> ·
   <a href="#️-technical-specifications"><strong>Technical specifications</strong></a> ·
-  <a href="#️-quick-start"><strong>Quick start</strong></a> ·
-  <a href="#-screenshots"><strong>Screenshots</strong></a> ·
   <a href="#-contributing"><strong>Contributing</strong></a>
 </p>
 
@@ -38,13 +36,15 @@ It brings better experiences and easy to customize your point of sale and still 
 
 Basic dependencies used:
 
-- Web library uses ReactJS 18
-- Web router uses React Router 6
-- Offline database is IndexedDB and uses Dexie.js
-- UI framework uses Chakra UI 2
-- Front end tooling uses Vite 5
-- Complex state uses XState 4
-- HTTP client uses Axios
+- Web library uses [ReactJS](https://github.com/facebook/react)
+- Web router uses [React Router](https://github.com/remix-run/react-router)
+- Multi-platform app is built with [Tauri](https://github.com/tauri-apps/tauri)
+- Offline database is IndexedDB and uses [Dexie.js](https://dexie.org/)
+- UI framework uses [Chakra UI](https://github.com/chakra-ui/chakra-ui)
+- Front end tooling uses [Vite](https://github.com/vitejs/vite)
+- Complex state uses [XState](https://github.com/statelyai/xstate)
+- HTTP client uses [Axios](https://github.com/axios/axios)
+
 
 Advanced technologies used and why:
 
@@ -55,6 +55,9 @@ Advanced technologies used and why:
 2. IndexedDB
     - To store all application data including products, orders
     - To create composite index base on several product key-paths to support full product text search
+
+3. Tauri
+    - To create multi-platform desktop app
 
 ## ⚡️ Quick start
 
