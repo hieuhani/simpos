@@ -1,5 +1,4 @@
-FROM docker.io/bitnami/odoo:16
+FROM docker.io/bitnami/odoo:13
 
-COPY ./addons /opt/bitnami/odoo/addons
+RUN /opt/bitnami/odoo/venv/bin/pip install PyJWT==2.6.0 escpos
 
-RUN pip3 install --upgrade pip; pip3 install PyJWT
