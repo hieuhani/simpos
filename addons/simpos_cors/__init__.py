@@ -18,7 +18,7 @@ class CORSMiddleware(object):
             headers['Access-Control-Allow-Credentials'] = 'true'
             headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
         
-            return start_response(status, headers.to_list())
+            return start_response(status, headers.to_wsgi_list())
 
         if environ.get("REQUEST_METHOD") == "OPTIONS":
             add_cors_headers("200 Ok", [("Content-Type", "text/plain")])

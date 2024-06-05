@@ -11,7 +11,7 @@ def make_error(message):
 
 
 class AuthTokenController(http.Controller):
-    @http.route('/simpos/v1/sign_in', type='json', auth='none')
+    @http.route('/exchange_token', type='json', auth='none')
     def get_token(self, **args):
         db_name = request.session.db
         user_id = request.session.authenticate(
